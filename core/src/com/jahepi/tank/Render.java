@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,7 +22,6 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jahepi.tank.Controller.ControllerListener;
 import com.jahepi.tank.Controller.GameChangeStateListener;
-import com.jahepi.tank.TankField.SCREEN_TYPE;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Tank;
@@ -42,9 +42,7 @@ public class Render implements Disposable, ControllerListener {
 	private Label endLabel;
 	private Label disconnectLabel;
 	private Label waitingLabel;
-	private Label enemyLifeLabel;
 	private Label winLabel;
-	private Label winEnemyLabel;
 	private Button rematchBtn;
 	private boolean isShooting;
 	private boolean isMovingLeft;
@@ -52,11 +50,13 @@ public class Render implements Disposable, ControllerListener {
 	private boolean isRotatingUp;
 	private boolean isRotatingDown;
 	private boolean resetFlag;
+	private BitmapFont opponentFont;
 	
 	public Render(TankField tankFieldParam, GameChangeStateListener gameStateChangeListener) {
 		this.tankField = tankFieldParam;
 		this.shapeRenderer = tankField.getDebugRender();
 		this.batch = tankField.getBatch();
+		opponentFont = new BitmapFont();
 		
 		controller = new Controller(gameStateChangeListener, this, tankField.isServer());
 		
@@ -117,10 +117,8 @@ public class Render implements Disposable, ControllerListener {
 			}	
 		});
 		
-		boolean leftSide = tankField.isServer();
-		float marginRight = 20.0f;
 		lifeLabel = new Label(String.format(Language.getInstance().get("life_label"), controller.getTankLife()), labelStyle);
-		float x = leftSide ? 0 :  Config.UI_WIDTH - lifeLabel.getWidth() - marginRight;
+		float x = 0;
 		float y = Config.UI_HEIGHT;
 		lifeLabel.setX(x);
 		lifeLabel.setY(y - lifeLabel.getHeight());
@@ -131,20 +129,6 @@ public class Render implements Disposable, ControllerListener {
 		winLabel.setX(x);
 		winLabel.setY(lifeLabel.getY() - winLabel.getHeight());
 		stage.addActor(winLabel);
-		
-		// Change here for opponents life label
-		enemyLifeLabel = new Label(String.format(Language.getInstance().get("opponent_life_label"), controller.getOpponntTankLife()), labelStyle);
-		x = !leftSide ? 0 :  Config.UI_WIDTH - enemyLifeLabel.getWidth() - marginRight;
-		enemyLifeLabel.setX(x);
-		enemyLifeLabel.setY(y - enemyLifeLabel.getHeight());
-		stage.addActor(enemyLifeLabel);
-		
-		// Change here for opponents win label
-		winEnemyLabel = new Label(String.format(Language.getInstance().get("wins_label"), controller.getOpponentTankWins()), labelStyle);
-		winEnemyLabel.setColor(Color.GREEN);
-		winEnemyLabel.setX(x);
-		winEnemyLabel.setY(enemyLifeLabel.getY() - winEnemyLabel.getHeight());
-		stage.addActor(winEnemyLabel);
 		
 		Label exitLabel = new Label(Language.getInstance().get("quit_btn"), labelStyle);
 		Button exitBtn = new Button(skin);
@@ -160,8 +144,10 @@ public class Render implements Disposable, ControllerListener {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(TAG, "On click ...");
-				tankField.changeScreen(SCREEN_TYPE.MAIN);
-				tankField.closeConnection();
+				//tankField.changeScreen(SCREEN_TYPE.MAIN);
+				//tankField.closeConnection();
+				controller.setStarted(true);
+				waitingLabel.setVisible(false);
 			}	
 		});
 		
@@ -263,15 +249,6 @@ public class Render implements Disposable, ControllerListener {
 	
 	public void updateGameState(GameState gameState) {
 		controller.updateGameState(gameState);
-		if (!tankField.isServer()) {
-			// Change this for opponents labels.
-			int opponentLife = 0; //gameState.getOpponentTankState() != null ? gameState.getOpponentTankState().getLife() : 0;
-			int opponentWins = 0; //gameState.getOpponentTankState() != null ? gameState.getOpponentTankState().getWins() : 0;
-			lifeLabel.setText(String.format(Language.getInstance().get("life_label"), opponentLife));
-			winLabel.setText(String.format(Language.getInstance().get("wins_label"), opponentWins));
-			//enemyLifeLabel.setText(String.format(Language.getInstance().get("opponent_life_label"), gameState.getTankState().getLife()));
-			//winEnemyLabel.setText(String.format(Language.getInstance().get("wins_label"), gameState.getTankState().getWins()));
-		}
 	}
 	
 	public void removeOpponent(String id) {
@@ -307,29 +284,26 @@ public class Render implements Disposable, ControllerListener {
 		batch.draw(Assets.getInstance().getBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
 		controller.getTank().render(batch);
 		ArrayIterator<OpponentTank> opponents = new ArrayIterator<OpponentTank>(controller.getOpponentTanks());
-		while (opponents.hasNext()) {
-			OpponentTank opponentTank = (OpponentTank) opponents.next();
-			opponentTank.render(batch);
-		}
 		for (PowerUp powerUp : controller.getPowerUps()) {
 			if (powerUp != null) {
 				powerUp.render(batch);
 			}
 		}
+		float height = Config.HEIGHT - 100;
+		while (opponents.hasNext()) {
+			OpponentTank opponentTank = (OpponentTank) opponents.next();
+			opponentTank.render(batch);
+			opponentFont.draw(batch, "Opponent Life: " + opponentTank.getLife(), 0, height);
+			height -= 30;
+			opponentFont.draw(batch, "Opponent Wins: " + opponentTank.getLife(), 0, height);
+			height -= 30;
+		}
 		batch.end();
 		
-		if (tankField.isServer()) {
-			lifeLabel.setText(String.format(Language.getInstance().get("life_label"), controller.getTankLife()));
-			winLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()));
-			enemyLifeLabel.setText(String.format(Language.getInstance().get("opponent_life_label"), controller.getOpponntTankLife()));
-			winEnemyLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getOpponentTankWins()));
-		}
+		lifeLabel.setText(String.format(Language.getInstance().get("life_label"), controller.getTankLife()));
+		winLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()));
 		
 		stage.draw();
-		
-		if (controller.isGameOver()) {
-			return;
-		}
 		
 		float deltatime = Gdx.graphics.getDeltaTime();
 		
@@ -356,6 +330,10 @@ public class Render implements Disposable, ControllerListener {
 		}
 		
 		controller.update(deltatime);
+		
+		if (controller.isGameOver()) {
+			return;
+		}
 		
 		if (Config.DEBUG) {
 			shapeRenderer.setProjectionMatrix(camera.combined);
@@ -448,7 +426,9 @@ public class Render implements Disposable, ControllerListener {
 		endLabel.setFontScale(3);
 		endLabel.pack();
 		endLabel.setPosition((Config.UI_WIDTH / 2) - (endLabel.getWidth() / 2), Config.UI_HEIGHT / 2);
-		rematchBtn.setVisible(true);
+		if (controller.isServer()) {
+			rematchBtn.setVisible(true);
+		}
 	}
 	
 	public void resize(int width, int height) {

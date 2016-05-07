@@ -9,10 +9,10 @@ import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
 
 public class OpponentTank extends Tank {
 	
-	private final static float COMMIT_REMOVE_LIMIT_TIME = 2.0f;
+	private final static float REMOVE_LIMIT_TIME = 2.0f;
 	
-	private boolean commitRemove;
-	private float commitRemoveTime;
+	private boolean readyRemove;
+	private float readyRemoveTime;
 	
 	public OpponentTank(TextureRegion texture, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
 		super(texture, missileTexture, effect, sound);
@@ -21,9 +21,9 @@ public class OpponentTank extends Tank {
 	public void update(float deltatime) {
 		
 		if (isRemoved()) {
-			commitRemoveTime += deltatime;
-			if (commitRemoveTime >= COMMIT_REMOVE_LIMIT_TIME) {
-				commitRemove = true;
+			readyRemoveTime += deltatime;
+			if (readyRemoveTime >= REMOVE_LIMIT_TIME) {
+				readyRemove = true;
 			}
 		}
 
@@ -65,7 +65,7 @@ public class OpponentTank extends Tank {
 		effect.update(deltatime);
 	}
 
-	public boolean isCommitRemove() {
-		return commitRemove;
+	public boolean isReadyRemove() {
+		return readyRemove;
 	}
 }

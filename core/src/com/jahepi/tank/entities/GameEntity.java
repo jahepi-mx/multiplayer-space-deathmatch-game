@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class GameEntity {
 
-	protected String id = "";
+	protected String id;
 	protected Vector2 position;
 	protected Vector2 size;
 	protected Polygon rectangle;
@@ -19,6 +19,7 @@ public abstract class GameEntity {
 	protected boolean removed;
 	
 	public GameEntity() {
+		id = "default";
 		position = new Vector2();
 		size = new Vector2();
 		rectangle = new Polygon();

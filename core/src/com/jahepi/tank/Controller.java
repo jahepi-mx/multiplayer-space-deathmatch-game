@@ -23,7 +23,8 @@ public class Controller {
 	private Tank tank;
 	private Array<OpponentTank> opponentTanks;
 	private boolean isServer;
-	private boolean win;
+	private boolean win, started;
+	private String winner;
 	private ControllerListener controllerListener;
 	private GameChangeStateListener gameChangeStateListener;
 	private GAME_STATUS gameStatus;
@@ -33,6 +34,7 @@ public class Controller {
 	private CameraHelper cameraHelper;
 	
 	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer) {
+		winner = "";
 		Assets assets = Assets.getInstance();
 		opponentTanks = new Array<OpponentTank>();
 		if (isServer) {
@@ -52,7 +54,7 @@ public class Controller {
 		} else {
 			tank.startOnRightSide();
 		}
-		powerUpInterval = MathUtils.random(10.0f, 20.0f);
+		powerUpInterval = MathUtils.random(1.0f, 2.0f);
 		cameraHelper = new CameraHelper(Config.CAMERA_WIDTH, Config.CAMERA_HEIGHT, (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2), (Config.HEIGHT / 2) - (Config.CAMERA_HEIGHT / 2));
 	}
 	
@@ -96,12 +98,15 @@ public class Controller {
 	public void updateGameState(GameState gameState) {
 		createOpponentInstances(gameState);
 		if (!isServer) {
+			started = gameState.isStarted();
 			if (!gameState.isPlaying()) {
 				gameStatus = GAME_STATUS.GAMEOVER;
-				if (!gameState.isWin()) {
-					controllerListener.onWinMatch();
-				} else {
-					controllerListener.onLostMatch();
+				if (gameState.isWin()) {
+					if (gameState.getWinner().equals(tank.getId())) {
+						controllerListener.onWinMatch();
+					} else {
+						controllerListener.onLostMatch();
+					}
 				}
 			} else {
 				gameStatus = GAME_STATUS.PLAYING;
@@ -113,6 +118,12 @@ public class Controller {
 		}
 		for (OpponentTank opponent : opponentTanks) {
 			for (TankState tankState : gameState.getTankStates()) {
+				if (!isServer) {
+					if (tank.getId().equals(tankState.getId())) {
+						tank.setLife(tankState.getLife());
+						tank.setWins(tankState.getWins());
+					}
+				}
 				if (opponent != null && opponent.getId().equals(tankState.getId())) {
 					opponent.updateState(tankState, !isServer);
 				}
@@ -142,13 +153,15 @@ public class Controller {
 	}
 	
 	private void checkIfFinish() {
-		if (isPlaying() && isServer) {
+		if (isPlaying() && isServer && started) {
 			Array<Tank> aliveTanks = getAliveTanks();
-			if (aliveTanks.size == 8) {
+			if (aliveTanks.size == 1) {
 				Tank tank = aliveTanks.get(0);
 				tank.addWin();
+				winner = tank.getId();
 				gameStatus = GAME_STATUS.GAMEOVER;
 				win = true;
+				started = false;
 				if (this.tank == tank) {
 					controllerListener.onWinMatch();
 				} else {
@@ -161,7 +174,7 @@ public class Controller {
 	public void update(float deltatime) {
 		
 		for (OpponentTank opponent : opponentTanks) {
-			if (opponent != null && opponent.isCommitRemove()) {
+			if (opponent != null && opponent.isReadyRemove()) {
 				opponentTanks.removeValue(opponent, true);
 			}
 		}
@@ -198,7 +211,7 @@ public class Controller {
 		
 		if (isPlaying()) {
 			
-			if (isServer) {
+			if (isServer && started) {
 				powerUpTime += deltatime;
 				if (powerUpTime >= powerUpInterval) {
 					powerUps.add(new PowerUp());
@@ -228,20 +241,29 @@ public class Controller {
 	
 			tank.update(deltatime);
 			
-			for (OpponentTank opponent : opponentTanks) {
-				if (opponent != null) {
-					// Check if main ship collide with missile of the opponents
-					opponent.isHit(tank);
-					tank.isHit(opponent);
-					// Check if each opponent´s missile collide against the rest of opponents
-					ArrayIterator<OpponentTank> iterator = new ArrayIterator<OpponentTank>(opponentTanks);
-					while (iterator.hasNext()) {
-						OpponentTank innerOpponent = (OpponentTank) iterator.next();
-						if (innerOpponent != null && opponent != innerOpponent) {
-							opponent.isHit(innerOpponent);
+			if (started) {
+				for (OpponentTank opponent : opponentTanks) {
+					if (opponent != null) {
+						// Check if main ship collide with missiles of the opponents
+						opponent.isHit(tank);
+						tank.isHit(opponent);
+						// Check if each opponent´s missile collide against the rest of opponents
+						ArrayIterator<OpponentTank> iterator = new ArrayIterator<OpponentTank>(opponentTanks);
+						while (iterator.hasNext()) {
+							OpponentTank innerOpponent = (OpponentTank) iterator.next();
+							if (innerOpponent != null && opponent != innerOpponent) {
+								opponent.isHit(innerOpponent);
+							}
 						}
+						opponent.update(deltatime);
 					}
-					opponent.update(deltatime);
+				}
+			} else {
+				// Just update opponents position if the match has not started
+				for (OpponentTank opponent : opponentTanks) {
+					if (opponent != null) {
+						opponent.update(deltatime);
+					}
 				}
 			}
 		}
@@ -277,9 +299,10 @@ public class Controller {
 		
 		gameState.setPlaying(isPlaying());
 		gameState.setWin(win);
+		gameState.setWinner(winner);
+		gameState.setStarted(started);
 		gameState.setId(tank.getId());
 		gameState.addTankState(tank.getState());
-		
 		if (isServer) {
 			for (OpponentTank opponent : opponentTanks) {
 				if (opponent != null) {
@@ -318,22 +341,22 @@ public class Controller {
 		return tank.getWins();
 	}
 	
-	public int getOpponentTankWins() {
-		return 0;
-	}
-	
 	public int getTankLife() {
 		return tank.getLife();
-	}
-	
-	public int getOpponntTankLife() {
-		return 0;
 	}
 	
 	public Tank getTank() {
 		return tank;
 	}
 	
+	public boolean isServer() {
+		return isServer;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
+	}
+
 	public Array<OpponentTank> getOpponentTanks() {
 		return opponentTanks;
 	}

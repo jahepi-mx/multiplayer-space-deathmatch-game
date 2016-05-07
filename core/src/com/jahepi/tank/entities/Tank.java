@@ -23,7 +23,7 @@ public class Tank extends GameEntity {
 	public static final String TAG = "Tank";
 	public static final float FRICTION = 0.99f;
 	public static final float SHOOT_TIME = 0.4f;
-	public static final int LIFE = 40;
+	public static final int LIFE = 2;
 	
 	protected Array<Missile> missiles;
 	protected Laser laser;
@@ -264,6 +264,10 @@ public class Tank extends GameEntity {
 		this.life = life;
 	}
 
+	public void setWins(int wins) {
+		this.wins = wins;
+	}
+
 	public int getWins() {
 		return wins;
 	}
@@ -341,6 +345,11 @@ public class Tank extends GameEntity {
 		rectangle.setRotation(rotation);
 		shooting = tankState.isShooting();
 		removed = tankState.isRemoved();
+		if (isSend) {
+			life = tankState.getLife();
+			wins = tankState.getWins();
+		}
+
 		if (tankState.isShooting()) {
 			laser.shoot();
 		} else {

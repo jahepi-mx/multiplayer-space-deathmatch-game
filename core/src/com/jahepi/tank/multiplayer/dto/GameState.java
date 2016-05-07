@@ -4,10 +4,12 @@ import com.badlogic.gdx.utils.Array;
 
 public class GameState {
 
+	// Id of the main player sending the data through sockets
 	private String id;
 	private Array<TankState> tankStates;
-	private boolean isPlaying;
+	private boolean isPlaying, isStarted;
 	private boolean win;
+	private String winner;
 	private Array<PowerUpState> powerUps;
 	
 	public GameState() {
@@ -45,6 +47,22 @@ public class GameState {
 
 	public void addTankState(TankState tankState) {
 		this.tankStates.add(tankState);
+	}
+
+	public boolean isStarted() {
+		return isStarted;
+	}
+
+	public void setStarted(boolean isStarted) {
+		this.isStarted = isStarted;
+	}
+
+	public String getWinner() {
+		return winner;
+	}
+
+	public void setWinner(String winner) {
+		this.winner = winner;
 	}
 
 	public String getId() {
