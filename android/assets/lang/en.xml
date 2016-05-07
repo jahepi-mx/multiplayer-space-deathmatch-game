@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language>
+    <item name="start_btn">START GAME</node>
+    <item name="english_btn">English</node>
+    <item name="spanish_btn">Spanish</node>
+    <item name="quit_btn">QUIT GAME</node>
+    <item name="game_title">MULTIPLAYER SPACE%sDEATHMATCH</node>
+    <item name="port_label">Default Port: </node>
+    <item name="search_label">Searching ... %s</node>
+    <item name="error_network">Could not start the game, check your network.</item>
+    <item name="error_disconnect">Disconnected from server.</item>
+    <item name="waiting_label">Waiting for player to join.</item>
+    <item name="disconnect_opponent_label">Opponent disconnected.</item>
+    <item name="rematch_label">GO FOR A REMATCH.</item>
+    <item name="life_label">Life: %s</item>
+    <item name="opponent_life_label">His Life: %s</item>
+    <item name="wins_label">Wins: %s</item>
+    <item name="win_label">YOU WIN!!</item>
+    <item name="lost_label">YOU LOST!!</item>
+</language>

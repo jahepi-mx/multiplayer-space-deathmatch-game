@@ -1,0 +1,166 @@
+
+multiplayer.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+background_game
+  rotate: false
+  xy: 1, 1213
+  size: 1024, 810
+  orig: 1024, 810
+  offset: 0, 0
+  index: -1
+background_main
+  rotate: false
+  xy: 1, 401
+  size: 1024, 810
+  orig: 1024, 810
+  offset: 0, 0
+  index: -1
+laser
+  rotate: false
+  xy: 1027, 1423
+  size: 100, 600
+  orig: 100, 600
+  offset: 0, 0
+  index: -1
+energy
+  rotate: false
+  xy: 1, 201
+  size: 200, 198
+  orig: 200, 198
+  offset: 0, 0
+  index: -1
+freeze
+  rotate: false
+  xy: 1129, 1825
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+health
+  rotate: false
+  xy: 1, 1
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+nuke
+  rotate: false
+  xy: 203, 201
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+poison
+  rotate: false
+  xy: 1129, 1625
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 1330, 1825
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+ship2
+  rotate: false
+  xy: 202, 39
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+ship1
+  rotate: false
+  xy: 404, 239
+  size: 140, 160
+  orig: 140, 160
+  offset: 0, 0
+  index: -1
+button_arrow_bottom
+  rotate: false
+  xy: 1027, 1341
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_arrow_bottom_on
+  rotate: false
+  xy: 1129, 1543
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_arrow_left
+  rotate: false
+  xy: 1330, 1743
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_arrow_left_on
+  rotate: false
+  xy: 1531, 1943
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_arrow_right
+  rotate: false
+  xy: 546, 319
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_arrow_right_on
+  rotate: false
+  xy: 1027, 1259
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_arrow_top
+  rotate: false
+  xy: 1129, 1461
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_arrow_top_on
+  rotate: false
+  xy: 1211, 1543
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_shoot
+  rotate: false
+  xy: 1330, 1661
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+button_shoot_on
+  rotate: false
+  xy: 1412, 1743
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+rocket1
+  rotate: false
+  xy: 364, 135
+  size: 34, 64
+  orig: 34, 64
+  offset: 0, 0
+  index: -1
+rocket2
+  rotate: false
+  xy: 202, 3
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
