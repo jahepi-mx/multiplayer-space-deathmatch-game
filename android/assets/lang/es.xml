@@ -3,7 +3,8 @@
     <item name="start_btn">INICIAR JUEGO</node>
     <item name="english_btn">Ingles</node>
     <item name="spanish_btn">Español</node>
-    <item name="quit_btn">SALIR DEL JUEGO</node>
+    <item name="quit_btn">SALIR</node>
+    <item name="start_btn">INICIAR</node>
     <item name="game_title">MULTIJUGADOR ESPACIAL%sCOMBATE A MUERTE</node>
     <item name="port_label">Puerto por defecto: </node>
     <item name="search_label">Buscando ... %s</node>

@@ -22,6 +22,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jahepi.tank.Controller.ControllerListener;
 import com.jahepi.tank.Controller.GameChangeStateListener;
+import com.jahepi.tank.TankField.SCREEN_TYPE;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Tank;
@@ -109,6 +110,7 @@ public class Render implements Disposable, ControllerListener {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (tankField.isServer()) {
+					waitingLabel.setVisible(true);
 					rematchBtn.setVisible(false);
 					endLabel.setVisible(false);
 					controller.reset();
@@ -150,12 +152,35 @@ public class Render implements Disposable, ControllerListener {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(TAG, "On click ...");
-				//tankField.changeScreen(SCREEN_TYPE.MAIN);
-				//tankField.closeConnection();
-				controller.setStarted(true);
-				waitingLabel.setVisible(false);
+				tankField.changeScreen(SCREEN_TYPE.MAIN);
+				tankField.closeConnection();
 			}	
 		});
+		
+		if (controller.isServer()) {
+			Label startLabel = new Label(Language.getInstance().get("start_btn"), labelStyle);
+			Button startBtn = new Button(skin);
+			startBtn.add(startLabel);
+			startBtn.setHeight(startLabel.getHeight());
+			startBtn.setWidth(startLabel.getWidth() + 10.0f);
+			startBtn.setX((Config.UI_WIDTH / 2) - (startLabel.getWidth() / 2));
+			startBtn.setY(Config.UI_HEIGHT - startLabel.getHeight());
+			startBtn.setColor(Color.GREEN);
+			stage.addActor(startBtn);
+			
+			startBtn.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					controller.setStarted(true);
+					waitingLabel.setVisible(false);
+				}	
+			});
+			float padding = 10.0f;
+			float left = (Config.UI_WIDTH / 2) - ((startBtn.getWidth() + exitBtn.getWidth() + padding) / 2);
+			float right = (Config.UI_WIDTH / 2) + ((startBtn.getWidth() + exitBtn.getWidth() + padding) / 2);
+			startBtn.setX(right - startBtn.getWidth());
+			exitBtn.setX(left);
+		}
 		
 		float padX = Config.UI_WIDTH * 0.07f;
 		float padY = Config.UI_WIDTH * 0.07f;
@@ -262,7 +287,7 @@ public class Render implements Disposable, ControllerListener {
 	}
 	
 	public void showDisconnectError() {
-		disconnectLabel.setVisible(true);
+		//disconnectLabel.setVisible(true);
 	}
 	
 	public void render() {

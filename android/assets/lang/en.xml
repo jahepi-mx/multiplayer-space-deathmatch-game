@@ -3,7 +3,8 @@
     <item name="start_btn">START GAME</node>
     <item name="english_btn">English</node>
     <item name="spanish_btn">Spanish</node>
-    <item name="quit_btn">QUIT GAME</node>
+    <item name="quit_btn">QUIT</node>
+    <item name="start_btn">START</node>
     <item name="game_title">MULTIPLAYER SPACE%sDEATHMATCH</node>
     <item name="port_label">Default Port: </node>
     <item name="search_label">Searching ... %s</node>

@@ -12,7 +12,7 @@ public class Config {
 	public static final int UI_WIDTH = 640;
 	public static final int UI_HEIGHT = 480;
 	
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	private Config() {
 		// TODO Auto-generated constructor stub

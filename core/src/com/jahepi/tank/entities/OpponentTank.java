@@ -14,8 +14,8 @@ public class OpponentTank extends Tank {
 	private boolean readyRemove;
 	private float readyRemoveTime;
 	
-	public OpponentTank(TextureRegion texture, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
-		super(texture, missileTexture, effect, sound);
+	public OpponentTank(TEXTURE_TYPE textureType, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
+		super(textureType, missileTexture, effect, sound);
 	}
 	
 	public void update(float deltatime) {

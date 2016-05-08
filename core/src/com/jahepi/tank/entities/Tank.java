@@ -24,6 +24,9 @@ public class Tank extends GameEntity {
 	public static final float FRICTION = 0.99f;
 	public static final float SHOOT_TIME = 0.4f;
 	public static final int LIFE = 2;
+	public static enum TEXTURE_TYPE {
+		SHIP1, SHIP2, SHIP3, SHIP4
+	}
 	
 	protected Array<Missile> missiles;
 	protected Laser laser;
@@ -43,9 +46,20 @@ public class Tank extends GameEntity {
 	protected int damage = 1;
 	protected float missileEffectScale = 1.0f;
 	protected float missileSpeed = 7.0f;
+	protected TEXTURE_TYPE textureType;
 	
-	public Tank(TextureRegion texture, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
+	public Tank(TEXTURE_TYPE textureType, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
 		super();
+		this.textureType = textureType;
+		if (textureType == TEXTURE_TYPE.SHIP1) {
+			texture = Assets.getInstance().getShip1();
+		} else if (textureType == TEXTURE_TYPE.SHIP2) {
+			texture = Assets.getInstance().getShip2();
+		} else if (textureType == TEXTURE_TYPE.SHIP3) {
+			texture = Assets.getInstance().getShip3();
+		}  else {
+			texture = Assets.getInstance().getShip4();
+		}
 		velocity = 10.0f;
 		size.set(defaultSize, defaultSize);
 		position.set(Config.WIDTH / 2, Config.HEIGHT / 2);
@@ -53,7 +67,6 @@ public class Tank extends GameEntity {
 		powerUpStrategies = new Array<PowerUpStateStrategy>();
 		collectedPowerUpStrategies = new Array<PowerUpStateStrategy>();
 		life = LIFE;
-		this.texture = texture;
 		this.missileTexture = missileTexture;
 		this.effect = effect;
 		this.sound = sound;
@@ -324,6 +337,7 @@ public class Tank extends GameEntity {
 		tankState.setWins(wins);
 		tankState.setId(id);
 		tankState.setRemoved(removed);
+		tankState.setTextureType(textureType);
 		for (Missile missile : missiles) {
 			if (missile != null && !missile.isSend()) {
 				missile.setSend(true);
@@ -373,5 +387,10 @@ public class Tank extends GameEntity {
 			}
 			addPowerUpStrategy(strategy);
 		}
+	}
+	
+	public static TEXTURE_TYPE getRandomTextureType() {
+		int rand = MathUtils.random(0, TEXTURE_TYPE.values().length - 1);
+		return TEXTURE_TYPE.values()[rand];
 	}
 }

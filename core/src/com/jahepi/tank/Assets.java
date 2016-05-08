@@ -99,6 +99,14 @@ public class Assets {
 	public TextureRegion getShip2() {
 		return atlas.findRegion("ship2");
 	}
+	
+	public TextureRegion getShip3() {
+		return atlas.findRegion("ship3");
+	}
+	
+	public TextureRegion getShip4() {
+		return atlas.findRegion("ship4");
+	}
 
 	public TextureRegion getRocket1() {
 		return atlas.findRegion("rocket1");

@@ -2,6 +2,7 @@ package com.jahepi.tank.multiplayer.dto;
 
 import com.badlogic.gdx.utils.Array;
 import com.jahepi.tank.entities.PowerUp;
+import com.jahepi.tank.entities.Tank.TEXTURE_TYPE;
 
 public class TankState {
 
@@ -11,6 +12,7 @@ public class TankState {
 	private Array<PowerUp.TYPE> powerUps;
 	private boolean shooting, removed;
 	private int life, wins;
+	private TEXTURE_TYPE textureType;
 	
 	public TankState() {
 		powerUps = new Array<PowerUp.TYPE>();
@@ -95,6 +97,14 @@ public class TankState {
 
 	public void setShooting(boolean shooting) {
 		this.shooting = shooting;
+	}
+
+	public TEXTURE_TYPE getTextureType() {
+		return textureType;
+	}
+
+	public void setTextureType(TEXTURE_TYPE textureType) {
+		this.textureType = textureType;
 	}
 
 	public String getId() {

@@ -15,6 +15,9 @@ import com.jahepi.tank.multiplayer.dto.MissileState;
 public class Missile extends GameEntity {
 
 	private static final String TAG = "Missile";
+	public static enum TEXTURE_TYPE {
+		MISSILE1, MISSILE2
+	}
 	
 	private boolean send;
 	private boolean hit;

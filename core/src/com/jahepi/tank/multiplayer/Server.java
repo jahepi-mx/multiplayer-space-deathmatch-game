@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class Server {
 
-	private final int MAX_CONNECTIONS = 4;
+	private final int MAX_CONNECTIONS = 3;
 	private final static String TAG = "Server";
 	
 	public final static int PORT = 38000;

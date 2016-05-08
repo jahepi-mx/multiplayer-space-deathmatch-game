@@ -39,13 +39,8 @@ public class Controller {
 		temporalHolder = new Array<Tank>();
 		Assets assets = Assets.getInstance();
 		opponentTanks = new Array<OpponentTank>();
-		if (isServer) {
-			tank = new Tank(assets.getShip1(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
-			tank.setMissileSize(1.0f, 0.5f);
-		} else {
-			tank = new Tank(assets.getShip2(), assets.getRocket2(), assets.getEffect1(), assets.getAudio2());
-			tank.setMissileSize(0.8f, 0.8f);
-		}
+		tank = new Tank(Tank.getRandomTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
+		tank.setMissileSize(1.0f, 0.5f);
 		this.controllerListener = controllerListener;
 		this.gameChangeStateListener = gameChangeStateListener;
 		this.powerUps = new Array<PowerUp>();
@@ -83,7 +78,7 @@ public class Controller {
 				}
 				if (found == false) {
 					Assets assets = Assets.getInstance();
-					OpponentTank opponent = new OpponentTank(assets.getShip1(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
+					OpponentTank opponent = new OpponentTank(tankState.getTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
 					opponent.setMissileSize(1.0f, 0.5f);
 					opponent.setId(tankState.getId());
 					opponentTanks.add(opponent);
