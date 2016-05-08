@@ -48,7 +48,7 @@ public class ServerFinder {
 								listener.onServerStatus(tempAddress.toString());
 								try {
 									Socket socket = new Socket();
-									socket.connect(socketAddress, 1);
+									socket.connect(socketAddress, 100);
 									active = false;
 									listener.onServerFound(socket);
 									return;

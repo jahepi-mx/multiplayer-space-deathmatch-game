@@ -346,9 +346,7 @@ public class Render implements Disposable, ControllerListener {
 		opponentsLabel.setText(opponentsInfo);
 		lifeLabel.setText(String.format(Language.getInstance().get("life_label"), controller.getTankLife()));
 		winLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()));
-		if (controller.isStarted()) {
-			waitingLabel.setVisible(false);
-		}
+		waitingLabel.setVisible(!controller.isStarted());
 		
 		stage.draw();
 		
