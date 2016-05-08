@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Disposable;
@@ -40,9 +41,10 @@ public class Render implements Disposable, ControllerListener {
 	private Stage stage;
 	private Label lifeLabel;
 	private Label endLabel;
+	private Label winLabel;
+	private Label opponentsLabel;
 	private Label disconnectLabel;
 	private Label waitingLabel;
-	private Label winLabel;
 	private Button rematchBtn;
 	private boolean isShooting;
 	private boolean isMovingLeft;
@@ -129,6 +131,13 @@ public class Render implements Disposable, ControllerListener {
 		winLabel.setX(x);
 		winLabel.setY(lifeLabel.getY() - winLabel.getHeight());
 		stage.addActor(winLabel);
+		
+		opponentsLabel = new Label("", labelStyleSmall);
+		opponentsLabel.setColor(Color.YELLOW);
+		opponentsLabel.setX(x);
+		opponentsLabel.setY(winLabel.getY() - opponentsLabel.getHeight());
+		opponentsLabel.setAlignment(Align.topLeft);
+		stage.addActor(opponentsLabel);
 		
 		Label exitLabel = new Label(Language.getInstance().get("quit_btn"), labelStyle);
 		Button exitBtn = new Button(skin);
@@ -289,17 +298,20 @@ public class Render implements Disposable, ControllerListener {
 				powerUp.render(batch);
 			}
 		}
-		float height = Config.HEIGHT - 100;
+
+		StringBuffer opponentsInfo = new StringBuffer();
 		while (opponents.hasNext()) {
 			OpponentTank opponentTank = (OpponentTank) opponents.next();
 			opponentTank.render(batch);
-			opponentFont.draw(batch, "Opponent Life: " + opponentTank.getLife(), 0, height);
-			height -= 30;
-			opponentFont.draw(batch, "Opponent Wins: " + opponentTank.getLife(), 0, height);
-			height -= 30;
+			opponentsInfo.append(Language.getInstance().get("opponent_life_label"));
+			opponentsInfo.append(opponentTank.getLife());
+			opponentsInfo.append(Language.getInstance().get("opponent_win_label"));
+			opponentsInfo.append(opponentTank.getWins());
+			opponentsInfo.append("\n");
 		}
 		batch.end();
 		
+		opponentsLabel.setText(opponentsInfo);
 		lifeLabel.setText(String.format(Language.getInstance().get("life_label"), controller.getTankLife()));
 		winLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()));
 		

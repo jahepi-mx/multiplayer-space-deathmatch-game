@@ -9,11 +9,12 @@
     <item name="search_label">Searching ... %s</node>
     <item name="error_network">Could not start the game, check your network.</item>
     <item name="error_disconnect">Disconnected from server.</item>
-    <item name="waiting_label">Waiting for player to join.</item>
+    <item name="waiting_label">Waiting for players to join.</item>
     <item name="disconnect_opponent_label">Opponent disconnected.</item>
     <item name="rematch_label">GO FOR A REMATCH.</item>
     <item name="life_label">Life: %s</item>
-    <item name="opponent_life_label">His Life: %s</item>
+    <item name="opponent_life_label">Player: </item>
+    <item name="opponent_win_label">  Wins: </item>
     <item name="wins_label">Wins: %s</item>
     <item name="win_label">YOU WIN!!</item>
     <item name="lost_label">YOU LOST!!</item>

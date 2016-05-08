@@ -22,6 +22,7 @@ public class Controller {
 	
 	private Tank tank;
 	private Array<OpponentTank> opponentTanks;
+	private Array<Tank> temporalHolder;
 	private boolean isServer;
 	private boolean win, started;
 	private String winner;
@@ -35,6 +36,7 @@ public class Controller {
 	
 	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer) {
 		winner = "";
+		temporalHolder = new Array<Tank>();
 		Assets assets = Assets.getInstance();
 		opponentTanks = new Array<OpponentTank>();
 		if (isServer) {
@@ -49,11 +51,6 @@ public class Controller {
 		this.powerUps = new Array<PowerUp>();
 		this.isServer = isServer;
 		gameStatus = GAME_STATUS.PLAYING;
-		if (isServer) {
-			tank.startOnLeftSide();
-		} else {
-			tank.startOnRightSide();
-		}
 		powerUpInterval = MathUtils.random(1.0f, 2.0f);
 		cameraHelper = new CameraHelper(Config.CAMERA_WIDTH, Config.CAMERA_HEIGHT, (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2), (Config.HEIGHT / 2) - (Config.CAMERA_HEIGHT / 2));
 	}
@@ -139,24 +136,22 @@ public class Controller {
 		return gameStatus == GAME_STATUS.GAMEOVER;
 	}
 	
-	private Array<Tank> getAliveTanks() {
-		Array<Tank> tanks = new Array<Tank>();
+	private void setAliveTanks() {
 		if (!tank.isDead()) {
-			tanks.add(tank);
+			temporalHolder.add(tank);
 		}
 		for (OpponentTank opponent : opponentTanks) {
 			if (opponent != null && !opponent.isDead()) {
-				tanks.add(opponent);
+				temporalHolder.add(opponent);
 			}
 		}
-		return tanks;
 	}
 	
 	private void checkIfFinish() {
 		if (isPlaying() && isServer && started) {
-			Array<Tank> aliveTanks = getAliveTanks();
-			if (aliveTanks.size == 1) {
-				Tank tank = aliveTanks.get(0);
+			setAliveTanks();
+			if (temporalHolder.size == 1) {
+				Tank tank = temporalHolder.get(0);
 				tank.addWin();
 				winner = tank.getId();
 				gameStatus = GAME_STATUS.GAMEOVER;
@@ -168,6 +163,7 @@ public class Controller {
 					controllerListener.onLostMatch();
 				}
 			}
+			temporalHolder.clear();
 		}
 	}
 	

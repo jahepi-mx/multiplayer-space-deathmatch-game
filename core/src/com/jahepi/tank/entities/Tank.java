@@ -30,7 +30,6 @@ public class Tank extends GameEntity {
 	protected float shootTime;
 	protected int life;
 	protected int wins;
-	protected boolean isLeft;
 	protected TextureRegion texture;
 	protected TextureRegion missileTexture;
 	protected ParticleEffect effect;
@@ -63,7 +62,13 @@ public class Tank extends GameEntity {
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		laser = new Laser();
+		setRandomPosition();
 		Gdx.app.log(TAG, "Created");
+	}
+	
+	private void setRandomPosition() {
+		position.set(MathUtils.random(size.x, Config.WIDTH - size.x), MathUtils.random(size.y, Config.HEIGHT - size.y));
+		rectangle.setPosition(position.x, position.y);
 	}
 	
 	public void setMissileSpeed(float missileSpeed) {
@@ -112,21 +117,6 @@ public class Tank extends GameEntity {
 		}
 	}
 	
-	public void startOnLeftSide() {
-		float left = (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2);
-		position.set(left, Config.HEIGHT / 2);
-		rectangle.setPosition(position.x, position.y);
-		isLeft = true;
-	}
-	
-	public void startOnRightSide() {
-		rotation = MathUtils.PI * MathUtils.radiansToDegrees;
-		float right = (Config.WIDTH / 2) + (Config.CAMERA_WIDTH / 2);
-		position.set(right - size.x, Config.HEIGHT / 2);
-		rectangle.setPosition(position.x, position.y);
-		rectangle.setRotation(rotation);
-	}
-	
 	public boolean isDead() {
 		return life <= 0;
 	}
@@ -161,34 +151,47 @@ public class Tank extends GameEntity {
 	}
 	
 	public void shoot() {
-		shooting = true;
-		laser.shoot();
-		if (!disableShooting && shootTime >= SHOOT_TIME) {
-			Gdx.app.log("MISSILE SHOOT", "shooting");
-			shootTime = 0;
-			Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY());
-			Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTexture, missileSpeed);
-			missile.setEffect(effect);
-			missile.setSound(sound);
-			missile.playSound();
-			missiles.add(missile);
+		if (!isDead()) {
+			shooting = true;
+			laser.shoot();
+			if (!disableShooting && shootTime >= SHOOT_TIME) {
+				shootTime = 0;
+				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY());
+				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTexture, missileSpeed);
+				missile.setEffect(effect);
+				missile.setSound(sound);
+				missile.playSound();
+				missiles.add(missile);
+			}
 		}
 	}
 	
 	public void right() {
-		speed = isLeft ? this.velocity : -this.velocity;
+		speed = this.velocity;
+		if (isDead()) {
+			speed = 0;
+		}
 	}
 	
 	public void left() {
-		speed = isLeft ? -this.velocity : this.velocity;
+		speed = -this.velocity;
+		if (isDead()) {
+			speed = 0;
+		}
 	}
 	
 	public void rotateUp() {
 		rotationSpeed = 90.0f;
+		if (isDead()) {
+			rotationSpeed = 0;
+		}
 	}
 	
 	public void rotateDown() {
 		rotationSpeed = -90.0f;
+		if (isDead()) {
+			rotationSpeed = 0;
+		}
 	}
 	
 	public void update(float deltatime) {
@@ -277,15 +280,17 @@ public class Tank extends GameEntity {
 	}
 	
 	public void isHit(Tank tank) {
-		for (Missile missile : missiles) {
-			if (missile != null && missile.collide(tank.getRectangle()) && !missile.isHit()) {
-				missile.setHit(true);
+		if (!isDead()) {
+			for (Missile missile : missiles) {
+				if (missile != null && missile.collide(tank.getRectangle()) && !missile.isHit()) {
+					missile.setHit(true);
+					tank.setLife(tank.getLife() - damage);
+				}
+			}
+			if (laser.isHit(tank)) {
+				tank.startEffect();
 				tank.setLife(tank.getLife() - damage);
 			}
-		}
-		if (laser.isHit(tank)) {
-			tank.startEffect();
-			tank.setLife(tank.getLife() - damage);
 		}
 	}
 	
@@ -306,11 +311,7 @@ public class Tank extends GameEntity {
 		life = LIFE;
 		shootTime = 0;
 		missiles.clear();
-		if (isLeft) {
-			startOnLeftSide();
-		} else {
-			startOnRightSide();
-		}
+		setRandomPosition();
 	}
 	
 	public TankState getState() {
