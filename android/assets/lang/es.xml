@@ -11,6 +11,7 @@
     <item name="error_network">No se puede iniciar el juego, revisa la red.</item>
     <item name="error_disconnect">Desconectado del servidor.</item>
     <item name="waiting_label">Esperando jugadores para iniciar partida ...</item>
+    <item name="waiting_opponent_label">Esperando que la batalla inicie...</item>
     <item name="disconnect_opponent_label">Oponente desconectado.</item>
     <item name="rematch_label">IR POR LA REVANCHA.</item>
     <item name="life_label">Vida: %s</item>

@@ -143,7 +143,11 @@ public class Tank extends GameEntity {
 			}
 		}
 		effect.draw(batch);
-		batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+		if (isDead()) {
+			batch.draw(Assets.getInstance().getSKull(), position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, 90.0f, true);
+		} else {
+			batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+		}
 	}
 
 	@Override

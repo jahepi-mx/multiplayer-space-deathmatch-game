@@ -87,9 +87,16 @@ ship1
   orig: 140, 160
   offset: 0, 0
   index: -1
+skull
+  rotate: false
+  xy: 1330, 1663
+  size: 136, 160
+  orig: 136, 160
+  offset: 0, 0
+  index: -1
 ship4
   rotate: false
-  xy: 1330, 1707
+  xy: 1531, 1907
   size: 116, 116
   orig: 116, 116
   offset: 0, 0
@@ -103,63 +110,63 @@ button_arrow_bottom
   index: -1
 button_arrow_bottom_on
   rotate: false
-  xy: 1531, 1943
+  xy: 566, 319
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_left
   rotate: false
-  xy: 566, 319
+  xy: 1531, 1825
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_left_on
   rotate: false
-  xy: 1330, 1625
+  xy: 1468, 1743
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_right
   rotate: false
-  xy: 1271, 1543
+  xy: 1649, 1943
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_right_on
   rotate: false
-  xy: 1448, 1743
+  xy: 1027, 1259
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_top
   rotate: false
-  xy: 1027, 1259
+  xy: 648, 319
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_top_on
   rotate: false
-  xy: 1531, 1861
+  xy: 1731, 1943
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot
   rotate: false
-  xy: 1613, 1943
+  xy: 1027, 1177
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot_on
   rotate: false
-  xy: 648, 319
+  xy: 730, 319
   size: 80, 80
   orig: 80, 80
   offset: 0, 0

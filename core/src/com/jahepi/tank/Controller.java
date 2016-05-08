@@ -340,12 +340,23 @@ public class Controller {
 		return tank;
 	}
 	
+	public boolean isTankDead() {
+		if (tank != null) {
+			return tank.isDead();
+		}
+		return false;
+	}
+	
 	public boolean isServer() {
 		return isServer;
 	}
 
 	public void setStarted(boolean started) {
 		this.started = started;
+	}
+
+	public boolean isStarted() {
+		return started;
 	}
 
 	public Array<OpponentTank> getOpponentTanks() {

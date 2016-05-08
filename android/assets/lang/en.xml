@@ -11,6 +11,7 @@
     <item name="error_network">Could not start the game, check your network.</item>
     <item name="error_disconnect">Disconnected from server.</item>
     <item name="waiting_label">Waiting for players to join.</item>
+    <item name="waiting_opponent_label">Waiting for the match to start...</item>
     <item name="disconnect_opponent_label">Opponent disconnected.</item>
     <item name="rematch_label">GO FOR A REMATCH.</item>
     <item name="life_label">Life: %s</item>

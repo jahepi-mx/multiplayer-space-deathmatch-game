@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -79,10 +80,10 @@ public class Render implements Disposable, ControllerListener {
 		LabelStyle labelStyleSmall = new LabelStyle();
 		labelStyleSmall.font = Assets.getInstance().getUIFontSmall();
 		
-		waitingLabel = new Label(Language.getInstance().get("waiting_label"), labelStyle);
+		
+		waitingLabel = new Label(controller.isServer() ? Language.getInstance().get("waiting_label") : Language.getInstance().get("waiting_opponent_label"), labelStyle);
 		waitingLabel.setColor(Color.RED);
 		waitingLabel.setPosition((Config.UI_WIDTH / 2) - (waitingLabel.getWidth() / 2), (Config.UI_HEIGHT / 2) + waitingLabel.getHeight());
-		waitingLabel.setVisible(tankField.isServer());
 		stage.addActor(waitingLabel);
 		
 		disconnectLabel = new Label(Language.getInstance().get("disconnect_opponent_label"), labelStyle);
@@ -312,6 +313,15 @@ public class Render implements Disposable, ControllerListener {
 		batch.setColor(1, 1, 1, 1);
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		
+		if (controller.isTankDead()) {
+			ShaderProgram shader = Assets.getInstance().getMonochromeShader();
+			batch.setShader(shader);
+			shader.setUniformf("u_amount", 1.0f);
+		} else {
+			batch.setShader(null);
+		}
+		
 		batch.draw(Assets.getInstance().getBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
 		controller.getTank().render(batch);
 		ArrayIterator<OpponentTank> opponents = new ArrayIterator<OpponentTank>(controller.getOpponentTanks());
@@ -336,6 +346,9 @@ public class Render implements Disposable, ControllerListener {
 		opponentsLabel.setText(opponentsInfo);
 		lifeLabel.setText(String.format(Language.getInstance().get("life_label"), controller.getTankLife()));
 		winLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()));
+		if (controller.isStarted()) {
+			waitingLabel.setVisible(false);
+		}
 		
 		stage.draw();
 		

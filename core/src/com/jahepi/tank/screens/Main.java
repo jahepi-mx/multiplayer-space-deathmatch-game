@@ -211,6 +211,7 @@ public class Main implements Screen {
 		
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
+		batch.setShader(null);
 		batch.draw(Assets.getInstance().getMainBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
 		batch.end();
 		stage.draw();

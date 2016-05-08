@@ -11,8 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.utils.Disposable;
 
-public class Assets {
+public class Assets implements Disposable {
 
 	private static Assets self;
 	
@@ -27,6 +29,7 @@ public class Assets {
 	private Music music, action;
 	private FreeTypeFontGenerator fontGenerator;
 	private BitmapFont UIFont, UIFontSmall, UIFontTitle;
+	private ShaderProgram monochromeShader;
 	
 	private Assets() {
 		manager = new AssetManager();
@@ -75,6 +78,9 @@ public class Assets {
 	    parameters3.borderWidth = 2;
 	    parameters3.borderColor = Color.GRAY;
 	    UIFontTitle = fontGenerator.generateFont(parameters3);
+	    
+	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
+	    monochromeShader.setUniformf("u_amount", 1.0f);
 	}
 	
 	public static Assets getInstance() {
@@ -106,6 +112,10 @@ public class Assets {
 	
 	public TextureRegion getShip4() {
 		return atlas.findRegion("ship4");
+	}
+	
+	public TextureRegion getSKull() {
+		return atlas.findRegion("skull");
 	}
 
 	public TextureRegion getRocket1() {
@@ -222,5 +232,25 @@ public class Assets {
 	
 	public TextureRegion getLaser() {
 		return atlas.findRegion("laser");
+	}
+
+	public ShaderProgram getMonochromeShader() {
+		return monochromeShader;
+	}
+
+	@Override
+	public void dispose() {
+		monochromeShader.dispose();
+		atlas.dispose();
+		music.dispose();
+		action.dispose();
+		audio1.dispose();
+		audio2.dispose();
+		audioItem.dispose();
+		destroySound.dispose();
+		fontGenerator.dispose();
+		UIFont.dispose();
+		UIFontSmall.dispose();
+		UIFontTitle.dispose();
 	}
 }
