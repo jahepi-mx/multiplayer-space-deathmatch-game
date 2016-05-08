@@ -45,7 +45,7 @@ public class PowerUp extends GameEntity {
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		int rand = MathUtils.random(1, TYPE.values().length - 1);
-		type = TYPE.LASER; //TYPE.values()[rand];
+		type = TYPE.values()[rand];
 		if (type == TYPE.MISSILES) {
 			texture = Assets.getInstance().getNukeItem();
 		} else if (type == TYPE.MINI) {

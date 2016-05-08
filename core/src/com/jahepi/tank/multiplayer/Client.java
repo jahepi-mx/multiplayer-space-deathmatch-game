@@ -63,7 +63,7 @@ public class Client extends Thread {
 		try {
 			InetSocketAddress address = (InetSocketAddress) socket.getRemoteSocketAddress();
 			if (notifyNewConnection) {
-				identifier = address.getAddress() + ":" + address.getPort() + ":" + socket.getLocalPort();
+				identifier = socket.getLocalAddress() + ":" + address.getPort() + ":" + socket.getLocalPort();
 			} else {
 				identifier = address.getAddress() + ":" + socket.getLocalPort() + ":" + address.getPort();
 			}

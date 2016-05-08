@@ -51,7 +51,7 @@ public class Controller {
 		this.powerUps = new Array<PowerUp>();
 		this.isServer = isServer;
 		gameStatus = GAME_STATUS.PLAYING;
-		powerUpInterval = MathUtils.random(1.0f, 2.0f);
+		powerUpInterval = MathUtils.random(5.0f, 15.0f);
 		cameraHelper = new CameraHelper(Config.CAMERA_WIDTH, Config.CAMERA_HEIGHT, (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2), (Config.HEIGHT / 2) - (Config.CAMERA_HEIGHT / 2));
 	}
 	
