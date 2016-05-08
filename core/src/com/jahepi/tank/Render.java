@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -52,13 +51,11 @@ public class Render implements Disposable, ControllerListener {
 	private boolean isRotatingUp;
 	private boolean isRotatingDown;
 	private boolean resetFlag;
-	private BitmapFont opponentFont;
 	
 	public Render(TankField tankFieldParam, GameChangeStateListener gameStateChangeListener) {
 		this.tankField = tankFieldParam;
 		this.shapeRenderer = tankField.getDebugRender();
 		this.batch = tankField.getBatch();
-		opponentFont = new BitmapFont();
 		
 		controller = new Controller(gameStateChangeListener, this, tankField.isServer());
 		
