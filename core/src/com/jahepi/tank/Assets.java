@@ -28,7 +28,7 @@ public class Assets implements Disposable {
 	private Sound destroySound;
 	private Music music, action;
 	private FreeTypeFontGenerator fontGenerator;
-	private BitmapFont UIFont, UIFontSmall, UIFontTitle;
+	private BitmapFont UIFont, UIFontSmall, UIFontTitle, UIFontExtraSmall;
 	private ShaderProgram monochromeShader;
 	
 	private Assets() {
@@ -78,6 +78,13 @@ public class Assets implements Disposable {
 	    parameters3.borderWidth = 2;
 	    parameters3.borderColor = Color.GRAY;
 	    UIFontTitle = fontGenerator.generateFont(parameters3);
+	    
+	    FreeTypeFontParameter parameters4 = new FreeTypeFontParameter();
+	    parameters4.size = 40;
+	    parameters4.shadowOffsetX = 1;
+	    parameters4.shadowOffsetY = 1;
+	    parameters4.color = Color.WHITE;
+	    UIFontExtraSmall = fontGenerator.generateFont(parameters4);
 	    
 	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
 	    monochromeShader.setUniformf("u_amount", 1.0f);
@@ -170,6 +177,10 @@ public class Assets implements Disposable {
 		return UIFontTitle;
 	}
 	
+	public BitmapFont getUIFontExtraSmall() {
+		return UIFontExtraSmall;
+	}
+
 	public TextureRegion getNukeItem() {
 		return atlas.findRegion("nuke");
 	}

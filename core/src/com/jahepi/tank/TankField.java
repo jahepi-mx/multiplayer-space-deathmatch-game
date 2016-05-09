@@ -33,6 +33,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private boolean newConnection;
 	private String connectionId;
 	private ServerFinder serverFinder;
+	private String name;
 	
 	public enum SCREEN_TYPE {
 		MAIN, FIELD
@@ -112,8 +113,18 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		});
 	}
 	
-	public void start(int port) {
+	public void searchServer(int port, String name) {
+		this.name = name;
 		serverFinder.search(port);
+	}
+	
+	public void runServer(int port, String name) {
+		this.name = name;
+		if (startServer(port)) {
+			changeScreen(SCREEN_TYPE.FIELD);
+		} else {
+			((Main) currentScreen).showConnectionError();
+		}
 	}
 	
 	@Override
@@ -135,11 +146,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		Gdx.app.postRunnable(new Runnable() {		
 			@Override
 			public void run() {
-				if (startServer(port)) {
-					changeScreen(SCREEN_TYPE.FIELD);
-				} else {
-					((Main) currentScreen).showConnectionError();
-				}
+				((Main) currentScreen).showConnectionError();
 			}
 		});
 	}
@@ -208,5 +215,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			server.close();
 			server = null;
 		}
+	}
+
+	public String getName() {
+		return name;
 	}
 }

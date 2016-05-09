@@ -3,6 +3,7 @@ package com.jahepi.tank.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -23,7 +24,7 @@ public class Tank extends GameEntity {
 	public static final String TAG = "Tank";
 	public static final float FRICTION = 0.99f;
 	public static final float SHOOT_TIME = 0.4f;
-	public static final int LIFE = 2;
+	public static final int LIFE = 50;
 	public static enum TEXTURE_TYPE {
 		SHIP1, SHIP2, SHIP3, SHIP4
 	}
@@ -47,9 +48,12 @@ public class Tank extends GameEntity {
 	protected float missileEffectScale = 1.0f;
 	protected float missileSpeed = 7.0f;
 	protected TEXTURE_TYPE textureType;
+	protected BitmapFont font;
 	
-	public Tank(TEXTURE_TYPE textureType, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
+	public Tank(String name, TEXTURE_TYPE textureType, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
 		super();
+		this.name = name;
+		font = Assets.getInstance().getUIFontExtraSmall();
 		this.textureType = textureType;
 		if (textureType == TEXTURE_TYPE.SHIP1) {
 			texture = Assets.getInstance().getShip1();
@@ -148,6 +152,10 @@ public class Tank extends GameEntity {
 		} else {
 			batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
+	}
+	
+	public void renderName(SpriteBatch batch) {
+		font.draw(batch, name, (position.x * Config.WIDTH_RATIO) + ((size.x / 2) * Config.WIDTH_RATIO), (position.y * Config.HEIGHT_RATIO) - ((size.y / 2) * Config.HEIGHT_RATIO));
 	}
 
 	@Override
@@ -342,6 +350,7 @@ public class Tank extends GameEntity {
 		tankState.setId(id);
 		tankState.setRemoved(removed);
 		tankState.setTextureType(textureType);
+		tankState.setName(name);
 		for (Missile missile : missiles) {
 			if (missile != null && !missile.isSend()) {
 				missile.setSend(true);

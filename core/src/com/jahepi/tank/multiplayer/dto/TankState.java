@@ -6,7 +6,7 @@ import com.jahepi.tank.entities.Tank.TEXTURE_TYPE;
 
 public class TankState {
 
-	private String id;
+	private String id, name;
 	private float x, y, rotation, points;
 	private Array<MissileState> missiles;
 	private Array<PowerUp.TYPE> powerUps;
@@ -105,6 +105,14 @@ public class TankState {
 
 	public void setTextureType(TEXTURE_TYPE textureType) {
 		this.textureType = textureType;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getId() {

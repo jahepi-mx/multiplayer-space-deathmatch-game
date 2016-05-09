@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -16,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Disposable;
@@ -36,6 +36,7 @@ public class Render implements Disposable, ControllerListener {
 	private TankField tankField;
 	private OrthographicCamera camera;
 	private OrthographicCamera mapCamera;
+	private OrthographicCamera uiCamera;
 	private ShapeRenderer shapeRenderer;
 	private SpriteBatch batch;
 	private Controller controller;
@@ -43,7 +44,6 @@ public class Render implements Disposable, ControllerListener {
 	private Label lifeLabel;
 	private Label endLabel;
 	private Label winLabel;
-	private Label opponentsLabel;
 	private Label disconnectLabel;
 	private Label waitingLabel;
 	private Button rematchBtn;
@@ -59,7 +59,7 @@ public class Render implements Disposable, ControllerListener {
 		this.shapeRenderer = tankField.getDebugRender();
 		this.batch = tankField.getBatch();
 		
-		controller = new Controller(gameStateChangeListener, this, tankField.isServer());
+		controller = new Controller(gameStateChangeListener, this, tankField.isServer(), tankField.getName());
 		
 		camera = new OrthographicCamera(controller.getCameraHelper().getWidth(), controller.getCameraHelper().getHeight());
 		camera.position.x = controller.getCameraHelper().getX();
@@ -69,6 +69,11 @@ public class Render implements Disposable, ControllerListener {
 		mapCamera.position.x = Config.WIDTH / 2;
 		mapCamera.position.y = Config.HEIGHT / 2;
 		mapCamera.update();
+		
+		uiCamera = new OrthographicCamera(Config.UI_WIDTH, Config.UI_HEIGHT);
+		uiCamera.position.x = Config.UI_WIDTH / 2;
+		uiCamera.position.y = Config.UI_HEIGHT / 2;
+		uiCamera.update();
 		
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
 		stage = new Stage(viewport, this.batch);
@@ -132,13 +137,6 @@ public class Render implements Disposable, ControllerListener {
 		winLabel.setY(lifeLabel.getY() - winLabel.getHeight());
 		stage.addActor(winLabel);
 		
-		opponentsLabel = new Label("", labelStyleSmall);
-		opponentsLabel.setColor(Color.YELLOW);
-		opponentsLabel.setX(x);
-		opponentsLabel.setY(winLabel.getY() - opponentsLabel.getHeight());
-		opponentsLabel.setAlignment(Align.topLeft);
-		stage.addActor(opponentsLabel);
-		
 		Label exitLabel = new Label(Language.getInstance().get("quit_btn"), labelStyle);
 		Button exitBtn = new Button(skin);
 		exitBtn.add(exitLabel);
@@ -159,7 +157,7 @@ public class Render implements Disposable, ControllerListener {
 		});
 		
 		if (controller.isServer()) {
-			Label startLabel = new Label(Language.getInstance().get("start_btn"), labelStyle);
+			Label startLabel = new Label(Language.getInstance().get("start_game_btn"), labelStyle);
 			Button startBtn = new Button(skin);
 			startBtn.add(startLabel);
 			startBtn.setHeight(startLabel.getHeight());
@@ -324,31 +322,36 @@ public class Render implements Disposable, ControllerListener {
 		
 		batch.draw(Assets.getInstance().getBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
 		controller.getTank().render(batch);
-		ArrayIterator<OpponentTank> opponents = new ArrayIterator<OpponentTank>(controller.getOpponentTanks());
 		for (PowerUp powerUp : controller.getPowerUps()) {
 			if (powerUp != null) {
 				powerUp.render(batch);
 			}
 		}
 
-		StringBuffer opponentsInfo = new StringBuffer();
-		while (opponents.hasNext()) {
-			OpponentTank opponentTank = (OpponentTank) opponents.next();
+		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
 			opponentTank.render(batch);
-			opponentsInfo.append(Language.getInstance().get("opponent_life_label"));
-			opponentsInfo.append(opponentTank.getLife());
-			opponentsInfo.append(Language.getInstance().get("opponent_win_label"));
-			opponentsInfo.append(opponentTank.getWins());
-			opponentsInfo.append("\n");
 		}
 		batch.end();
 		
-		opponentsLabel.setText(opponentsInfo);
 		lifeLabel.setText(String.format(Language.getInstance().get("life_label"), controller.getTankLife()));
 		winLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()));
 		waitingLabel.setVisible(!controller.isStarted());
 		
 		stage.draw();
+		
+		batch.setColor(1, 1, 1, 1);
+		batch.setProjectionMatrix(uiCamera.combined);
+		batch.begin();
+		controller.getTank().renderName(batch);
+		BitmapFont font = Assets.getInstance().getUIFontSmall();
+		font.setColor(Color.YELLOW);
+		float lineBreak = 80.0f;
+		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
+			opponentTank.renderName(batch);
+			font.draw(batch, opponentTank.getName() + " " + opponentTank.getLife() + " " + Language.getInstance().get("opponent_win_label") + " " + opponentTank.getWins(), 0, Config.UI_HEIGHT - lineBreak);
+			lineBreak += 30.0f; 
+		}
+		batch.end();
 		
 		float deltatime = Gdx.graphics.getDeltaTime();
 		

@@ -34,12 +34,12 @@ public class Controller {
 	private float powerUpInterval;
 	private CameraHelper cameraHelper;
 	
-	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer) {
+	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer, String name) {
 		winner = "";
 		temporalHolder = new Array<Tank>();
 		Assets assets = Assets.getInstance();
 		opponentTanks = new Array<OpponentTank>();
-		tank = new Tank(Tank.getRandomTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
+		tank = new Tank(name, Tank.getRandomTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
 		tank.setMissileSize(1.0f, 0.5f);
 		this.controllerListener = controllerListener;
 		this.gameChangeStateListener = gameChangeStateListener;
@@ -78,7 +78,7 @@ public class Controller {
 				}
 				if (found == false) {
 					Assets assets = Assets.getInstance();
-					OpponentTank opponent = new OpponentTank(tankState.getTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
+					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
 					opponent.setMissileSize(1.0f, 0.5f);
 					opponent.setId(tankState.getId());
 					opponentTanks.add(opponent);

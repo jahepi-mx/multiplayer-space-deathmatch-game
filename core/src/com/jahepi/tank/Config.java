@@ -12,6 +12,9 @@ public class Config {
 	public static final int UI_WIDTH = 640;
 	public static final int UI_HEIGHT = 480;
 	
+	public static final float WIDTH_RATIO = UI_WIDTH / WIDTH;
+	public static final float HEIGHT_RATIO = UI_HEIGHT / HEIGHT;
+	
 	public static final boolean DEBUG = false;
 	
 	private Config() {

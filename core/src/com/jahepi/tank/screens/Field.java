@@ -33,6 +33,7 @@ public class Field implements Screen {
 	}
 	
 	public void showDisconnectError() {
+		Gdx.app.log(TAG, "onDisconnect");
 		render.showDisconnectError();
 	}
 

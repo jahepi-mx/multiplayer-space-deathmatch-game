@@ -17,8 +17,10 @@ public abstract class GameEntity {
 	protected float velocity;
 	protected float rotationSpeed;
 	protected boolean removed;
+	protected String name;
 	
 	public GameEntity() {
+		name = "";
 		id = "default";
 		position = new Vector2();
 		size = new Vector2();
@@ -105,6 +107,14 @@ public abstract class GameEntity {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean isRemoved() {

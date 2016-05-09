@@ -36,11 +36,15 @@ public class Main implements Screen {
 	private Label searchLabel;
 	private Label titleLabel;
 	private Label startServerLabel;
+	private Label searchServerLabel;
 	private Label englishLabel;
 	private Label spanishLabel;
 	private Label portLabel;
 	private TextField portTextField;
+	private Label nicknameLabel;
+	private TextField nicknameTextField;
 	private Button serverBtn;
+	private Button searchServerBtn;
 	private Button englishBtn;
 	private Button spanishBtn;
 	
@@ -68,10 +72,15 @@ public class Main implements Screen {
 		BitmapFont uiFont = Assets.getInstance().getUIFont();
 		style1.font = uiFont;
 		
-		startServerLabel = new Label(Language.getInstance().get("start_btn"), style1);
+		startServerLabel = new Label(Language.getInstance().get("start_server_btn"), style1);
 		serverBtn = new Button(skin);
 		serverBtn.add(startServerLabel);
 		stage.addActor(serverBtn);
+		
+		searchServerLabel = new Label(Language.getInstance().get("search_server_btn"), style1);
+		searchServerBtn = new Button(skin);
+		searchServerBtn.add(searchServerLabel);
+		stage.addActor(searchServerBtn);
 		
 		LabelStyle style = new LabelStyle();
 		style.font = Assets.getInstance().getUIFont();
@@ -89,6 +98,16 @@ public class Main implements Screen {
 		titleLabel.setAlignment(Align.center);
 		stage.addActor(titleLabel);
 		
+		nicknameTextField = new TextField("", skin);
+		nicknameTextField.getStyle().font = Assets.getInstance().getUIFont();
+		nicknameTextField.setText(Language.getInstance().get("default_nickname"));
+		nicknameTextField.setWidth(100);
+		stage.addActor(nicknameTextField);
+		
+		nicknameLabel = new Label(Language.getInstance().get("nickname_label"), style);
+		nicknameLabel.setColor(Color.GREEN);
+		stage.addActor(nicknameLabel);
+		
 		portTextField = new TextField("", skin);
 		portTextField.getStyle().font = Assets.getInstance().getUIFont();
 		portTextField.setText(Integer.toString(Server.PORT));
@@ -99,12 +118,21 @@ public class Main implements Screen {
 		portLabel.setColor(Color.GREEN);
 		stage.addActor(portLabel);
 		
+		searchServerBtn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.log(TAG, "On search server ...");
+				String port = portTextField.getText();
+				tankField.searchServer((int) Integer.parseInt(port), nicknameTextField.getText());
+			}	
+		});
+		
 		serverBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Gdx.app.log(TAG, "On click ...");
+				Gdx.app.log(TAG, "On run server ...");
 				String port = portTextField.getText();
-				tankField.start((int) Integer.parseInt(port));
+				tankField.runServer((int) Integer.parseInt(port), nicknameTextField.getText());
 			}	
 		});
 		
@@ -137,13 +165,21 @@ public class Main implements Screen {
 		updateUITexts();
 	}
 	
-	public void updateUITexts() {
-		startServerLabel.setText(Language.getInstance().get("start_btn"));
+	public void updateUITexts() {	
+		searchServerLabel.setText(Language.getInstance().get("search_server_btn"));
 		startServerLabel.pack();
-		serverBtn.setWidth(startServerLabel.getWidth() + 10.0f);
-		serverBtn.setHeight(startServerLabel.getHeight());
+		searchServerBtn.setWidth(searchServerLabel.getWidth() + 10.0f);
+		searchServerBtn.setHeight(searchServerLabel.getHeight());
+		searchServerBtn.setX((Config.UI_WIDTH / 2) - (searchServerBtn.getWidth() / 2));
+		searchServerBtn.setY((Config.UI_HEIGHT / 2) - (searchServerBtn.getHeight() / 2));
+		searchServerBtn.pack();
+		
+		startServerLabel.setText(Language.getInstance().get("start_server_btn"));
+		startServerLabel.pack();
+		serverBtn.setWidth(searchServerLabel.getWidth() + 10.0f);
+		serverBtn.setHeight(searchServerLabel.getHeight());
 		serverBtn.setX((Config.UI_WIDTH / 2) - (serverBtn.getWidth() / 2));
-		serverBtn.setY((Config.UI_HEIGHT / 2) - (serverBtn.getHeight() / 2));
+		serverBtn.setY(searchServerBtn.getY() + (serverBtn.getHeight() * 2));
 		serverBtn.pack();
 		
 		int padding = 10;
@@ -152,7 +188,15 @@ public class Main implements Screen {
 		titleLabel.setX((Config.UI_WIDTH / 2) - (titleLabel.getWidth() / 2));
 		titleLabel.setY(Config.UI_HEIGHT - titleLabel.getHeight() - padding);
 		
-		portTextField.setY(serverBtn.getY() - portTextField.getHeight() - padding);
+		nicknameTextField.setY(searchServerBtn.getY() - nicknameTextField.getHeight() - padding);
+		nicknameTextField.setWidth(100);
+		nicknameTextField.pack();
+		
+		nicknameLabel.setText(Language.getInstance().get("nickname_label"));
+		nicknameLabel.setY(nicknameTextField.getY());
+		nicknameLabel.pack();
+		
+		portTextField.setY(nicknameTextField.getY() - portTextField.getHeight() - padding);
 		portTextField.setWidth(100);
 		portTextField.pack();
 		
@@ -181,6 +225,12 @@ public class Main implements Screen {
 		spanishBtn.setX(right);
 		spanishBtn.setY(portTextField.getY() - portTextField.getHeight() - 30.0f);
 		spanishBtn.pack();
+		
+		width = (nicknameTextField.getWidth() + nicknameLabel.getWidth() + padding) / 2;
+		left = (Config.UI_WIDTH / 2) - width;
+		right = (Config.UI_WIDTH / 2) + width - nicknameTextField.getWidth();
+		nicknameLabel.setX(left);
+		nicknameTextField.setX(right);
 	}
 	
 	public void showConnectionError() {
