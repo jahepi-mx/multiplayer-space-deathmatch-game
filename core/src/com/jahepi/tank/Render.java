@@ -363,17 +363,11 @@ public class Render implements Disposable, ControllerListener {
 		
 		if (isMovingLeft) {
 			controller.left();
-		}
-		
-		if (isMovingRight) {
+		} else if (isMovingRight) {
 			controller.right();
-		}
-		
-		if (isRotatingUp) {
+		} else if (isRotatingUp) {
 			controller.rotateUp();
-		}
-		
-		if (isRotatingDown) {
+		} else if (isRotatingDown) {
 			controller.rotateDown();
 		}
 		

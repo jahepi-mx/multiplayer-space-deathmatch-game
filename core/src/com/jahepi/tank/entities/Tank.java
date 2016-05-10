@@ -23,6 +23,7 @@ public class Tank extends GameEntity {
 
 	public static final String TAG = "Tank";
 	public static final float FRICTION = 0.99f;
+	public static final float ROTATION_FRICTION = 0.92f;
 	public static final float SHOOT_TIME = 0.4f;
 	public static final int LIFE = 50;
 	public static enum TEXTURE_TYPE {
@@ -46,7 +47,7 @@ public class Tank extends GameEntity {
 	protected float defaultSize = 2.0f;
 	protected int damage = 1;
 	protected float missileEffectScale = 1.0f;
-	protected float missileSpeed = 7.0f;
+	protected float missileSpeed = 11.0f;
 	protected TEXTURE_TYPE textureType;
 	protected BitmapFont font;
 	
@@ -191,15 +192,36 @@ public class Tank extends GameEntity {
 		}
 	}
 	
+	private float getDegrees() {
+		float degrees = 0;
+		if (rotation < 0) {
+			degrees = 360 + (rotation % 360);
+		} else {
+			degrees = (rotation % 360);
+		}
+		return degrees;
+	}
+	
 	public void right() {
-		speed = this.velocity;
+		float degrees = getDegrees();
+		if ((degrees >= 0 && degrees <= 90) || (degrees >= 270 && degrees <= 360)) {
+			speed = this.velocity;
+		} else {
+			speed = -this.velocity;
+		}
+		
 		if (isDead()) {
 			speed = 0;
 		}
 	}
 	
 	public void left() {
-		speed = -this.velocity;
+		float degrees = getDegrees();
+		if (degrees > 90 && degrees < 270) {
+			speed = this.velocity;
+		} else {
+			speed = -this.velocity;
+		}
 		if (isDead()) {
 			speed = 0;
 		}
@@ -222,14 +244,14 @@ public class Tank extends GameEntity {
 	public void update(float deltatime) {
 		shootTime += deltatime;
 		speed *= FRICTION;
-		rotationSpeed *= FRICTION;
+		rotationSpeed *= ROTATION_FRICTION;
 		rotation += rotationSpeed * deltatime;
 		
 		position.x += (MathUtils.cosDeg(rotation) * speed) * deltatime;
 		position.y += (MathUtils.sinDeg(rotation) * speed) * deltatime;		
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setRotation(rotation);
-		
+
 		if (position.x < 0) {
 			position.x = 0;
 		}

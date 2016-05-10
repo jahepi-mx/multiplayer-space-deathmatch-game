@@ -213,14 +213,11 @@ public class Controller {
 			if (Gdx.app.getType() == ApplicationType.Desktop) {
 				if (Gdx.input.isKeyPressed(Keys.A)) {
 					tank.left();
-				}
-				if (Gdx.input.isKeyPressed(Keys.D)) {
+				} else if (Gdx.input.isKeyPressed(Keys.D)) {
 					tank.right();
-				}
-				if (Gdx.input.isKeyPressed(Keys.W)) {
+				} else if (Gdx.input.isKeyPressed(Keys.W)) {
 					tank.rotateUp();
-				}
-				if (Gdx.input.isKeyPressed(Keys.S)) {
+				} else if (Gdx.input.isKeyPressed(Keys.S)) {
 					tank.rotateDown();
 				}
 				if (Gdx.input.isKeyPressed(Keys.SPACE)) {
