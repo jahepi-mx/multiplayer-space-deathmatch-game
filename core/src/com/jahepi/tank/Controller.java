@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
+import com.jahepi.tank.entities.Missile;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Tank;
@@ -39,7 +40,7 @@ public class Controller {
 		temporalHolder = new Array<Tank>();
 		Assets assets = Assets.getInstance();
 		opponentTanks = new Array<OpponentTank>();
-		tank = new Tank(name, Tank.getRandomTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
+		tank = new Tank(name, Tank.getRandomTextureType(), Missile.getRandomTextureType(), assets.getEffect2(), assets.getAudio1());
 		tank.setMissileSize(1.0f, 0.5f);
 		this.controllerListener = controllerListener;
 		this.gameChangeStateListener = gameChangeStateListener;
@@ -78,7 +79,7 @@ public class Controller {
 				}
 				if (found == false) {
 					Assets assets = Assets.getInstance();
-					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), assets.getRocket1(), assets.getEffect2(), assets.getAudio1());
+					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), tankState.getMissileTextureType(), assets.getEffect2(), assets.getAudio1());
 					opponent.setMissileSize(1.0f, 0.5f);
 					opponent.setId(tankState.getId());
 					opponentTanks.add(opponent);
@@ -213,11 +214,14 @@ public class Controller {
 			if (Gdx.app.getType() == ApplicationType.Desktop) {
 				if (Gdx.input.isKeyPressed(Keys.A)) {
 					tank.left();
-				} else if (Gdx.input.isKeyPressed(Keys.D)) {
+				}
+				if (Gdx.input.isKeyPressed(Keys.D)) {
 					tank.right();
-				} else if (Gdx.input.isKeyPressed(Keys.W)) {
+				} 
+				if (Gdx.input.isKeyPressed(Keys.W)) {
 					tank.rotateUp();
-				} else if (Gdx.input.isKeyPressed(Keys.S)) {
+				} 
+				if (Gdx.input.isKeyPressed(Keys.S)) {
 					tank.rotateDown();
 				}
 				if (Gdx.input.isKeyPressed(Keys.SPACE)) {

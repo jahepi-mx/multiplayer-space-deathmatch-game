@@ -5,182 +5,217 @@ filter: Linear,Linear
 repeat: none
 background_game
   rotate: false
-  xy: 1, 1213
+  xy: 1, 1205
   size: 1024, 810
   orig: 1024, 810
   offset: 0, 0
   index: -1
 background_main
   rotate: false
-  xy: 1, 401
+  xy: 1, 393
   size: 1024, 810
   orig: 1024, 810
   offset: 0, 0
   index: -1
 laser
   rotate: false
-  xy: 1027, 1423
+  xy: 1027, 1415
   size: 100, 600
   orig: 100, 600
   offset: 0, 0
   index: -1
+ship5
+  rotate: false
+  xy: 1, 163
+  size: 180, 228
+  orig: 180, 228
+  offset: 0, 0
+  index: -1
 energy
   rotate: false
-  xy: 1, 201
+  xy: 1129, 1817
   size: 200, 198
   orig: 200, 198
   offset: 0, 0
   index: -1
 freeze
   rotate: false
-  xy: 1129, 1825
+  xy: 183, 193
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 health
   rotate: false
-  xy: 1, 1
+  xy: 1129, 1617
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 nuke
   rotate: false
-  xy: 203, 201
+  xy: 1331, 1817
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 poison
   rotate: false
-  xy: 1129, 1625
+  xy: 384, 193
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 shield
   rotate: false
-  xy: 1330, 1825
+  xy: 1129, 1417
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 ship2
   rotate: false
-  xy: 202, 39
+  xy: 1, 1
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
 ship3
   rotate: false
-  xy: 404, 239
+  xy: 1330, 1655
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
+ship4
+  rotate: false
+  xy: 1532, 1877
+  size: 173, 138
+  orig: 173, 138
+  offset: 0, 0
+  index: -1
 ship1
   rotate: false
-  xy: 1129, 1463
+  xy: 585, 231
   size: 140, 160
   orig: 140, 160
   offset: 0, 0
   index: -1
 skull
   rotate: false
-  xy: 1330, 1663
+  xy: 1330, 1493
   size: 136, 160
   orig: 136, 160
   offset: 0, 0
   index: -1
-ship4
+rocket5
   rotate: false
-  xy: 1531, 1907
-  size: 116, 116
-  orig: 116, 116
+  xy: 1027, 1282
+  size: 60, 131
+  orig: 60, 131
+  offset: 0, 0
+  index: -1
+rocket6
+  rotate: false
+  xy: 1707, 1884
+  size: 59, 131
+  orig: 59, 131
   offset: 0, 0
   index: -1
 button_arrow_bottom
   rotate: false
-  xy: 1027, 1341
+  xy: 727, 311
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_bottom_on
   rotate: false
-  xy: 566, 319
+  xy: 1768, 1935
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_left
   rotate: false
-  xy: 1531, 1825
+  xy: 809, 311
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_left_on
   rotate: false
-  xy: 1468, 1743
+  xy: 1850, 1935
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_right
   rotate: false
-  xy: 1649, 1943
+  xy: 891, 311
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_right_on
   rotate: false
-  xy: 1027, 1259
+  xy: 1932, 1935
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
+rocket3
+  rotate: false
+  xy: 2014, 1900
+  size: 33, 115
+  orig: 33, 115
+  offset: 0, 0
+  index: -1
 button_arrow_top
   rotate: false
-  xy: 648, 319
+  xy: 727, 229
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_top_on
   rotate: false
-  xy: 1731, 1943
+  xy: 809, 229
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot
   rotate: false
-  xy: 1027, 1177
+  xy: 891, 229
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot_on
   rotate: false
-  xy: 730, 319
+  xy: 1330, 1411
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
+rocket4
+  rotate: false
+  xy: 1492, 1714
+  size: 28, 101
+  orig: 28, 101
+  offset: 0, 0
+  index: -1
 rocket1
   rotate: false
-  xy: 364, 135
+  xy: 1027, 1216
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket2
   rotate: false
-  xy: 202, 3
+  xy: 1532, 1841
   size: 35, 34
   orig: 35, 34
   offset: 0, 0

@@ -121,6 +121,10 @@ public class Assets implements Disposable {
 		return atlas.findRegion("ship4");
 	}
 	
+	public TextureRegion getShip5() {
+		return atlas.findRegion("ship5");
+	}
+	
 	public TextureRegion getSKull() {
 		return atlas.findRegion("skull");
 	}
@@ -131,6 +135,22 @@ public class Assets implements Disposable {
 
 	public TextureRegion getRocket2() {
 		return atlas.findRegion("rocket2");
+	}
+	
+	public TextureRegion getRocket3() {
+		return atlas.findRegion("rocket3");
+	}
+	
+	public TextureRegion getRocket4() {
+		return atlas.findRegion("rocket4");
+	}
+	
+	public TextureRegion getRocket5() {
+		return atlas.findRegion("rocket5");
+	}
+	
+	public TextureRegion getRocket6() {
+		return atlas.findRegion("rocket6");
 	}
 
 	public ParticleEffect getEffect1() {

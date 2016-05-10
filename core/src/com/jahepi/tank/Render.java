@@ -70,9 +70,9 @@ public class Render implements Disposable, ControllerListener {
 		mapCamera.position.y = Config.HEIGHT / 2;
 		mapCamera.update();
 		
-		uiCamera = new OrthographicCamera(Config.UI_WIDTH, Config.UI_HEIGHT);
-		uiCamera.position.x = Config.UI_WIDTH / 2;
-		uiCamera.position.y = Config.UI_HEIGHT / 2;
+		uiCamera = new OrthographicCamera(Config.UI_CAMERA_WIDTH * Config.UI_CAMERA_WIDTH_RATIO, Config.UI_CAMERA_HEIGHT * Config.UI_CAMERA_HEIGHT_RATIO);
+		uiCamera.position.x = (Config.UI_CAMERA_WIDTH * Config.UI_CAMERA_WIDTH_RATIO) / 2;
+		uiCamera.position.y = (Config.UI_CAMERA_WIDTH * Config.UI_CAMERA_HEIGHT_RATIO) / 2;
 		uiCamera.update();
 		
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
@@ -339,17 +339,21 @@ public class Render implements Disposable, ControllerListener {
 		
 		stage.draw();
 		
+		uiCamera.position.x = camera.position.x * Config.UI_WIDTH_RATIO;
+		uiCamera.position.y = camera.position.y * Config.UI_HEIGHT_RATIO;
+		uiCamera.update();
+		
 		batch.setColor(1, 1, 1, 1);
 		batch.setProjectionMatrix(uiCamera.combined);
 		batch.begin();
 		controller.getTank().renderName(batch);
 		BitmapFont font = Assets.getInstance().getUIFontSmall();
 		font.setColor(Color.YELLOW);
-		float lineBreak = 80.0f;
+		float lineBreak = 240.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
 			opponentTank.renderName(batch);
-			font.draw(batch, opponentTank.getName() + " " + opponentTank.getLife() + " " + Language.getInstance().get("opponent_win_label") + " " + opponentTank.getWins(), 0, Config.UI_HEIGHT - lineBreak);
-			lineBreak += 30.0f; 
+			font.draw(batch, opponentTank.getName() + " " + opponentTank.getLife() + " " + Language.getInstance().get("opponent_win_label") + " " + opponentTank.getWins(), uiCamera.position.x - ((Config.UI_CAMERA_WIDTH * Config.UI_CAMERA_WIDTH_RATIO) / 2), uiCamera.position.y + (Config.UI_CAMERA_HEIGHT * Config.UI_CAMERA_WIDTH_RATIO) - lineBreak);
+			lineBreak += 25.0f; 
 		}
 		batch.end();
 		
@@ -363,11 +367,14 @@ public class Render implements Disposable, ControllerListener {
 		
 		if (isMovingLeft) {
 			controller.left();
-		} else if (isMovingRight) {
+		}
+		if (isMovingRight) {
 			controller.right();
-		} else if (isRotatingUp) {
+		}
+		if (isRotatingUp) {
 			controller.rotateUp();
-		} else if (isRotatingDown) {
+		}
+		if (isRotatingDown) {
 			controller.rotateDown();
 		}
 		

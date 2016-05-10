@@ -2,9 +2,9 @@ package com.jahepi.tank.entities;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.jahepi.tank.Util;
+import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
 
 public class OpponentTank extends Tank {
@@ -14,8 +14,8 @@ public class OpponentTank extends Tank {
 	private boolean readyRemove;
 	private float readyRemoveTime;
 	
-	public OpponentTank(String name, TEXTURE_TYPE textureType, TextureRegion missileTexture, ParticleEffect effect, Sound sound) {
-		super(name, textureType, missileTexture, effect, sound);
+	public OpponentTank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
+		super(name, textureType, missileTextureType, effect, sound);
 	}
 	
 	public void update(float deltatime) {
