@@ -181,9 +181,10 @@ public class Render implements Disposable, ControllerListener {
 			exitBtn.setX(left);
 		}
 		
-		float padX = Config.UI_WIDTH * 0.07f;
-		float padY = Config.UI_WIDTH * 0.07f;
+		float padX = Config.UI_WIDTH * 0.02f;
+		float padY = Config.UI_WIDTH * 0.06f;
 		
+		/*
 		TextureRegionDrawable leftArrow = new TextureRegionDrawable(Assets.getInstance().getLeftArrow());
 		TextureRegionDrawable leftArrowOn = new TextureRegionDrawable(Assets.getInstance().getLeftArrowOn());
 		ImageButton leftImageBtn = new ImageButton(leftArrow, leftArrowOn);
@@ -201,11 +202,11 @@ public class Render implements Disposable, ControllerListener {
 				isMovingLeft = false;
 			}
 		});
-		
+		*/
 		TextureRegionDrawable rightArrow = new TextureRegionDrawable(Assets.getInstance().getRightArrow());
 		TextureRegionDrawable rightArrowOn = new TextureRegionDrawable(Assets.getInstance().getRightArrowOn());
 		ImageButton rightImageBtn = new ImageButton(rightArrow, rightArrowOn);
-		rightImageBtn.setX(leftImageBtn.getX() + leftImageBtn.getWidth() + padX);
+		rightImageBtn.setX(rightImageBtn.getWidth() - padX);
 		rightImageBtn.setY(padY);
 		stage.addActor(rightImageBtn);
 		rightImageBtn.addListener(new ClickListener() {
@@ -223,8 +224,7 @@ public class Render implements Disposable, ControllerListener {
 		TextureRegionDrawable upArrow = new TextureRegionDrawable(Assets.getInstance().getTopArrow());
 		TextureRegionDrawable upArrowOn = new TextureRegionDrawable(Assets.getInstance().getTopArrowOn());
 		ImageButton upImageBtn = new ImageButton(upArrow, upArrowOn);
-		upImageBtn.setX(((rightImageBtn.getX() + rightImageBtn.getWidth()) / 2) - (upImageBtn.getWidth() / 2));
-		upImageBtn.setY(leftImageBtn.getY() + padY);
+		upImageBtn.setY(rightImageBtn.getY() + padY);
 		stage.addActor(upImageBtn);
 		upImageBtn.addListener(new ClickListener() {
 			@Override
@@ -241,8 +241,7 @@ public class Render implements Disposable, ControllerListener {
 		TextureRegionDrawable downArrow = new TextureRegionDrawable(Assets.getInstance().getBottomArrow());
 		TextureRegionDrawable bottomArrowOn = new TextureRegionDrawable(Assets.getInstance().getBottomArrowOn());
 		ImageButton downImageBtn = new ImageButton(downArrow, bottomArrowOn);
-		downImageBtn.setX(((rightImageBtn.getX() + rightImageBtn.getWidth()) / 2) - (downImageBtn.getWidth() / 2));
-		downImageBtn.setY(leftImageBtn.getY() - padY);
+		downImageBtn.setY(rightImageBtn.getY() - padY);
 		stage.addActor(downImageBtn);
 		downImageBtn.addListener(new ClickListener() {
 			@Override
@@ -260,7 +259,6 @@ public class Render implements Disposable, ControllerListener {
 		TextureRegionDrawable shootButtonOn = new TextureRegionDrawable(Assets.getInstance().getShootButtonOn());
 		ImageButton shootImageBtn = new ImageButton(shootButtonTexture, shootButtonOn);
 		shootImageBtn.setX(Config.UI_WIDTH - shootImageBtn.getWidth());
-		shootImageBtn.setY(padY);
 		stage.addActor(shootImageBtn);
 		shootImageBtn.addListener(new ClickListener() {
 			@Override
@@ -366,7 +364,7 @@ public class Render implements Disposable, ControllerListener {
 		}
 		
 		if (isMovingLeft) {
-			controller.left();
+			//controller.left();
 		}
 		if (isMovingRight) {
 			controller.right();

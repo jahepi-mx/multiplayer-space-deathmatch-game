@@ -213,7 +213,7 @@ public class Controller {
 			
 			if (Gdx.app.getType() == ApplicationType.Desktop) {
 				if (Gdx.input.isKeyPressed(Keys.A)) {
-					tank.left();
+					//tank.left();
 				}
 				if (Gdx.input.isKeyPressed(Keys.D)) {
 					tank.right();
