@@ -50,7 +50,6 @@ public class Tank extends GameEntity {
 	protected float missileSpeed = 11.0f;
 	protected TEXTURE_TYPE textureType;
 	protected BitmapFont font;
-	protected boolean isLeft;
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
@@ -196,15 +195,6 @@ public class Tank extends GameEntity {
 	}
 	
 	public void right() {
-		isLeft = false;
-		speed = this.velocity;	
-		if (isDead()) {
-			speed = 0;
-		}
-	}
-	
-	public void left() {
-		isLeft = true;
 		speed = this.velocity;	
 		if (isDead()) {
 			speed = 0;
@@ -231,12 +221,8 @@ public class Tank extends GameEntity {
 		rotationSpeed *= FRICTION;
 		rotation += rotationSpeed * deltatime;
 		
-		float tempRotation = rotation;
-		if (isLeft) {
-			tempRotation = rotation + 180; 
-		}
-		position.x += (MathUtils.cosDeg(tempRotation) * speed) * deltatime;
-		position.y += (MathUtils.sinDeg(tempRotation) * speed) * deltatime;		
+		position.x += (MathUtils.cosDeg(rotation) * speed) * deltatime;
+		position.y += (MathUtils.sinDeg(rotation) * speed) * deltatime;		
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setRotation(rotation);
 

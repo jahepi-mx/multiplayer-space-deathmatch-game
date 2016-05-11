@@ -212,9 +212,6 @@ public class Controller {
 			}
 			
 			if (Gdx.app.getType() == ApplicationType.Desktop) {
-				if (Gdx.input.isKeyPressed(Keys.A)) {
-					//tank.left();
-				}
 				if (Gdx.input.isKeyPressed(Keys.D)) {
 					tank.right();
 				} 
@@ -303,10 +300,6 @@ public class Controller {
 			}
 		}
 		gameChangeStateListener.onGameChangeState(gameState);
-	}
-	
-	public void left() {
-		tank.left();
 	}
 	
 	public void right() {

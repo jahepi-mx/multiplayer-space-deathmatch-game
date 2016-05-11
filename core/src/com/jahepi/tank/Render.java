@@ -48,7 +48,6 @@ public class Render implements Disposable, ControllerListener {
 	private Label waitingLabel;
 	private Button rematchBtn;
 	private boolean isShooting;
-	private boolean isMovingLeft;
 	private boolean isMovingRight;
 	private boolean isRotatingUp;
 	private boolean isRotatingDown;
@@ -184,25 +183,6 @@ public class Render implements Disposable, ControllerListener {
 		float padX = Config.UI_WIDTH * 0.02f;
 		float padY = Config.UI_WIDTH * 0.06f;
 		
-		/*
-		TextureRegionDrawable leftArrow = new TextureRegionDrawable(Assets.getInstance().getLeftArrow());
-		TextureRegionDrawable leftArrowOn = new TextureRegionDrawable(Assets.getInstance().getLeftArrowOn());
-		ImageButton leftImageBtn = new ImageButton(leftArrow, leftArrowOn);
-		leftImageBtn.setY(padY);
-		leftImageBtn.setOrigin(leftImageBtn.getWidth() / 2, leftImageBtn.getHeight() / 2);
-		stage.addActor(leftImageBtn);
-		leftImageBtn.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				isMovingLeft = true;
-				return true;
-			}
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				isMovingLeft = false;
-			}
-		});
-		*/
 		TextureRegionDrawable rightArrow = new TextureRegionDrawable(Assets.getInstance().getRightArrow());
 		TextureRegionDrawable rightArrowOn = new TextureRegionDrawable(Assets.getInstance().getRightArrowOn());
 		ImageButton rightImageBtn = new ImageButton(rightArrow, rightArrowOn);
@@ -363,9 +343,6 @@ public class Render implements Disposable, ControllerListener {
 			controller.onReleaseShoot();
 		}
 		
-		if (isMovingLeft) {
-			//controller.left();
-		}
 		if (isMovingRight) {
 			controller.right();
 		}
