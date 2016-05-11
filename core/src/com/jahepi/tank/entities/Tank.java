@@ -50,6 +50,9 @@ public class Tank extends GameEntity {
 	protected float missileSpeed = 11.0f;
 	protected TEXTURE_TYPE textureType;
 	protected BitmapFont font;
+	protected float speedUpTime;
+	protected float lastSpeedUpTime;
+	protected boolean activeSpeedUpTime;
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
@@ -194,6 +197,18 @@ public class Tank extends GameEntity {
 		}
 	}
 	
+	public void speedUp() {
+		float diff = speedUpTime - lastSpeedUpTime;
+		if (!activeSpeedUpTime) {
+			if (diff > 0.2f && diff < 0.5f) {
+				activeSpeedUpTime = true;
+				velocity = 17.0f;
+				speedUpTime = 0;
+			}
+		}
+		lastSpeedUpTime = speedUpTime;
+	}
+	
 	public void right() {
 		speed = this.velocity;	
 		if (isDead()) {
@@ -217,9 +232,17 @@ public class Tank extends GameEntity {
 	
 	public void update(float deltatime) {
 		shootTime += deltatime;
+		speedUpTime += deltatime;
 		speed *= FRICTION;
 		rotationSpeed *= FRICTION;
 		rotation += rotationSpeed * deltatime;
+		
+		if (activeSpeedUpTime) {
+			if (speedUpTime >= 1.0f) {
+				velocity = 10.0f;
+				activeSpeedUpTime = false;
+			}
+		}
 		
 		position.x += (MathUtils.cosDeg(rotation) * speed) * deltatime;
 		position.y += (MathUtils.sinDeg(rotation) * speed) * deltatime;		

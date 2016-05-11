@@ -193,6 +193,7 @@ public class Render implements Disposable, ControllerListener {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				isMovingRight = true;
+				controller.speedUp();
 				return true;
 			}
 			@Override

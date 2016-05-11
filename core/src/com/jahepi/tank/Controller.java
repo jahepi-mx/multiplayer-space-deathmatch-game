@@ -302,6 +302,10 @@ public class Controller {
 		gameChangeStateListener.onGameChangeState(gameState);
 	}
 	
+	public void speedUp() {
+		tank.speedUp();
+	}
+	
 	public void right() {
 		tank.right();
 	}
