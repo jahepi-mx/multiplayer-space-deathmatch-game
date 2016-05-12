@@ -3,6 +3,7 @@ package com.jahepi.tank.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,6 +24,7 @@ import com.jahepi.tank.multiplayer.dto.TankState;
 public class Tank extends GameEntity {
 
 	public static final String TAG = "Tank";
+	public static final float DEFAULT_VELOCITY = 10.0f;
 	public static final float FRICTION = 0.99f;
 	public static final float SHOOT_TIME = 0.4f;
 	public static final int LIFE = 50;
@@ -53,6 +55,9 @@ public class Tank extends GameEntity {
 	protected float speedUpTime;
 	protected float lastSpeedUpTime;
 	protected boolean activeSpeedUpTime;
+	protected Animation speedUpAnimation;
+	protected TextureRegion speedUpTexture;
+	protected float time;
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
@@ -70,7 +75,8 @@ public class Tank extends GameEntity {
 		}  else {
 			texture = Assets.getInstance().getShip5();
 		}
-		velocity = 10.0f;
+		velocity = DEFAULT_VELOCITY;
+		this.speedUpAnimation = Assets.getInstance().getSpeedUpAnimation();
 		size.set(defaultSize, defaultSize);
 		position.set(Config.WIDTH / 2, Config.HEIGHT / 2);
 		missiles = new Array<Missile>();
@@ -158,6 +164,10 @@ public class Tank extends GameEntity {
 		} else {
 			batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
+		
+		if (velocity > DEFAULT_VELOCITY && speedUpTexture != null) {
+			batch.draw(speedUpTexture, position.x + ((MathUtils.cosDeg(rotation) * -2)), position.y + ((MathUtils.sinDeg(rotation) * -1)), size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+		}
 	}
 	
 	public void renderName(SpriteBatch batch) {
@@ -200,10 +210,12 @@ public class Tank extends GameEntity {
 	public void speedUp() {
 		float diff = speedUpTime - lastSpeedUpTime;
 		if (!activeSpeedUpTime) {
-			if (diff > 0.2f && diff < 0.5f) {
+			if (diff > 0.1f && diff < 0.4f) {
 				activeSpeedUpTime = true;
 				velocity = 17.0f;
 				speedUpTime = 0;
+				long id = Assets.getInstance().getAudioSpeedUp().play();
+				Assets.getInstance().getAudioSpeedUp().setVolume(id, 0.2f);
 			}
 		}
 		lastSpeedUpTime = speedUpTime;
@@ -233,15 +245,20 @@ public class Tank extends GameEntity {
 	public void update(float deltatime) {
 		shootTime += deltatime;
 		speedUpTime += deltatime;
+		time += deltatime;
 		speed *= FRICTION;
 		rotationSpeed *= FRICTION;
 		rotation += rotationSpeed * deltatime;
 		
 		if (activeSpeedUpTime) {
 			if (speedUpTime >= 1.0f) {
-				velocity = 10.0f;
+				velocity = DEFAULT_VELOCITY;
 				activeSpeedUpTime = false;
 			}
+		}
+		
+		if (velocity > DEFAULT_VELOCITY) {
+			speedUpTexture = speedUpAnimation.getKeyFrame(time);
 		}
 		
 		position.x += (MathUtils.cosDeg(rotation) * speed) * deltatime;
@@ -368,6 +385,7 @@ public class Tank extends GameEntity {
 		tankState.setWins(wins);
 		tankState.setId(id);
 		tankState.setRemoved(removed);
+		tankState.setVelocity(velocity);
 		tankState.setTextureType(textureType);
 		tankState.setMissileTextureType(missileTextureType);
 		tankState.setName(name);
@@ -393,6 +411,7 @@ public class Tank extends GameEntity {
 		rectangle.setRotation(rotation);
 		shooting = tankState.isShooting();
 		removed = tankState.isRemoved();
+		velocity = tankState.getVelocity();
 		if (isSend) {
 			life = tankState.getLife();
 			wins = tankState.getWins();

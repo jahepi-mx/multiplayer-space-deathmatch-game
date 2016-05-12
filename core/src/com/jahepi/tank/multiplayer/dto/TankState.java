@@ -8,7 +8,7 @@ import com.jahepi.tank.entities.Tank.TEXTURE_TYPE;
 public class TankState {
 
 	private String id, name;
-	private float x, y, rotation, points;
+	private float x, y, rotation, points, velocity;
 	private Array<MissileState> missiles;
 	private Array<PowerUp.TYPE> powerUps;
 	private boolean shooting, removed;
@@ -131,6 +131,14 @@ public class TankState {
 
 	public void setRemoved(boolean removed) {
 		this.removed = removed;
+	}
+
+	public float getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(float velocity) {
+		this.velocity = velocity;
 	}
 
 	public TEXTURE_MISSILE_TYPE getMissileTextureType() {

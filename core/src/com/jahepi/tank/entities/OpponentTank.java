@@ -20,11 +20,17 @@ public class OpponentTank extends Tank {
 	
 	public void update(float deltatime) {
 		
+		time += deltatime;
+		
 		if (isRemoved()) {
 			readyRemoveTime += deltatime;
 			if (readyRemoveTime >= REMOVE_LIMIT_TIME) {
 				readyRemove = true;
 			}
+		}
+		
+		if (velocity > DEFAULT_VELOCITY) {
+			speedUpTexture = speedUpAnimation.getKeyFrame(time);
 		}
 
 		for (Missile missile : missiles) {

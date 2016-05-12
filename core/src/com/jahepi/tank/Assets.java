@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -25,6 +26,7 @@ public class Assets implements Disposable {
 	private Sound audio1;
 	private Sound audio2;
 	private Sound audioItem;
+	private Sound audioSpeedUp;
 	private Sound destroySound;
 	private Music music, action;
 	private FreeTypeFontGenerator fontGenerator;
@@ -47,11 +49,12 @@ public class Assets implements Disposable {
 		audio2 = Gdx.audio.newSound(Gdx.files.internal("audio/laser2.mp3"));
 		audioItem = Gdx.audio.newSound(Gdx.files.internal("audio/powerup.mp3"));
 		destroySound = Gdx.audio.newSound(Gdx.files.internal("audio/explosion.wav"));
+		audioSpeedUp = Gdx.audio.newSound(Gdx.files.internal("audio/speedup.wav"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"));
 		music.setVolume(0.5f);
 		music.setLooping(true);
 		action = Gdx.audio.newMusic(Gdx.files.internal("audio/action.ogg"));
-		action.setVolume(0.1f);
+		action.setVolume(0.2f);
 		action.setLooping(true);
 		
 		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("font/game.ttf"));
@@ -177,6 +180,10 @@ public class Assets implements Disposable {
 		return destroySound;
 	}
 
+	public Sound getAudioSpeedUp() {
+		return audioSpeedUp;
+	}
+
 	public Music getMusic() {
 		return music;
 	}
@@ -268,6 +275,10 @@ public class Assets implements Disposable {
 	public ShaderProgram getMonochromeShader() {
 		return monochromeShader;
 	}
+	
+	public Animation getSpeedUpAnimation() {
+		return new Animation(1.0f/12.0f, atlas.findRegions("OrangeBulletExplo"), Animation.PlayMode.LOOP);
+	}
 
 	@Override
 	public void dispose() {
@@ -278,8 +289,11 @@ public class Assets implements Disposable {
 		audio1.dispose();
 		audio2.dispose();
 		audioItem.dispose();
+		audioSpeedUp.dispose();
 		destroySound.dispose();
 		fontGenerator.dispose();
+		effect1.dispose();
+		effect2.dispose();
 		UIFont.dispose();
 		UIFontSmall.dispose();
 		UIFontTitle.dispose();
