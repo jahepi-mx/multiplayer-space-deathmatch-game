@@ -35,7 +35,7 @@ public class Server {
 					while (running) {
 						try {
 							Socket socket = server.accept();
-							socket.setTcpNoDelay(true);
+							//socket.setTcpNoDelay(true);
 							if (clients.size < MAX_CONNECTIONS) {
 								Gdx.app.log(TAG, "Client connected");
 								Client client = new Client(socket, listener, false);

@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import com.badlogic.gdx.Gdx;
@@ -26,11 +25,11 @@ public class Client extends Thread {
 		active = true;
 		this.notifyNewConnection = notifyNewConnection;
 		this.socket = socket;
-		try {
+		/*try {
 			this.socket.setTcpNoDelay(true);
 		} catch (SocketException e1) {
 			e1.printStackTrace();
-		}
+		}*/
 		this.listener = listener;
 		try {
 			in = new DataInputStream(this.socket.getInputStream());
@@ -47,7 +46,7 @@ public class Client extends Thread {
 		this.listener = listener;
 		try {
 			socket = new Socket();
-			socket.setTcpNoDelay(true);
+			//socket.setTcpNoDelay(true);
 			socket.connect(new InetSocketAddress(host, port), 2000);
 			in = new DataInputStream(this.socket.getInputStream());
 			out = new DataOutputStream(this.socket.getOutputStream());
@@ -72,7 +71,6 @@ public class Client extends Thread {
 			}
 			while (active) {
 				String data = in.readUTF();
-				//Gdx.app.log(TAG, data);
 				if (listener != null) {
 					listener.onConnectionData(data);
 				}
@@ -91,6 +89,7 @@ public class Client extends Thread {
 		try {
 			if (isActive()) {
 				out.writeUTF(data);
+				out.flush();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
