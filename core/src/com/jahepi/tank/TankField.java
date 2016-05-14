@@ -17,7 +17,8 @@ import com.jahepi.tank.multiplayer.Server.ServerListener;
 import com.jahepi.tank.multiplayer.ServerFinder;
 import com.jahepi.tank.multiplayer.ServerFinder.ServerFinderListener;
 import com.jahepi.tank.multiplayer.dto.GameState;
-import com.jahepi.tank.screens.Field;
+import com.jahepi.tank.screens.GameOptions;
+import com.jahepi.tank.screens.GamePlay;
 import com.jahepi.tank.screens.Main;
 
 public class TankField extends Game implements ServerListener, ServerFinderListener, GameChangeStateListener {
@@ -36,7 +37,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private String name;
 	
 	public enum SCREEN_TYPE {
-		MAIN, FIELD
+		MAIN, GAMEOPTIONS, CREDITS, CONFIG, GAME
 	}
 	
 	@Override
@@ -56,8 +57,12 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			currentScreen = new Main(this);
 			setScreen(currentScreen);
 		}
-		if (type == SCREEN_TYPE.FIELD) {
-			currentScreen = new Field(this);
+		if (type == SCREEN_TYPE.GAMEOPTIONS) {
+			currentScreen = new GameOptions(this);
+			setScreen(currentScreen);
+		}
+		if (type == SCREEN_TYPE.GAME) {
+			currentScreen = new GamePlay(this);
 			setScreen(currentScreen);
 		}
 	}
@@ -86,9 +91,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			@Override
 			public void run() {
 				//Gdx.app.log(TAG, Thread.currentThread().getName());
-				if (currentScreen instanceof Field) {
+				if (currentScreen instanceof GamePlay) {
 					GameState gameState = json.fromJson(GameState.class, data);
-					((Field) currentScreen).updateGameState(gameState);
+					((GamePlay) currentScreen).updateGameState(gameState);
 				}
 			}
 		});
@@ -101,13 +106,13 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			public void run() {
 				Gdx.app.log(TAG, "onDisconnect");
 				if (server != null) {
-					if (currentScreen instanceof Field) {
-						((Field) currentScreen).removeOpponent(id);
-						((Field) currentScreen).showDisconnectError();
+					if (currentScreen instanceof GamePlay) {
+						((GamePlay) currentScreen).removeOpponent(id);
+						((GamePlay) currentScreen).showDisconnectError();
 					}
 				} else {
-					changeScreen(SCREEN_TYPE.MAIN);
-					((Main) currentScreen).showDisconnectError();
+					changeScreen(SCREEN_TYPE.GAMEOPTIONS);
+					((GameOptions) currentScreen).showDisconnectError();
 				}
 			}
 		});
@@ -121,9 +126,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	public void runServer(int port, String name) {
 		this.name = name;
 		if (startServer(port)) {
-			changeScreen(SCREEN_TYPE.FIELD);
+			changeScreen(SCREEN_TYPE.GAME);
 		} else {
-			((Main) currentScreen).showConnectionError();
+			((GameOptions) currentScreen).showConnectionError();
 		}
 	}
 	
@@ -133,9 +138,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			@Override
 			public void run() {
 				if (startClient(socket)) {
-					changeScreen(SCREEN_TYPE.FIELD);
+					changeScreen(SCREEN_TYPE.GAME);
 				} else {
-					((Main) currentScreen).showConnectionError();
+					((GameOptions) currentScreen).showConnectionError();
 				}
 			}
 		});
@@ -146,7 +151,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		Gdx.app.postRunnable(new Runnable() {		
 			@Override
 			public void run() {
-				((Main) currentScreen).showConnectionError();
+				((GameOptions) currentScreen).showConnectionError();
 			}
 		});
 	}
@@ -157,7 +162,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			@Override
 			public void run() {
 				String searchStatus = String.format(Language.getInstance().get("search_label"), status);
-				((Main) currentScreen).showSearchStatus(searchStatus);
+				((GameOptions) currentScreen).showSearchStatus(searchStatus);
 			}
 		});
 	}

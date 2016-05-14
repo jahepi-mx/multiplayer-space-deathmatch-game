@@ -7,14 +7,14 @@ import com.jahepi.tank.Render;
 import com.jahepi.tank.TankField;
 import com.jahepi.tank.multiplayer.dto.GameState;
 
-public class Field implements Screen {
+public class GamePlay implements Screen {
 
-	private static final String TAG = "Field";
+	private static final String TAG = "GamePlay";
 	
 	private TankField tankField;
 	private Render render;
 	
-	public Field(TankField tankField) {
+	public GamePlay(TankField tankField) {
 		this.tankField = tankField;
 		render = new Render(this.tankField, this.tankField);
 	}

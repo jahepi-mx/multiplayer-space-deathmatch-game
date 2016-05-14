@@ -150,7 +150,7 @@ public class Render implements Disposable, ControllerListener {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(TAG, "On click ...");
-				tankField.changeScreen(SCREEN_TYPE.MAIN);
+				tankField.changeScreen(SCREEN_TYPE.GAMEOPTIONS);
 				tankField.closeConnection();
 			}	
 		});

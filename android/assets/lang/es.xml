@@ -2,11 +2,15 @@
 <language>
     <item name="start_server_btn">INICIAR SERVIDOR</item>
     <item name="search_server_btn">BUSCAR SERVIDOR</item>
+    <item name="play_btn">JUGAR</item>
+    <item name="config_btn">CONFIGURACIÓN</item>
+    <item name="credits_btn">CRÉDITOS</item>
     <item name="english_btn">Ingles</item>
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>
     <item name="start_game_btn">INICIAR</item>
     <item name="game_title">MULTIJUGADOR ESPACIAL%sCOMBATE A MUERTE %s</item>
+    <item name="game_options_title">OPCIONES DEL JUEGO</item>
     <item name="port_label">Puerto por defecto: </item>
     <item name="search_label">Buscando ... %s</item>
     <item name="error_network">No se encontro un servidor de juego</item>

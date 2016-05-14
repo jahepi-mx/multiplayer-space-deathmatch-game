@@ -2,11 +2,15 @@
 <language>
     <item name="start_server_btn">START SERVER</item>
     <item name="search_server_btn">SEARCH SERVER</item>
+    <item name="play_btn">PLAY</item>
+    <item name="config_btn">SETTINGS</item>
+    <item name="credits_btn">CREDITS</item>
     <item name="english_btn">English</item>
     <item name="spanish_btn">Spanish</item>
     <item name="quit_btn">QUIT</item>
     <item name="start_game_btn">START</item>
     <item name="game_title">MULTIPLAYER SPACE%sDEATHMATCH %s</item>
+    <item name="game_options_title">GAME OPTIONS</item>
     <item name="port_label">Default Port: </item>
     <item name="search_label">Searching ... %s</item>
     <item name="error_network">Could not find a game server</item>
