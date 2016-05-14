@@ -173,8 +173,8 @@ public class Controller {
 		
 		checkIfFinish();
 		
-		cameraHelper.setX(tank.getX());
-		cameraHelper.setY(tank.getY());
+		cameraHelper.setX(tank.getX() + (tank.getWidth() / 2));
+		cameraHelper.setY(tank.getY() + (tank.getHeight() / 2));
 		OpponentTank tempOpponent = null;
 		float tempDist = Config.WIDTH;
 		

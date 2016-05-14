@@ -2,6 +2,8 @@ package com.jahepi.tank;
 
 public class Config {
 
+	public static final String VERSION = "v1.0";
+	
 	public static final float WIDTH = 20 * 3;
 	public static final float HEIGHT = 16 * 3;
 	public static final float CAMERA_WIDTH = WIDTH / 3;
@@ -20,7 +22,7 @@ public class Config {
 	public static final float UI_WIDTH_RATIO = UI_CAMERA_WIDTH / WIDTH;
 	public static final float UI_HEIGHT_RATIO = UI_CAMERA_HEIGHT / HEIGHT;
 	
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	
 	private Config() {
 		// TODO Auto-generated constructor stub

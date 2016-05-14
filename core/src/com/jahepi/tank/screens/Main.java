@@ -94,7 +94,7 @@ public class Main implements Screen {
 		
 		LabelStyle styleTitle = new LabelStyle();
 		styleTitle.font = Assets.getInstance().getUIFontTitle();
-		titleLabel = new Label(String.format(Language.getInstance().get("game_title"), "\n"), styleTitle);
+		titleLabel = new Label(String.format(Language.getInstance().get("game_title"), "\n", Config.VERSION), styleTitle);
 		titleLabel.setAlignment(Align.center);
 		stage.addActor(titleLabel);
 		
@@ -183,7 +183,7 @@ public class Main implements Screen {
 		serverBtn.pack();
 		
 		int padding = 10;
-		titleLabel.setText(String.format(Language.getInstance().get("game_title"), "\n"));
+		titleLabel.setText(String.format(Language.getInstance().get("game_title"), "\n", Config.VERSION));
 		titleLabel.pack();
 		titleLabel.setX((Config.UI_WIDTH / 2) - (titleLabel.getWidth() / 2));
 		titleLabel.setY(Config.UI_HEIGHT - titleLabel.getHeight() - padding);

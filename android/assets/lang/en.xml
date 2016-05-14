@@ -6,7 +6,7 @@
     <item name="spanish_btn">Spanish</item>
     <item name="quit_btn">QUIT</item>
     <item name="start_game_btn">START</item>
-    <item name="game_title">MULTIPLAYER SPACE%sDEATHMATCH</item>
+    <item name="game_title">MULTIPLAYER SPACE%sDEATHMATCH %s</item>
     <item name="port_label">Default Port: </item>
     <item name="search_label">Searching ... %s</item>
     <item name="error_network">Could not find a game server</item>

@@ -6,7 +6,7 @@
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>
     <item name="start_game_btn">INICIAR</item>
-    <item name="game_title">MULTIJUGADOR ESPACIAL%sCOMBATE A MUERTE</item>
+    <item name="game_title">MULTIJUGADOR ESPACIAL%sCOMBATE A MUERTE %s</item>
     <item name="port_label">Puerto por defecto: </item>
     <item name="search_label">Buscando ... %s</item>
     <item name="error_network">No se encontro un servidor de juego</item>
