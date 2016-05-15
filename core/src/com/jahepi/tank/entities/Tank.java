@@ -214,8 +214,9 @@ public class Tank extends GameEntity {
 				activeSpeedUpTime = true;
 				velocity = 17.0f;
 				speedUpTime = 0;
-				long id = Assets.getInstance().getAudioSpeedUp().play();
-				Assets.getInstance().getAudioSpeedUp().setVolume(id, 0.2f);
+				Assets assets = Assets.getInstance();
+				long id = assets.getAudioSpeedUp().play();
+				assets.getAudioSpeedUp().setVolume(id, assets.getEffectsVolume());
 			}
 		}
 		lastSpeedUpTime = speedUpTime;
@@ -359,7 +360,9 @@ public class Tank extends GameEntity {
 		effect.reset();
 		effect.start();
 		effect.setPosition(position.x, position.y);
-		Assets.getInstance().getDestroySound().play();
+		Assets assets = Assets.getInstance();
+		long id = assets.getDestroySound().play();
+		assets.getDestroySound().setVolume(id, assets.getEffectsVolume());
 	}
 	
 	public void setRectangleSize(float width, float height) {
