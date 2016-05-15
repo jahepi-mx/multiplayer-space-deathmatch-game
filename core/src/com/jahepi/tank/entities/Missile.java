@@ -133,7 +133,9 @@ public class Missile extends GameEntity {
 	}
 
 	public void setHit(boolean hit) {
-		Assets.getInstance().getDestroySound().play();
+		Assets assets = Assets.getInstance();
+		long id = assets.getDestroySound().play();
+		assets.getDestroySound().setVolume(id, assets.getEffectsVolume());
 		effect.setPosition(position.x, position.y);
 		effect.start();
 		this.hit = hit;
