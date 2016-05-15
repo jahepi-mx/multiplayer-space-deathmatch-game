@@ -15,8 +15,11 @@ public class Language {
 
 	private static final String TAG = "Language";
 	private static final String path = "lang/";
-	public static enum LANG {ENGLISH, SPANISH};
 	private ArrayMap<String, String> map;
+	private String selectedLanguage;
+	
+	public static final String ENGLISH = "en";
+	public static final String SPANISH = "es";
 	
 	private Language() {
 		map = new ArrayMap<String, String>();
@@ -29,12 +32,15 @@ public class Language {
 		return self;
 	}
 	
-	public void load(LANG lang) {
+	public void load(String lang) {
+		
+		selectedLanguage = lang;
+		
 		FileHandle file = null;
-		if (lang == LANG.ENGLISH) {
+		if (lang == ENGLISH) {
 			file = Gdx.files.internal(path + "en.xml");
 		}
-		if (lang == LANG.SPANISH) {
+		if (lang == SPANISH) {
 			file = Gdx.files.internal(path + "es.xml");
 		}
 		if (file != null) {
@@ -54,6 +60,10 @@ public class Language {
 		}
 	}
 	
+	public String getSelectedLanguage() {
+		return selectedLanguage;
+	}
+
 	public String get(String name) {
 		return map.get(name);
 	}

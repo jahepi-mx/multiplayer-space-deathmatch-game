@@ -10,13 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Json;
 import com.jahepi.tank.Controller.GameChangeStateListener;
-import com.jahepi.tank.Language.LANG;
 import com.jahepi.tank.multiplayer.Client;
 import com.jahepi.tank.multiplayer.Server;
 import com.jahepi.tank.multiplayer.Server.ServerListener;
 import com.jahepi.tank.multiplayer.ServerFinder;
 import com.jahepi.tank.multiplayer.ServerFinder.ServerFinderListener;
 import com.jahepi.tank.multiplayer.dto.GameState;
+import com.jahepi.tank.screens.Configuration;
 import com.jahepi.tank.screens.GameOptions;
 import com.jahepi.tank.screens.GamePlay;
 import com.jahepi.tank.screens.Main;
@@ -36,13 +36,13 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private ServerFinder serverFinder;
 	private String name;
 	
-	public enum SCREEN_TYPE {
+	public static enum SCREEN_TYPE {
 		MAIN, GAMEOPTIONS, CREDITS, CONFIG, GAME
 	}
 	
 	@Override
 	public void create() {
-		Language.getInstance().load(LANG.SPANISH);
+		Language.getInstance().load(Assets.getInstance().getLanguage());
 		batch = new SpriteBatch();
 		json = new Json();
 		debugRender = new ShapeRenderer();
@@ -56,13 +56,14 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		if (type == SCREEN_TYPE.MAIN) {
 			currentScreen = new Main(this);
 			setScreen(currentScreen);
-		}
-		if (type == SCREEN_TYPE.GAMEOPTIONS) {
+		} else if (type == SCREEN_TYPE.GAMEOPTIONS) {
 			currentScreen = new GameOptions(this);
 			setScreen(currentScreen);
-		}
-		if (type == SCREEN_TYPE.GAME) {
+		} else if (type == SCREEN_TYPE.GAME) {
 			currentScreen = new GamePlay(this);
+			setScreen(currentScreen);
+		} else if (type == SCREEN_TYPE.CONFIG) {
+			currentScreen = new Configuration(this);
 			setScreen(currentScreen);
 		}
 	}
@@ -128,7 +129,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		if (startServer(port)) {
 			changeScreen(SCREEN_TYPE.GAME);
 		} else {
-			((GameOptions) currentScreen).showConnectionError();
+			if (currentScreen instanceof GameOptions) {
+				((GameOptions) currentScreen).showConnectionError();
+			}
 		}
 	}
 	
@@ -140,7 +143,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 				if (startClient(socket)) {
 					changeScreen(SCREEN_TYPE.GAME);
 				} else {
-					((GameOptions) currentScreen).showConnectionError();
+					if (currentScreen instanceof GameOptions) {
+						((GameOptions) currentScreen).showConnectionError();
+					}
 				}
 			}
 		});
@@ -151,7 +156,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		Gdx.app.postRunnable(new Runnable() {		
 			@Override
 			public void run() {
-				((GameOptions) currentScreen).showConnectionError();
+				if (currentScreen instanceof GameOptions) {
+					((GameOptions) currentScreen).showConnectionError();
+				}
 			}
 		});
 	}
@@ -162,7 +169,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			@Override
 			public void run() {
 				String searchStatus = String.format(Language.getInstance().get("search_label"), status);
-				((GameOptions) currentScreen).showSearchStatus(searchStatus);
+				if (currentScreen instanceof GameOptions) {
+					((GameOptions) currentScreen).showSearchStatus(searchStatus);
+				}
 			}
 		});
 	}

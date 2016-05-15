@@ -1,6 +1,7 @@
 package com.jahepi.tank;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable {
@@ -32,12 +34,23 @@ public class Assets implements Disposable {
 	private FreeTypeFontGenerator fontGenerator;
 	private BitmapFont UIFontMain, UIFont, UIFontSmall, UIFontTitle, UIFontExtraSmall;
 	private ShaderProgram monochromeShader;
+	private Skin skin;
+	private Preferences preferences;
 	
 	private Assets() {
 		manager = new AssetManager();
 		manager.load("images/multiplayer.pack", TextureAtlas.class);
 		manager.finishLoading();
 		atlas = manager.get("images/multiplayer.pack");
+		skin = new Skin(Gdx.files.internal("uiskin.json"));
+		preferences = Gdx.app.getPreferences("game_preferences");
+		
+		preferences.putFloat("music", 0.3f);
+		preferences.putFloat("effects", 1.0f);
+		preferences.putInteger("port", 38000);
+		preferences.putString("name", "xxxx");
+		preferences.putInteger("ms", 200);
+		preferences.putString("language", Language.SPANISH);
 		
 		effect1 = new ParticleEffect();
 		effect1.load(Gdx.files.internal("particles/effect1.pfx"), Gdx.files.internal("images"));
@@ -51,10 +64,10 @@ public class Assets implements Disposable {
 		destroySound = Gdx.audio.newSound(Gdx.files.internal("audio/explosion.wav"));
 		audioSpeedUp = Gdx.audio.newSound(Gdx.files.internal("audio/speedup.wav"));
 		music = Gdx.audio.newMusic(Gdx.files.internal("audio/music.mp3"));
-		music.setVolume(0.5f);
+		music.setVolume(getMusicVolume());
 		music.setLooping(true);
 		action = Gdx.audio.newMusic(Gdx.files.internal("audio/action.ogg"));
-		action.setVolume(0.2f);
+		action.setVolume(getMusicVolume());
 		action.setLooping(true);
 		
 		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("font/game.ttf"));
@@ -93,8 +106,8 @@ public class Assets implements Disposable {
 	    parameters5.size = 80;
 	    parameters5.shadowOffsetX = 1;
 	    parameters5.shadowOffsetY = 1;
-	    parameters5.color = Color.BLACK;
-	    parameters5.borderWidth = 3;
+	    parameters5.color = Color.ORANGE;
+	    parameters5.borderWidth = 2;
 	    parameters5.borderColor = Color.WHITE;
 	    UIFontMain = fontGenerator.generateFont(parameters5);
 	    
@@ -293,6 +306,58 @@ public class Assets implements Disposable {
 		return new Animation(1.0f/12.0f, atlas.findRegions("OrangeBulletExplo"), Animation.PlayMode.LOOP);
 	}
 
+	public Skin getSkin() {
+		return skin;
+	}
+	
+	public String getNickname() {
+		return preferences.getString("name");
+	}
+	
+	public void setNickname(String name) {
+		preferences.putString("name", name);
+	}
+	
+	public int getPort() {
+		return preferences.getInteger("port");
+	}
+	
+	public void setPort(int port) {
+		preferences.putInteger("port", port);
+	}
+	
+	public int getMs() {
+		return preferences.getInteger("ms");
+	}
+	
+	public void setMs(int ms) {
+		preferences.putInteger("ms", ms);
+	}
+	
+	public float getMusicVolume() {
+		return preferences.getFloat("music");
+	}
+	
+	public void setMusicVolume(float volume) {
+		preferences.putFloat("music", volume);
+	}
+	
+	public float getEffectsVolume() {
+		return preferences.getFloat("effects");
+	}
+	
+	public void setEffectsVolume(float volume) {
+		preferences.putFloat("effects", volume);
+	}
+	
+	public void setLanguage(String language) {
+		preferences.putString("language", language);
+	}
+	
+	public String getLanguage() {
+		return preferences.getString("language");
+	}
+
 	@Override
 	public void dispose() {
 		monochromeShader.dispose();
@@ -312,5 +377,6 @@ public class Assets implements Disposable {
 		UIFontTitle.dispose();
 		UIFontMain.dispose();
 		UIFontExtraSmall.dispose();
+		skin.dispose();
 	}
 }

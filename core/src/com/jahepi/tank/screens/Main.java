@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -42,40 +44,29 @@ public class Main implements Screen {
 			Assets.getInstance().getMusic().play();
 		}
 		
-		float margin = 60.0f; 
-		
-		LabelStyle styleTitle = new LabelStyle();
-		styleTitle.font = Assets.getInstance().getUIFontTitle();
-		Label titleLabel = new Label(String.format(Language.getInstance().get("game_title"), "\n", Config.VERSION), styleTitle);
+		LabelStyle titleStyle = new LabelStyle();
+		titleStyle.font = Assets.getInstance().getUIFontTitle();
+		Label titleLabel = new Label(String.format(Language.getInstance().get("game_title"), "\n", Config.VERSION), titleStyle);
 		titleLabel.setAlignment(Align.center);
-		titleLabel.setX((Config.UI_WIDTH / 2) - (titleLabel.getWidth() / 2));
-		titleLabel.setY(Config.UI_HEIGHT - titleLabel.getHeight() - margin);
 		
-		LabelStyle style1 = new LabelStyle();
+		LabelStyle style = new LabelStyle();
 		BitmapFont uiFont = Assets.getInstance().getUIFontMain();
-		style1.font = uiFont;
+		style.font = uiFont;
 		
-		Label playLabel = new Label(Language.getInstance().get("play_btn"), style1);
+		Label playLabel = new Label(Language.getInstance().get("play_btn"), style);
 		Button playBtn = new Button(new ButtonStyle());
 		playBtn.setWidth(playLabel.getWidth());
 		playBtn.add(playLabel);
 		
-		float height = (playBtn.getHeight() * 3) + (margin * 2);
-		float top = (Config.UI_HEIGHT / 2) + (height / 2) - margin;
-		
-		Label configLabel = new Label(Language.getInstance().get("config_btn"), style1);
+		Label configLabel = new Label(Language.getInstance().get("config_btn"), style);
 		Button configBtn = new Button(new ButtonStyle());
 		configBtn.setWidth(configLabel.getWidth());
 		configBtn.add(configLabel);
 		
-		Label creditsLabel = new Label(Language.getInstance().get("credits_btn"), style1);
+		Label creditsLabel = new Label(Language.getInstance().get("credits_btn"), style);
 		Button creditsBtn = new Button(new ButtonStyle());
 		creditsBtn.setWidth(creditsLabel.getWidth());
 		creditsBtn.add(creditsLabel);
-		
-		playBtn.setPosition((Config.UI_WIDTH / 2) - (playBtn.getWidth() / 2) , top);
-		configBtn.setPosition((Config.UI_WIDTH / 2) - (configBtn.getWidth() / 2) , playBtn.getY() - playBtn.getHeight() - margin);
-		creditsBtn.setPosition((Config.UI_WIDTH / 2) - (creditsBtn.getWidth() / 2) , configBtn.getY() - configBtn.getHeight() - margin);
 		
 		playBtn.addListener(new ClickListener() {
 			@Override
@@ -84,14 +75,27 @@ public class Main implements Screen {
 			}		
 		});
 		
-		playBtn.pack();
-		configBtn.pack();
-		creditsBtn.pack();
+		configBtn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				tankField.changeScreen(SCREEN_TYPE.CONFIG);
+			}		
+		});
 		
-		stage.addActor(titleLabel);
-		stage.addActor(playBtn);
-		stage.addActor(configBtn);
-		stage.addActor(creditsBtn);
+		Table table = new Table();
+		table.add(titleLabel).pad(40.0f);
+		table.row();
+		table.add(playBtn).pad(10.0f).uniform();
+		table.row();
+		table.add(configBtn).pad(10.0f).uniform();
+		table.row();
+		table.add(creditsBtn).pad(10.0f).uniform();
+		table.setFillParent(true);
+		table.getColor().a = 0;
+		table.addAction(Actions.fadeIn(0.5f));
+		table.pack();
+		
+		stage.addActor(table);
 	}
 
 	@Override
