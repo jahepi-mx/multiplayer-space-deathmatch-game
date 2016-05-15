@@ -19,15 +19,17 @@ public class Laser extends GameEntity {
 	private boolean activated;
 	private float damageTime;
 	private float laserSoundTime;
+	private Assets assets;
 	
 	public Laser() {
 		float height = 3.0f;
+		assets = Assets.getInstance();
 		size.set(Config.WIDTH, height);
 		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setOrigin(0, size.y / 2);
 		rectangle.setRotation(rotation);
-		this.texture = Assets.getInstance().getLaser();
+		this.texture = assets.getLaser();
 		laserSoundTime = LASER_SOUND_TIME_LIMIT;
 	}
 
@@ -77,9 +79,7 @@ public class Laser extends GameEntity {
 		if (activated) {
 			if (laserSoundTime >= LASER_SOUND_TIME_LIMIT) {
 				Gdx.app.log(TAG, "Sound: " + laserSoundTime);
-				Assets assets = Assets.getInstance();
-				long id = assets.getAudio1().play();
-				assets.getAudio1().setVolume(id, assets.getEffectsVolume());
+				assets.playAudio1();
 				laserSoundTime = 0;
 			}
 		}

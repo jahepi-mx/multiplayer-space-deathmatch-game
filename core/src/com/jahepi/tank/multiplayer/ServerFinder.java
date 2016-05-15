@@ -39,7 +39,7 @@ public class ServerFinder {
 								}
 							}
 						}
-						for (InetAddress address : addresses) {
+						outer: for (InetAddress address : addresses) {
 							byte[] ip = address.getAddress();						
 							for (int i = 1; i < 255; i++) {
 								ip[3] = (byte) i;
@@ -55,6 +55,9 @@ public class ServerFinder {
 								} catch (IOException exp) {
 									exp.printStackTrace();
 								}
+								if (!active) {
+									break outer;
+								}
 							}
 						}
 					} catch (Exception exp) {
@@ -68,6 +71,10 @@ public class ServerFinder {
 			Thread thread = new Thread(runnable);
 			thread.start();
 		}
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public boolean isActive() {

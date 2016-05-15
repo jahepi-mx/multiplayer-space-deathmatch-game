@@ -3,6 +3,7 @@ package com.jahepi.tank.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -30,6 +31,7 @@ public class GameOptions implements Screen {
 	private SpriteBatch batch;
 	private Label startServerLabel, searchServerLabel, backLabel, titleLabel, searchLabel, errorLabel;
 	private Button serverBtn, searchServerBtn, backBtn;
+	private Assets assets;
 	
 	public GameOptions(TankField tankField) {
 		this.tankField = tankField;
@@ -37,13 +39,17 @@ public class GameOptions implements Screen {
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
 		stage = new Stage(viewport, this.batch);
 		Gdx.input.setInputProcessor(stage);
+		assets = Assets.getInstance();
 	}
 
 	@Override
 	public void show() {
 		stage.clear();
 
-		final Assets assets = Assets.getInstance();
+		if (!assets.getMusic().isPlaying()) {
+			assets.playMusic();
+		}
+		
 		Skin skin = assets.getSkin();
 		
 		LabelStyle style1 = new LabelStyle();
@@ -78,7 +84,11 @@ public class GameOptions implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(TAG, "On search server ...");
-				tankField.searchServer(assets.getPort(), assets.getMs(), assets.getNickname());
+				if (tankField.isSearchServerActive()) {
+					tankField.stopSearchServer();
+				} else {
+					tankField.searchServer(assets.getPort(), assets.getMs(), assets.getNickname());
+				}
 			}	
 		});
 		
@@ -86,6 +96,9 @@ public class GameOptions implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(TAG, "On run server ...");
+				if (tankField.isSearchServerActive()) {
+					tankField.stopSearchServer();
+				}
 				tankField.runServer(assets.getPort(), assets.getNickname());
 			}	
 		});
@@ -130,10 +143,12 @@ public class GameOptions implements Screen {
 	}
 
 	@Override
-	public void render(float delta) {		
+	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.setShader(null);
-		batch.draw(Assets.getInstance().getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
+		batch.draw(assets.getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
 		batch.end();
 		stage.act(delta);
 		stage.draw();
@@ -156,7 +171,7 @@ public class GameOptions implements Screen {
 
 	@Override
 	public void hide() {
-		Assets.getInstance().getMusic().stop();
+
 	}
 
 	@Override

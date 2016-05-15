@@ -2,7 +2,6 @@ package com.jahepi.tank;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -52,11 +51,13 @@ public class Render implements Disposable, ControllerListener {
 	private boolean isRotatingUp;
 	private boolean isRotatingDown;
 	private boolean resetFlag;
+	private Assets assets;
 	
 	public Render(TankField tankFieldParam, GameChangeStateListener gameStateChangeListener) {
 		this.tankField = tankFieldParam;
 		this.shapeRenderer = tankField.getDebugRender();
 		this.batch = tankField.getBatch();
+		assets = Assets.getInstance();
 		
 		controller = new Controller(gameStateChangeListener, this, tankField.isServer(), tankField.getName());
 		
@@ -80,9 +81,9 @@ public class Render implements Disposable, ControllerListener {
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
 		
 		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = Assets.getInstance().getUIFont();
+		labelStyle.font = assets.getUIFont();
 		LabelStyle labelStyleSmall = new LabelStyle();
-		labelStyleSmall.font = Assets.getInstance().getUIFontSmall();
+		labelStyleSmall.font = assets.getUIFontSmall();
 		
 		
 		waitingLabel = new Label(controller.isServer() ? Language.getInstance().get("waiting_label") : Language.getInstance().get("waiting_opponent_label"), labelStyle);
@@ -183,8 +184,8 @@ public class Render implements Disposable, ControllerListener {
 		float padX = Config.UI_WIDTH * 0.02f;
 		float padY = Config.UI_WIDTH * 0.06f;
 		
-		TextureRegionDrawable rightArrow = new TextureRegionDrawable(Assets.getInstance().getRightArrow());
-		TextureRegionDrawable rightArrowOn = new TextureRegionDrawable(Assets.getInstance().getRightArrowOn());
+		TextureRegionDrawable rightArrow = new TextureRegionDrawable(assets.getRightArrow());
+		TextureRegionDrawable rightArrowOn = new TextureRegionDrawable(assets.getRightArrowOn());
 		ImageButton rightImageBtn = new ImageButton(rightArrow, rightArrowOn);
 		rightImageBtn.setX(rightImageBtn.getWidth() - padX);
 		rightImageBtn.setY(padY);
@@ -202,8 +203,8 @@ public class Render implements Disposable, ControllerListener {
 			}
 		});
 		
-		TextureRegionDrawable upArrow = new TextureRegionDrawable(Assets.getInstance().getTopArrow());
-		TextureRegionDrawable upArrowOn = new TextureRegionDrawable(Assets.getInstance().getTopArrowOn());
+		TextureRegionDrawable upArrow = new TextureRegionDrawable(assets.getTopArrow());
+		TextureRegionDrawable upArrowOn = new TextureRegionDrawable(assets.getTopArrowOn());
 		ImageButton upImageBtn = new ImageButton(upArrow, upArrowOn);
 		upImageBtn.setY(rightImageBtn.getY() + padY);
 		stage.addActor(upImageBtn);
@@ -219,8 +220,8 @@ public class Render implements Disposable, ControllerListener {
 			}
 		});
 		
-		TextureRegionDrawable downArrow = new TextureRegionDrawable(Assets.getInstance().getBottomArrow());
-		TextureRegionDrawable bottomArrowOn = new TextureRegionDrawable(Assets.getInstance().getBottomArrowOn());
+		TextureRegionDrawable downArrow = new TextureRegionDrawable(assets.getBottomArrow());
+		TextureRegionDrawable bottomArrowOn = new TextureRegionDrawable(assets.getBottomArrowOn());
 		ImageButton downImageBtn = new ImageButton(downArrow, bottomArrowOn);
 		downImageBtn.setY(rightImageBtn.getY() - padY);
 		stage.addActor(downImageBtn);
@@ -236,8 +237,8 @@ public class Render implements Disposable, ControllerListener {
 			}
 		});
 		
-		TextureRegionDrawable shootButtonTexture = new TextureRegionDrawable(Assets.getInstance().getShootButton());
-		TextureRegionDrawable shootButtonOn = new TextureRegionDrawable(Assets.getInstance().getShootButtonOn());
+		TextureRegionDrawable shootButtonTexture = new TextureRegionDrawable(assets.getShootButton());
+		TextureRegionDrawable shootButtonOn = new TextureRegionDrawable(assets.getShootButtonOn());
 		ImageButton shootImageBtn = new ImageButton(shootButtonTexture, shootButtonOn);
 		shootImageBtn.setX(Config.UI_WIDTH - shootImageBtn.getWidth());
 		stage.addActor(shootImageBtn);
@@ -269,9 +270,6 @@ public class Render implements Disposable, ControllerListener {
 	}
 	
 	public void render() {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
 		camera.position.x = controller.getCameraHelper().getX();
 		camera.position.y = controller.getCameraHelper().getY();
 		camera.update();
@@ -292,14 +290,14 @@ public class Render implements Disposable, ControllerListener {
 		batch.begin();
 		
 		if (controller.isTankDead()) {
-			ShaderProgram shader = Assets.getInstance().getMonochromeShader();
+			ShaderProgram shader = assets.getMonochromeShader();
 			batch.setShader(shader);
 			shader.setUniformf("u_amount", 1.0f);
 		} else {
 			batch.setShader(null);
 		}
 		
-		batch.draw(Assets.getInstance().getBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
+		batch.draw(assets.getBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
 		controller.getTank().render(batch);
 		for (PowerUp powerUp : controller.getPowerUps()) {
 			if (powerUp != null) {
@@ -326,7 +324,7 @@ public class Render implements Disposable, ControllerListener {
 		batch.setProjectionMatrix(uiCamera.combined);
 		batch.begin();
 		controller.getTank().renderName(batch);
-		BitmapFont font = Assets.getInstance().getUIFontSmall();
+		BitmapFont font = assets.getUIFontSmall();
 		font.setColor(Color.YELLOW);
 		float lineBreak = 240.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {

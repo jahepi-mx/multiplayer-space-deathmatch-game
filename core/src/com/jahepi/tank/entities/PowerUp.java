@@ -34,9 +34,11 @@ public class PowerUp extends GameEntity {
 	private ParticleEffect endEffect;
 	private boolean send;
 	private TYPE type;
+	private Assets assets;
 	
 	public PowerUp() {
 		size.set(2.0f, 2.0f);
+		assets = Assets.getInstance();
 		float randX = MathUtils.random(size.x, Config.WIDTH - size.x);
 		float randY = MathUtils.random(size.y, Config.HEIGHT - size.y);
 		position.set(randX, randY);
@@ -47,17 +49,17 @@ public class PowerUp extends GameEntity {
 		int rand = MathUtils.random(1, TYPE.values().length - 1);
 		type = TYPE.values()[rand];
 		if (type == TYPE.MISSILES) {
-			texture = Assets.getInstance().getNukeItem();
+			texture = assets.getNukeItem();
 		} else if (type == TYPE.MINI) {
-			texture = Assets.getInstance().getShieldItem();
+			texture = assets.getShieldItem();
 		} else if (type == TYPE.HEALTH) {
-			texture = Assets.getInstance().getHealthItem();
+			texture = assets.getHealthItem();
 		} else if (type == TYPE.FREEZE) {
-			texture = Assets.getInstance().getFreezeItem();
+			texture = assets.getFreezeItem();
 		} else {
-			texture = Assets.getInstance().getEneryItem();
+			texture = assets.getEneryItem();
 		}
-		startEffect = new ParticleEffect(Assets.getInstance().getEffect1());
+		startEffect = new ParticleEffect(assets.getEffect1());
 		startEffect.setPosition(position.x, position.y);
 		startEffect.start();
 		this.rotationSpeed = 40;
@@ -65,6 +67,7 @@ public class PowerUp extends GameEntity {
 	
 	public PowerUp(float x, float y, TYPE type) {
 		size.set(2.0f, 2.0f);
+		assets = Assets.getInstance();
 		position.set(x, y);
 		active = true;
 		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
@@ -72,17 +75,17 @@ public class PowerUp extends GameEntity {
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		this.type = type;
 		if (type == TYPE.MISSILES) {
-			texture = Assets.getInstance().getNukeItem();
+			texture = assets.getNukeItem();
 		} else if (type == TYPE.MINI) {
-			texture = Assets.getInstance().getShieldItem();
+			texture = assets.getShieldItem();
 		} else if (type == TYPE.HEALTH) {
-			texture = Assets.getInstance().getHealthItem();
+			texture = assets.getHealthItem();
 		} else if (type == TYPE.FREEZE) {
-			texture = Assets.getInstance().getFreezeItem();
+			texture = assets.getFreezeItem();
 		} else {
-			texture = Assets.getInstance().getEneryItem();
+			texture = assets.getEneryItem();
 		}
-		startEffect = new ParticleEffect(Assets.getInstance().getEffect1());
+		startEffect = new ParticleEffect(assets.getEffect1());
 		startEffect.setPosition(position.x, position.y);
 		startEffect.start();
 		this.rotationSpeed = 40;
@@ -133,9 +136,7 @@ public class PowerUp extends GameEntity {
 
 	public void setActive(boolean active) {
 		if (!active) {
-			Assets assets = Assets.getInstance();
-			long id = assets.getAudioItem().play();
-			assets.getAudioItem().setVolume(id, assets.getEffectsVolume());
+			assets.playAudioItem();
 			endEffect = new ParticleEffect(assets.getEffect1());
 			endEffect.setPosition(position.x, position.y);
 			endEffect.start();

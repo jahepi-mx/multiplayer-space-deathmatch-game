@@ -3,6 +3,7 @@ package com.jahepi.tank.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -38,6 +39,7 @@ public class Configuration implements Screen {
 	private CheckBox englishCheckbox, spanishCheckbox;
 	private TextField nicknameTextField, portTextField, msTextField;
 	private Button backButton;
+	private Assets assets;
 	
 	public Configuration(TankField tankField) {
 		this.tankField = tankField;
@@ -45,6 +47,7 @@ public class Configuration implements Screen {
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
 		stage = new Stage(viewport, batch);
 		Gdx.input.setInputProcessor(stage);
+		assets = Assets.getInstance();
 	}
 
 	@Override
@@ -52,14 +55,13 @@ public class Configuration implements Screen {
 		stage.clear();
 		
 		LabelStyle style = new LabelStyle();
-		style.font = Assets.getInstance().getUIFontTitle();
+		style.font = assets.getUIFontTitle();
 		titleLabel = new Label(String.format(Language.getInstance().get("config_title")), style);
 		
-		Skin skin = Assets.getInstance().getSkin();
-		final Assets assets = Assets.getInstance();
+		Skin skin = assets.getSkin();
 		
 		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = Assets.getInstance().getUIFontSmall();
+		labelStyle.font = assets.getUIFontSmall();
 		
 		soundEffectLabel = new Label(Language.getInstance().get("effects_label"), labelStyle);
 		final Slider soundEffectsSlider = new Slider(0, 1, 0.1f, false, skin);
@@ -103,6 +105,7 @@ public class Configuration implements Screen {
 		backLabel = new Label(Language.getInstance().get("back_btn"), style);
 		backButton = new Button(skin);
 		backButton.add(backLabel);
+		backLabel.setColor(Color.RED);
 		
 		englishCheckbox.addListener(new ChangeListener() {
 			@Override
@@ -206,9 +209,11 @@ public class Configuration implements Screen {
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.setShader(null);
-		batch.draw(Assets.getInstance().getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
+		batch.draw(assets.getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
 		batch.end();
 		stage.act(delta);
 		stage.draw();

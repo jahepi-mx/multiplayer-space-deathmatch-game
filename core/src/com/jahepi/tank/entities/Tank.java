@@ -58,25 +58,27 @@ public class Tank extends GameEntity {
 	protected Animation speedUpAnimation;
 	protected TextureRegion speedUpTexture;
 	protected float time;
+	protected Assets assets;
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
+		assets = Assets.getInstance();
 		this.name = name;
-		font = Assets.getInstance().getUIFontExtraSmall();
+		font = assets.getUIFontExtraSmall();
 		this.textureType = textureType;
 		if (textureType == TEXTURE_TYPE.SHIP1) {
-			texture = Assets.getInstance().getShip1();
+			texture = assets.getShip1();
 		} else if (textureType == TEXTURE_TYPE.SHIP2) {
-			texture = Assets.getInstance().getShip2();
+			texture = assets.getShip2();
 		} else if (textureType == TEXTURE_TYPE.SHIP3) {
-			texture = Assets.getInstance().getShip3();
+			texture = assets.getShip3();
 		} else if (textureType == TEXTURE_TYPE.SHIP4) {
-			texture = Assets.getInstance().getShip4();
+			texture = assets.getShip4();
 		}  else {
-			texture = Assets.getInstance().getShip5();
+			texture = assets.getShip5();
 		}
 		velocity = DEFAULT_VELOCITY;
-		this.speedUpAnimation = Assets.getInstance().getSpeedUpAnimation();
+		this.speedUpAnimation = assets.getSpeedUpAnimation();
 		size.set(defaultSize, defaultSize);
 		position.set(Config.WIDTH / 2, Config.HEIGHT / 2);
 		missiles = new Array<Missile>();
@@ -160,7 +162,7 @@ public class Tank extends GameEntity {
 		}
 		effect.draw(batch);
 		if (isDead()) {
-			batch.draw(Assets.getInstance().getSKull(), position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, 90.0f, true);
+			batch.draw(assets.getSKull(), position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, 90.0f, true);
 		} else {
 			batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
@@ -214,9 +216,7 @@ public class Tank extends GameEntity {
 				activeSpeedUpTime = true;
 				velocity = 17.0f;
 				speedUpTime = 0;
-				Assets assets = Assets.getInstance();
-				long id = assets.getAudioSpeedUp().play();
-				assets.getAudioSpeedUp().setVolume(id, assets.getEffectsVolume());
+				assets.playAudioSpeedUp();
 			}
 		}
 		lastSpeedUpTime = speedUpTime;
@@ -360,9 +360,7 @@ public class Tank extends GameEntity {
 		effect.reset();
 		effect.start();
 		effect.setPosition(position.x, position.y);
-		Assets assets = Assets.getInstance();
-		long id = assets.getDestroySound().play();
-		assets.getDestroySound().setVolume(id, assets.getEffectsVolume());
+		assets.playDestroySound();
 	}
 	
 	public void setRectangleSize(float width, float height) {

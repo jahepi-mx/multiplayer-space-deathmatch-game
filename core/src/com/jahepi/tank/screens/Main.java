@@ -2,6 +2,7 @@ package com.jahepi.tank.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -28,6 +29,7 @@ public class Main implements Screen {
 	private Stage stage;
 	private TankField tankField;
 	private SpriteBatch batch;
+	private Assets assets;
 	
 	public Main(TankField tankField) {
 		this.tankField = tankField;
@@ -35,22 +37,24 @@ public class Main implements Screen {
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
 		stage = new Stage(viewport, batch);
 		Gdx.input.setInputProcessor(stage);
+		assets = Assets.getInstance();
 	}
 
 	@Override
 	public void show() {
 		stage.clear();
-		if (!Assets.getInstance().getMusic().isPlaying()) {
-			Assets.getInstance().getMusic().play();
+		
+		if (!assets.getMusic().isPlaying()) {
+			assets.playMusic();
 		}
 		
 		LabelStyle titleStyle = new LabelStyle();
-		titleStyle.font = Assets.getInstance().getUIFontTitle();
+		titleStyle.font = assets.getUIFontTitle();
 		Label titleLabel = new Label(String.format(Language.getInstance().get("game_title"), "\n", Config.VERSION), titleStyle);
 		titleLabel.setAlignment(Align.center);
 		
 		LabelStyle style = new LabelStyle();
-		BitmapFont uiFont = Assets.getInstance().getUIFontMain();
+		BitmapFont uiFont = assets.getUIFontMain();
 		style.font = uiFont;
 		
 		Label playLabel = new Label(Language.getInstance().get("play_btn"), style);
@@ -100,9 +104,11 @@ public class Main implements Screen {
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.setShader(null);
-		batch.draw(Assets.getInstance().getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
+		batch.draw(assets.getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
 		batch.end();
 		stage.act(delta);
 		stage.draw();

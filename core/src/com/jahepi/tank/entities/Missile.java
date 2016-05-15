@@ -28,9 +28,11 @@ public class Missile extends GameEntity {
 	private float effectScale;
 	private Sound sound;
 	protected TEXTURE_MISSILE_TYPE textureType;
+	private Assets assets;
 	
 	public Missile(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed) {
 		super();
+		assets = Assets.getInstance();
 		this.textureType = textureType;
 		size.set(width, height);
 		position.set(x, y);
@@ -42,17 +44,17 @@ public class Missile extends GameEntity {
 		rectangle.setRotation(rotation);
 		this.effectScale = effectScale;
 		if (textureType == TEXTURE_MISSILE_TYPE.MISSILE1) {
-			texture = Assets.getInstance().getRocket1();
+			texture = assets.getRocket1();
 		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE2) {
-			texture = Assets.getInstance().getRocket2();
+			texture = assets.getRocket2();
 		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE3) {
-			texture = Assets.getInstance().getRocket3();
+			texture = assets.getRocket3();
 		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE4) {
-			texture = Assets.getInstance().getRocket4();
+			texture = assets.getRocket4();
 		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE5) {
-			texture = Assets.getInstance().getRocket5();
+			texture = assets.getRocket5();
 		} else {
-			texture = Assets.getInstance().getRocket6();
+			texture = assets.getRocket6();
 		}
 		Gdx.app.log(TAG, "Created");
 	}
@@ -63,7 +65,6 @@ public class Missile extends GameEntity {
 	
 	public void playSound() {
 		if (sound != null) {
-			Assets assets = Assets.getInstance();
 			long id = sound.play();
 			sound.setVolume(id, assets.getEffectsVolume());
 		}
@@ -133,9 +134,7 @@ public class Missile extends GameEntity {
 	}
 
 	public void setHit(boolean hit) {
-		Assets assets = Assets.getInstance();
-		long id = assets.getDestroySound().play();
-		assets.getDestroySound().setVolume(id, assets.getEffectsVolume());
+		assets.playDestroySound();
 		effect.setPosition(position.x, position.y);
 		effect.start();
 		this.hit = hit;

@@ -45,12 +45,24 @@ public class Assets implements Disposable {
 		skin = new Skin(Gdx.files.internal("uiskin.json"));
 		preferences = Gdx.app.getPreferences("game_preferences");
 		
-		preferences.putFloat("music", 0.3f);
-		preferences.putFloat("effects", 1.0f);
-		preferences.putInteger("port", 38000);
-		preferences.putString("name", "xxxx");
-		preferences.putInteger("ms", 200);
-		preferences.putString("language", Language.SPANISH);
+		if (!preferences.contains("music")) {
+			preferences.putFloat("music", 0.3f);
+		}
+		if (!preferences.contains("effects")) {
+			preferences.putFloat("effects", 1.0f);
+		}
+		if (!preferences.contains("port")) {
+			preferences.putInteger("port", 38000);
+		}
+		if (!preferences.contains("name")) {
+			preferences.putString("name", "xxxx");
+		}
+		if (!preferences.contains("ms")) {
+			preferences.putInteger("ms", 200);
+		}
+		if (!preferences.contains("language")) {
+			preferences.putString("language", Language.ENGLISH);
+		}
 		
 		effect1 = new ParticleEffect();
 		effect1.load(Gdx.files.internal("particles/effect1.pfx"), Gdx.files.internal("images"));
@@ -189,29 +201,54 @@ public class Assets implements Disposable {
 	public Sound getAudio1() {
 		return audio1;
 	}
+	
+	public void playAudio1() {
+		long id = audio1.play();
+		audio1.setVolume(id, getEffectsVolume());
+	}
 
-	public Sound getAudio2() {
-		return audio2;
+	public void playAudio2() {
+		long id = audio2.play();
+		audio2.setVolume(id, getEffectsVolume());
 	}
 	
-	public Sound getAudioItem() {
-		return audioItem;
+	public void playAudioItem() {
+		long id = audioItem.play();
+		audioItem.setVolume(id, getEffectsVolume());
 	}
 
-	public Sound getDestroySound() {
-		return destroySound;
+	public void playDestroySound() {
+		long id = destroySound.play();
+		destroySound.setVolume(id, getEffectsVolume());
 	}
 
-	public Sound getAudioSpeedUp() {
-		return audioSpeedUp;
+	public void playAudioSpeedUp() {
+		long id = audioSpeedUp.play();
+		audioSpeedUp.setVolume(id, getEffectsVolume());
 	}
 
 	public Music getMusic() {
 		return music;
 	}
 	
+	public void playMusic() {
+		music.play();
+	}
+	
+	public void stopMusic() {
+		music.stop();
+	}
+	
 	public Music getActionMusic() {
 		return action;
+	}
+	
+	public void playActionMusic() {
+		action.play();
+	}
+	
+	public void stopActionMusic() {
+		action.stop();
 	}
 
 	public BitmapFont getUIFont() {
