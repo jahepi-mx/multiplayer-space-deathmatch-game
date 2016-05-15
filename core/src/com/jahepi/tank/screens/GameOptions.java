@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jahepi.tank.Assets;
 import com.jahepi.tank.Config;
@@ -59,10 +60,21 @@ public class GameOptions implements Screen {
 		startServerLabel = new Label(Language.getInstance().get("start_server_btn"), style1);
 		serverBtn = new Button(skin);
 		serverBtn.add(startServerLabel);
+		serverBtn.setColor(Color.GREEN);
+		
+		Label serverDescLabel = new Label(Language.getInstance().get("server_desc_label"), style1);
+		Label searchServerDescLabel = new Label(Language.getInstance().get("search_server_desc_label"), style1);
+		serverDescLabel.setWrap(true);
+		serverDescLabel.setAlignment(Align.center);
+		searchServerDescLabel.setWrap(true);
+		serverDescLabel.setColor(Color.YELLOW);
+		searchServerDescLabel.setColor(Color.WHITE);
+		searchServerDescLabel.setAlignment(Align.center);
 		
 		searchServerLabel = new Label(Language.getInstance().get("search_server_btn"), style1);
 		searchServerBtn = new Button(skin);
 		searchServerBtn.add(searchServerLabel);
+		searchServerBtn.setColor(Color.YELLOW);
 		
 		LabelStyle style = new LabelStyle();
 		style.font = assets.getUIFont();
@@ -79,6 +91,7 @@ public class GameOptions implements Screen {
 		backLabel = new Label(Language.getInstance().get("back_btn"), style);
 		backBtn = new Button(skin);
 		backBtn.add(backLabel);
+		backLabel.setColor(Color.RED);
 		
 		searchServerBtn.addListener(new ClickListener() {
 			@Override
@@ -86,8 +99,10 @@ public class GameOptions implements Screen {
 				Gdx.app.log(TAG, "On search server ...");
 				if (tankField.isSearchServerActive()) {
 					tankField.stopSearchServer();
+					searchServerLabel.setText(Language.getInstance().get("search_server_btn"));
 				} else {
 					tankField.searchServer(assets.getPort(), assets.getMs(), assets.getNickname());
+					searchServerLabel.setText(Language.getInstance().get("stop_search_btn"));
 				}
 			}	
 		});
@@ -111,17 +126,21 @@ public class GameOptions implements Screen {
 		});
 		
 		Table table = new Table();
-		table.add(titleLabel).pad(40.0f);
+		table.add(titleLabel).pad(5.0f);
 		table.row();
-		table.add(searchLabel).pad(10.0f).uniform();
+		table.add(searchLabel).pad(5.0f).uniform();
 		table.row();
-		table.add(errorLabel).pad(10.0f).uniform();
+		table.add(errorLabel).pad(5.0f).uniform();
 		table.row();
-		table.add(serverBtn).pad(10.0f).uniform();
+		table.add(serverDescLabel).width(Config.UI_WIDTH * 0.8f).pad(5.0f);
 		table.row();
-		table.add(searchServerBtn).pad(10.0f).uniform();
+		table.add(serverBtn).pad(5.0f).uniform();
 		table.row();
-		table.add(backBtn).pad(10.0f).uniform();
+		table.add(searchServerDescLabel).width(Config.UI_WIDTH * 0.8f).pad(5.0f);
+		table.row();
+		table.add(searchServerBtn).pad(5.0f).uniform();
+		table.row();
+		table.add(backBtn).pad(30.0f).uniform();
 		table.setFillParent(true);
 		table.getColor().a = 0;
 		table.addAction(Actions.fadeIn(0.5f));

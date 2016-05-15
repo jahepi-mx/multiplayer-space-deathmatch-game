@@ -21,6 +21,9 @@
     <item name="language_label">Select the language for the game</item>
     <item name="effects_label">Sound Effects Volume</item>
     <item name="search_label">Searching ... %s</item>
+    <item name="stop_search_btn">Stop Searching ...</item>
+    <item name="server_desc_label">Start this option to initialize the server and have control over the match.</item>
+    <item name="search_server_desc_label">Start this option to search for a game server on the local network.</item>
     <item name="error_network">Could not find a game server</item>
     <item name="error_disconnect">Disconnected from server</item>
     <item name="waiting_label">Waiting for players to join</item>

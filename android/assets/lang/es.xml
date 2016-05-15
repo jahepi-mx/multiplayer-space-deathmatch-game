@@ -21,6 +21,9 @@
     <item name="effects_label">Volumen Efectos de Sonido</item>
     <item name="language_label">Selecciona el idioma del juego</item>
     <item name="search_label">Buscando ... %s</item>
+    <item name="stop_search_btn">Detener Búsqueda ...</item>
+    <item name="server_desc_label">Inicia esta opción para ser el servidor y ser el que tiene control de la partida.</item>
+    <item name="search_server_desc_label">Inicia esta opción si quieres buscar un servidor en la red local.</item>
     <item name="error_network">No se encontro un servidor de juego</item>
     <item name="error_disconnect">Desconectado del servidor</item>
     <item name="waiting_label">Esperando jugadores para iniciar partida ...</item>
