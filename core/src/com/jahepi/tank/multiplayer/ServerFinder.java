@@ -20,7 +20,7 @@ public class ServerFinder {
 		this.listener = listener;
 	}
 
-	public void search(final int port)  {
+	public void search(final int port, final int ms)  {
 		if (!active) {
 			final Array<InetAddress> addresses = new Array<InetAddress>();
 			Runnable runnable = new Runnable() {
@@ -48,7 +48,7 @@ public class ServerFinder {
 								listener.onServerStatus(tempAddress.toString());
 								try {
 									Socket socket = new Socket();
-									socket.connect(socketAddress, 100);
+									socket.connect(socketAddress, ms);
 									active = false;
 									listener.onServerFound(socket);
 									return;

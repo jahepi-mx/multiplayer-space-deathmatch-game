@@ -63,7 +63,9 @@ public class Missile extends GameEntity {
 	
 	public void playSound() {
 		if (sound != null) {
-			sound.play();
+			Assets assets = Assets.getInstance();
+			long id = sound.play();
+			sound.setVolume(id, assets.getEffectsVolume());
 		}
 	}
 

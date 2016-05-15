@@ -119,9 +119,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		});
 	}
 	
-	public void searchServer(int port, String name) {
+	public void searchServer(int port, int ms, String name) {
 		this.name = name;
-		serverFinder.search(port);
+		serverFinder.search(port, ms);
 	}
 	
 	public void runServer(int port, String name) {

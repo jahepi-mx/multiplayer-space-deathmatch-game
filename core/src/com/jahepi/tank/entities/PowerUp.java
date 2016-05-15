@@ -133,8 +133,10 @@ public class PowerUp extends GameEntity {
 
 	public void setActive(boolean active) {
 		if (!active) {
-			Assets.getInstance().getAudioItem().play();
-			endEffect = new ParticleEffect(Assets.getInstance().getEffect1());
+			Assets assets = Assets.getInstance();
+			long id = assets.getAudioItem().play();
+			assets.getAudioItem().setVolume(id, assets.getEffectsVolume());
+			endEffect = new ParticleEffect(assets.getEffect1());
 			endEffect.setPosition(position.x, position.y);
 			endEffect.start();
 		}

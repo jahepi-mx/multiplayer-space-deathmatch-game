@@ -78,7 +78,7 @@ public class GameOptions implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.log(TAG, "On search server ...");
-				tankField.searchServer(assets.getPort(), assets.getNickname());
+				tankField.searchServer(assets.getPort(), assets.getMs(), assets.getNickname());
 			}	
 		});
 		

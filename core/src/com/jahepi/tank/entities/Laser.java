@@ -77,7 +77,9 @@ public class Laser extends GameEntity {
 		if (activated) {
 			if (laserSoundTime >= LASER_SOUND_TIME_LIMIT) {
 				Gdx.app.log(TAG, "Sound: " + laserSoundTime);
-				Assets.getInstance().getAudio1().play();
+				Assets assets = Assets.getInstance();
+				long id = assets.getAudio1().play();
+				assets.getAudio1().setVolume(id, assets.getEffectsVolume());
 				laserSoundTime = 0;
 			}
 		}
