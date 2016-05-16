@@ -35,6 +35,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private String connectionId;
 	private ServerFinder serverFinder;
 	private String name;
+	private Assets assets;
 	
 	public static enum SCREEN_TYPE {
 		MAIN, GAMEOPTIONS, CREDITS, CONFIG, GAME
@@ -42,7 +43,8 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	@Override
 	public void create() {
-		Language.getInstance().load(Assets.getInstance().getLanguage());
+		assets = Assets.getInstance();
+		Language.getInstance().load(assets.getLanguage());
 		batch = new SpriteBatch();
 		json = new Json();
 		debugRender = new ShapeRenderer();
@@ -88,6 +90,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	@Override
 	public void onConnectionData(final String data) {
+		Gdx.app.log(TAG, "onConnectionData " + Thread.currentThread().getName());
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run() {

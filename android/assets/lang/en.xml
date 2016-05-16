@@ -10,7 +10,7 @@
     <item name="spanish_btn">Spanish</item>
     <item name="quit_btn">QUIT</item>
     <item name="start_game_btn">START</item>
-    <item name="game_title">MULTIPLAYER SPACE%sDEATHMATCH %s</item>
+    <item name="game_title">MULTIPLAYER SPACE DEATHMATCH %s</item>
     <item name="game_options_title">GAME OPTIONS</item>
     <item name="config_title">CONFIGURATION</item>
     <item name="port_label">Default Port</item>
@@ -32,7 +32,7 @@
     <item name="rematch_label">GO FOR A REMATCH</item>
     <item name="life_label">Life: %s</item>
     <item name="nickname_label">Nickname</item>
-    <item name="nickname_desc_label">Name that displays below the battle ship</item>
+    <item name="nickname_desc_label">Name that it is displayed below the ship</item>
     <item name="opponent_life_label">Player</item>
     <item name="opponent_win_label">Wins</item>
     <item name="wins_label">Wins: %s</item>

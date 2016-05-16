@@ -50,8 +50,9 @@ public class Main implements Screen {
 		
 		LabelStyle titleStyle = new LabelStyle();
 		titleStyle.font = assets.getUIFontTitle();
-		Label titleLabel = new Label(String.format(Language.getInstance().get("game_title"), "\n", Config.VERSION), titleStyle);
+		Label titleLabel = new Label(String.format(Language.getInstance().get("game_title"), Config.VERSION), titleStyle);
 		titleLabel.setAlignment(Align.center);
+		titleLabel.setWrap(true);
 		
 		LabelStyle style = new LabelStyle();
 		BitmapFont uiFont = assets.getUIFontMain();
@@ -87,7 +88,7 @@ public class Main implements Screen {
 		});
 		
 		Table table = new Table();
-		table.add(titleLabel).pad(40.0f);
+		table.add(titleLabel).width(Config.UI_WIDTH * 0.6f).pad(40.0f);
 		table.row();
 		table.add(playBtn).pad(10.0f).uniform();
 		table.row();

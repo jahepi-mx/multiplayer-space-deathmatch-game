@@ -86,6 +86,7 @@ public class Client extends Thread {
 	}
 	
 	public void send(String data) {
+		Gdx.app.log(TAG, identifier + " " + Thread.currentThread().getName());
 		try {
 			if (isActive()) {
 				out.writeUTF(data);

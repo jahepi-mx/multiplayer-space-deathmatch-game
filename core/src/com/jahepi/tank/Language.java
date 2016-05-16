@@ -37,10 +37,10 @@ public class Language {
 		selectedLanguage = lang;
 		
 		FileHandle file = null;
-		if (lang == ENGLISH) {
+		if (lang.equals(ENGLISH)) {
 			file = Gdx.files.internal(path + "en.xml");
 		}
-		if (lang == SPANISH) {
+		if (lang.equals(SPANISH)) {
 			file = Gdx.files.internal(path + "es.xml");
 		}
 		if (file != null) {

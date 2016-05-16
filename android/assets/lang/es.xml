@@ -10,7 +10,7 @@
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>
     <item name="start_game_btn">INICIAR</item>
-    <item name="game_title">MULTIJUGADOR ESPACIAL%sCOMBATE A MUERTE %s</item>
+    <item name="game_title">MULTIJUGADOR ESPACIAL COMBATE A MUERTE %s</item>
     <item name="game_options_title">OPCIONES DEL JUEGO</item>
     <item name="config_title">CONFIGURACIÓN</item>
     <item name="port_label">Puerto por defecto</item>
@@ -22,9 +22,9 @@
     <item name="language_label">Selecciona el idioma del juego</item>
     <item name="search_label">Buscando ... %s</item>
     <item name="stop_search_btn">Detener Búsqueda ...</item>
-    <item name="server_desc_label">Inicia esta opción para ser el servidor y ser el que tiene control de la partida.</item>
-    <item name="search_server_desc_label">Inicia esta opción si quieres buscar un servidor en la red local.</item>
-    <item name="error_network">No se encontro un servidor de juego</item>
+    <item name="server_desc_label">Inicia esta opción para arrancar el servidor y tener control de la partida.</item>
+    <item name="search_server_desc_label">Inicia esta opción para buscar un servidor en la red local.</item>
+    <item name="error_network">No se encontró un servidor de juego</item>
     <item name="error_disconnect">Desconectado del servidor</item>
     <item name="waiting_label">Esperando jugadores para iniciar partida ...</item>
     <item name="waiting_opponent_label">Esperando que la batalla inicie...</item>

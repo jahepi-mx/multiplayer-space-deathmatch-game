@@ -63,6 +63,7 @@ public class Assets implements Disposable {
 		if (!preferences.contains("language")) {
 			preferences.putString("language", Language.ENGLISH);
 		}
+		preferences.flush();
 		
 		effect1 = new ParticleEffect();
 		effect1.load(Gdx.files.internal("particles/effect1.pfx"), Gdx.files.internal("images"));
@@ -353,6 +354,7 @@ public class Assets implements Disposable {
 	
 	public void setNickname(String name) {
 		preferences.putString("name", name);
+		preferences.flush();
 	}
 	
 	public int getPort() {
@@ -361,6 +363,7 @@ public class Assets implements Disposable {
 	
 	public void setPort(int port) {
 		preferences.putInteger("port", port);
+		preferences.flush();
 	}
 	
 	public int getMs() {
@@ -369,6 +372,7 @@ public class Assets implements Disposable {
 	
 	public void setMs(int ms) {
 		preferences.putInteger("ms", ms);
+		preferences.flush();
 	}
 	
 	public float getMusicVolume() {
@@ -377,6 +381,7 @@ public class Assets implements Disposable {
 	
 	public void setMusicVolume(float volume) {
 		preferences.putFloat("music", volume);
+		preferences.flush();
 	}
 	
 	public float getEffectsVolume() {
@@ -385,10 +390,12 @@ public class Assets implements Disposable {
 	
 	public void setEffectsVolume(float volume) {
 		preferences.putFloat("effects", volume);
+		preferences.flush();
 	}
 	
 	public void setLanguage(String language) {
 		preferences.putString("language", language);
+		preferences.flush();
 	}
 	
 	public String getLanguage() {
