@@ -66,6 +66,18 @@ public class Server {
 		}
 	}
 	
+	public void addData(String data) {
+		for (Client client : clients) {
+			if (client != null) {
+				if (client.isActive()) {
+					client.addData(data);
+				} else {
+					clients.removeValue(client, true);
+				}
+			}
+		}
+	}
+	
 	public int getNumberOfClients() {
 		return clients.size;
 	}

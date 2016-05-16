@@ -223,11 +223,11 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	public void onGameChangeState(GameState gameState) {
 		if (client != null) {
 			String data = json.toJson(gameState);
-			client.send(data);
+			client.addData(data);
 		}
 		if (server != null) {
 			String data = json.toJson(gameState);
-			server.send(data);
+			server.addData(data);
 		}
 	}
 	

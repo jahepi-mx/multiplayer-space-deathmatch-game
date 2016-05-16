@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import com.badlogic.gdx.Gdx;
 import com.jahepi.tank.multiplayer.Server.ServerListener;
@@ -20,6 +21,7 @@ public class Client extends Thread {
 	private DataOutputStream out;
 	private boolean active, notifyNewConnection;
 	private String identifier;
+	private ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<String>(500);
 	
 	public Client(Socket socket, ServerListener listener, boolean notifyNewConnection) {
 		active = true;
@@ -69,6 +71,8 @@ public class Client extends Thread {
 			if (active && notifyNewConnection) {
 				listener.onNewConnection(identifier);
 			}
+			SendDataThread sendThread = new SendDataThread();
+			sendThread.start();
 			while (active) {
 				String data = in.readUTF();
 				if (listener != null) {
@@ -114,5 +118,33 @@ public class Client extends Thread {
 
 	public String getIdentifier() {
 		return identifier;
+	}
+	
+	public void addData(String data) {
+		try {
+			queue.put(data);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	class SendDataThread extends Thread {
+
+		@Override
+		public void run() {
+			while (active) {
+				String data;
+				try {
+					data = queue.take();
+					if (data != null && data.length() > 0) {
+						send(data);
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}		
 	}
 }
