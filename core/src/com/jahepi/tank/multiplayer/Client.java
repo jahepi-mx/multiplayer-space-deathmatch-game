@@ -22,7 +22,7 @@ public class Client extends Thread {
 	private DataOutputStream out;
 	private boolean active, notifyNewConnection;
 	private String identifier;
-	private ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<String>(500);
+	private ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<String>(240);
 	
 	public Client(Socket socket, ServerListener listener, boolean notifyNewConnection) {
 		active = true;
