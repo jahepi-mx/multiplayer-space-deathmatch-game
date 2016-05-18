@@ -3,9 +3,9 @@ package com.jahepi.tank.multiplayer;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Array;
 
 public class Server {
 
@@ -17,12 +17,12 @@ public class Server {
 	private ServerSocket server;
 	private Thread thread;
 	private boolean running;
-	private Array<Client> clients;
+	private ArrayBlockingQueue<Client> clients;
 	private ServerListener listener;
 	
 	public Server(int port, ServerListener listener) throws IOException {
 		server = new ServerSocket(port);
-		clients = new Array<Client>();
+		clients = new ArrayBlockingQueue<Client>(MAX_CONNECTIONS);
 		this.listener = listener;
 	}
 	
@@ -35,8 +35,8 @@ public class Server {
 					while (running) {
 						try {
 							Socket socket = server.accept();
-							//socket.setTcpNoDelay(true);
-							if (clients.size < MAX_CONNECTIONS) {
+							socket.setTcpNoDelay(true);
+							if (clients.size() < MAX_CONNECTIONS) {
 								Gdx.app.log(TAG, "Client connected");
 								Client client = new Client(socket, listener, false);
 								clients.add(client);
@@ -60,7 +60,7 @@ public class Server {
 				if (client.isActive()) {
 					client.send(data);
 				} else {
-					clients.removeValue(client, true);
+					clients.remove(client);
 				}
 			}
 		}
@@ -72,14 +72,14 @@ public class Server {
 				if (client.isActive()) {
 					client.addData(data);
 				} else {
-					clients.removeValue(client, true);
+					clients.remove(client);
 				}
 			}
 		}
 	}
 	
 	public int getNumberOfClients() {
-		return clients.size;
+		return clients.size();
 	}
 	
 	public void close() {
@@ -94,6 +94,7 @@ public class Server {
 				client.close();
 			}
 		}
+		clients.clear();
 	}
 	
 	public interface ServerListener {

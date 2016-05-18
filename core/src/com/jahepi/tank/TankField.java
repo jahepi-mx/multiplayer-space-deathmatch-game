@@ -90,7 +90,6 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	@Override
 	public void onConnectionData(final String data) {
-		Gdx.app.log(TAG, "onConnectionData " + Thread.currentThread().getName());
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run() {

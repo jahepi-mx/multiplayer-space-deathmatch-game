@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -27,11 +28,11 @@ public class Client extends Thread {
 		active = true;
 		this.notifyNewConnection = notifyNewConnection;
 		this.socket = socket;
-		/*try {
+		try {
 			this.socket.setTcpNoDelay(true);
-		} catch (SocketException e1) {
-			e1.printStackTrace();
-		}*/
+		} catch (SocketException exp) {
+			exp.printStackTrace();
+		}
 		this.listener = listener;
 		try {
 			in = new DataInputStream(this.socket.getInputStream());
@@ -48,7 +49,7 @@ public class Client extends Thread {
 		this.listener = listener;
 		try {
 			socket = new Socket();
-			//socket.setTcpNoDelay(true);
+			socket.setTcpNoDelay(true);
 			socket.connect(new InetSocketAddress(host, port), 2000);
 			in = new DataInputStream(this.socket.getInputStream());
 			out = new DataOutputStream(this.socket.getOutputStream());
@@ -64,9 +65,9 @@ public class Client extends Thread {
 		try {
 			InetSocketAddress address = (InetSocketAddress) socket.getRemoteSocketAddress();
 			if (notifyNewConnection) {
-				identifier = socket.getLocalAddress() + ":" + address.getPort() + ":" + socket.getLocalPort();
+				identifier = socket.getLocalAddress() + ":" + socket.getLocalPort();
 			} else {
-				identifier = address.getAddress() + ":" + socket.getLocalPort() + ":" + address.getPort();
+				identifier = address.getAddress() + ":" + address.getPort();
 			}
 			if (active && notifyNewConnection) {
 				listener.onNewConnection(identifier);
@@ -90,7 +91,7 @@ public class Client extends Thread {
 	}
 	
 	public void send(String data) {
-		Gdx.app.log(TAG, identifier + " " + Thread.currentThread().getName());
+		//Gdx.app.log(TAG, identifier + " " + Thread.currentThread().getName());
 		try {
 			if (isActive()) {
 				out.writeUTF(data);
@@ -141,7 +142,6 @@ public class Client extends Thread {
 						send(data);
 					}
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
