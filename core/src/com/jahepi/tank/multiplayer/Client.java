@@ -95,7 +95,6 @@ public class Client extends Thread {
 		try {
 			if (isActive()) {
 				out.writeUTF(data);
-				out.flush();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,9 +122,9 @@ public class Client extends Thread {
 	
 	public void addData(String data) {
 		try {
-			queue.put(data);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			//Gdx.app.log("Queue size", "" + queue.size());
+			queue.add(data);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -137,11 +136,11 @@ public class Client extends Thread {
 			while (active) {
 				String data;
 				try {
-					data = queue.take();
+					data = queue.poll();
 					if (data != null && data.length() > 0) {
 						send(data);
 					}
-				} catch (InterruptedException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
