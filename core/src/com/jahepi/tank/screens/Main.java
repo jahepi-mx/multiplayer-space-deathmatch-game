@@ -73,6 +73,11 @@ public class Main implements Screen {
 		creditsBtn.setWidth(creditsLabel.getWidth());
 		creditsBtn.add(creditsLabel);
 		
+		Label exitLabel = new Label(Language.getInstance().get("exit_btn"), style);
+		Button exitBtn = new Button(new ButtonStyle());
+		exitBtn.setWidth(exitLabel.getWidth());
+		exitBtn.add(exitLabel);
+		
 		playBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -87,14 +92,24 @@ public class Main implements Screen {
 			}		
 		});
 		
+		exitBtn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.exit();
+			}		
+		});
+		
 		Table table = new Table();
-		table.add(titleLabel).width(Config.UI_WIDTH * 0.6f).pad(40.0f);
+		table.setScale(0);
+		table.add(titleLabel).width(Config.UI_WIDTH * 0.6f).pad(30.0f);
 		table.row();
 		table.add(playBtn).pad(10.0f).uniform();
 		table.row();
 		table.add(configBtn).pad(10.0f).uniform();
 		table.row();
 		table.add(creditsBtn).pad(10.0f).uniform();
+		table.row();
+		table.add(exitBtn).pad(10.0f).uniform();
 		table.setFillParent(true);
 		table.getColor().a = 0;
 		table.addAction(Actions.fadeIn(0.5f));

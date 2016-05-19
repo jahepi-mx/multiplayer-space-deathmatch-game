@@ -6,6 +6,7 @@
     <item name="config_btn">CONFIGURACIÓN</item>
     <item name="credits_btn">CRÉDITOS</item>
     <item name="back_btn">REGRESAR</item>
+    <item name="exit_btn">SALIR DEL JUEGO</item>
     <item name="english_btn">Ingles</item>
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>

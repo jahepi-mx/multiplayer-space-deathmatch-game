@@ -6,6 +6,7 @@
     <item name="config_btn">SETTINGS</item>
     <item name="credits_btn">CREDITS</item>
     <item name="back_btn">GO BACK</item>
+    <item name="exit_btn">EXIT GAME</item>
     <item name="english_btn">English</item>
     <item name="spanish_btn">Spanish</item>
     <item name="quit_btn">QUIT</item>
