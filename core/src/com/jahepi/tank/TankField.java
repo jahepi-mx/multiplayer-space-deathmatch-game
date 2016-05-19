@@ -185,6 +185,12 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			}
 		});
 	}
+	
+	public void stopServerSearch() {
+		if (serverFinder.isActive()) {
+			serverFinder.setActive(false);
+		}
+	}
 
 	private boolean startServer(int port) {
 		try {

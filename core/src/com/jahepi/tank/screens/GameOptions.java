@@ -151,6 +151,7 @@ public class GameOptions implements Screen {
 	
 	public void showConnectionError() {
 		errorLabel.setText(Language.getInstance().get("error_network"));
+		searchServerLabel.setText(Language.getInstance().get("search_server_btn"));
 	}
 	
 	public void showDisconnectError() {
@@ -190,7 +191,7 @@ public class GameOptions implements Screen {
 
 	@Override
 	public void hide() {
-
+		tankField.stopServerSearch();
 	}
 
 	@Override
