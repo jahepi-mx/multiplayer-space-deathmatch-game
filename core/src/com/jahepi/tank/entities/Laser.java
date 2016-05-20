@@ -27,7 +27,7 @@ public class Laser extends GameEntity {
 		size.set(Config.WIDTH, height);
 		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
 		rectangle.setPosition(position.x, position.y);
-		rectangle.setOrigin(0, size.y / 2);
+		rectangle.setOrigin(size.y / 2, size.y / 2);
 		rectangle.setRotation(rotation);
 		this.texture = assets.getLaser();
 		laserSoundTime = LASER_SOUND_TIME_LIMIT;
@@ -36,7 +36,7 @@ public class Laser extends GameEntity {
 	@Override
 	public void render(SpriteBatch batch) {
 		if (isVisible() && isActivated()) {
-			batch.draw(texture, position.x, position.y, 0, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+			batch.draw(texture, position.x, position.y, size.y / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
 	}
 

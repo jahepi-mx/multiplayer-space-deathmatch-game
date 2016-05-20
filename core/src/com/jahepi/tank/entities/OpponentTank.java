@@ -60,10 +60,9 @@ public class OpponentTank extends Tank {
 		}
 		
 		if (laser.isVisible()) {
-			float y = position.y - ((laser.getHeight() - size.y) / 2);
-			Vector2 position = Util.getRotationPosition(size.x, size.y, this.position.x, y);
-			laser.setX(position.x);
-			laser.setY(position.y);
+			Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
+			laser.setX(position.x - (size.x / 2));
+			laser.setY(position.y - (size.y / 2));
 			laser.setRotation(rotation);
 			laser.update(deltatime);
 		}

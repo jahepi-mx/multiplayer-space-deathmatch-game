@@ -35,7 +35,7 @@ public class Missile extends GameEntity {
 		assets = Assets.getInstance();
 		this.textureType = textureType;
 		size.set(width, height);
-		position.set(x, y);
+		position.set(x - (size.x / 2), y - (size.y / 2));
 		this.speed = speed;
 		this.rotation = rotation;
 		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});

@@ -7,15 +7,13 @@ public abstract class Util {
 
 	public Util() {
 	}
-	
-	public static Vector2 getRotationPosition(float width, float height, float x, float y) {
-		float co = height / 2;
-		float ca = width;
-		float deg = MathUtils.radiansToDegrees * MathUtils.atan2(co, ca);
-		float tempX = (width / 2) * MathUtils.cosDeg(deg);
-		float tempY = (height / 2) * MathUtils.sinDeg(deg);
-		float xR = x + tempX;
-		float yR = y + tempY;
-		return new Vector2(xR, yR);
+
+	public static Vector2 getRotationPosition(float width, float height, float x, float y, float rotation) {
+        x = x + (width / 2);
+        y = y + (height / 2);
+		float radius = (float) (Math.sqrt((width * width) + (height * height))) / 2;
+		float xTemp = x + (MathUtils.cosDeg(rotation) * radius);
+		float yTemp = y + (MathUtils.sinDeg(rotation) * radius);
+		return new Vector2(xTemp, yTemp);
 	}
 }

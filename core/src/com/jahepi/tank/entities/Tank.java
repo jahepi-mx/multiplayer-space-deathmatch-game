@@ -199,7 +199,7 @@ public class Tank extends GameEntity {
 			laser.shoot();
 			if (!disableShooting && shootTime >= SHOOT_TIME) {
 				shootTime = 0;
-				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY());
+				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
 				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed);
 				missile.setEffect(effect);
 				missile.setSound(sound);
@@ -310,14 +310,13 @@ public class Tank extends GameEntity {
 		}
 		
 		if (laser.isVisible()) {
-			float y = position.y - ((laser.getHeight() - size.y) / 2);
-			Vector2 position = Util.getRotationPosition(size.x, size.y, this.position.x, y);
-			laser.setX(position.x);
-			laser.setY(position.y);
+			Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
+			laser.setX(position.x - (size.x / 2));
+			laser.setY(position.y - (size.y / 2));
 			laser.setRotation(rotation);
 			laser.update(deltatime);
 		}
-		
+		Gdx.app.log(TAG, "rotation: " + rotation + " x: " + getX() + " y: " + getY());
 		effect.update(deltatime);
 	}
 	
