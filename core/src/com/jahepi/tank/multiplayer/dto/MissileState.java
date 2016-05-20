@@ -4,7 +4,7 @@ import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 
 public class MissileState {
 
-	private float x, y, rotation, speed;
+	private float effectScale, width, height, x, y, rotation, speed;
 	private TEXTURE_MISSILE_TYPE textureType;
 	
 	public MissileState() {
@@ -43,7 +43,31 @@ public class MissileState {
 		this.speed = speed;
 	}
 
-	public TEXTURE_MISSILE_TYPE getTextureType() {
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+    public float getEffectScale() {
+        return effectScale;
+    }
+
+    public void setEffectScale(float effectScale) {
+        this.effectScale = effectScale;
+    }
+
+    public TEXTURE_MISSILE_TYPE getTextureType() {
 		return textureType;
 	}
 

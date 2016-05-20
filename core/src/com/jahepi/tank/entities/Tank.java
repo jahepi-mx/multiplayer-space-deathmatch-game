@@ -26,7 +26,7 @@ public class Tank extends GameEntity {
 	public static final String TAG = "Tank";
 	public static final float DEFAULT_VELOCITY = 10.0f;
 	public static final float FRICTION = 0.99f;
-	public static final float SHOOT_TIME = 0.4f;
+	public static final float MEGA_SHOOT_TIME = 2.0f;
 	public static final int LIFE = 50;
 	public static enum TEXTURE_TYPE {
 		SHIP1, SHIP2, SHIP3, SHIP4, SHIP5
@@ -34,14 +34,14 @@ public class Tank extends GameEntity {
 	
 	protected Array<Missile> missiles;
 	protected Laser laser;
-	protected float shootTime;
+	protected float megaShootTime;
+    protected boolean megaShootEnable;
 	protected int life;
 	protected int wins;
 	protected TextureRegion texture;
 	protected ParticleEffect effect;
 	protected Sound sound;
 	protected Vector2 missileSize;
-	protected boolean disableShooting;
 	protected boolean shooting;
 	protected Array<PowerUpStateStrategy> powerUpStrategies;
 	protected Array<PowerUpStateStrategy> collectedPowerUpStrategies;
@@ -125,10 +125,6 @@ public class Tank extends GameEntity {
 	public void setLaserVisible(Boolean visible) {
 		laser.setVisible(visible);
 	}
-
-	public void setDisableShooting(boolean disableShooting) {
-		this.disableShooting = disableShooting;
-	}
 	
 	public void addPowerUpStrategy(PowerUpStateStrategy powerUpStrategy) {
 		boolean found = false;
@@ -191,13 +187,23 @@ public class Tank extends GameEntity {
 	public void onReleaseShoot() {
 		shooting = false;
 		laser.releaseShoot();
+        megaShootTime = 0;
+        if (megaShootEnable) {
+            megaShootEnable = false;
+            Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
+            Missile missile = new Missile(position.x, position.y, rotation, 3.0f, 3.0f, 3.0f, TEXTURE_MISSILE_TYPE.MISSILE2, missileSpeed, true);
+            missile.setEffect(effect);
+            missile.setSound(sound);
+            missile.playSound();
+            missiles.add(missile);
+        }
 	}
 	
 	public void shoot() {
 		if (!isDead()) {
+			megaShootTime += Gdx.graphics.getDeltaTime();
 			laser.shoot();
-			if (!disableShooting && !shooting) {
-				shootTime = 0;
+			if (!shooting) {
 				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
 				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, true);
 				missile.setEffect(effect);
@@ -205,6 +211,10 @@ public class Tank extends GameEntity {
 				missile.playSound();
 				missiles.add(missile);
 			}
+            if (megaShootTime >= MEGA_SHOOT_TIME) {
+                megaShootTime = 0;
+                megaShootEnable = true;
+            }
 			shooting = true;
 		}
 	}
@@ -244,7 +254,6 @@ public class Tank extends GameEntity {
 	}
 	
 	public void update(float deltatime) {
-		shootTime += deltatime;
 		speedUpTime += deltatime;
 		time += deltatime;
 		speed *= FRICTION;
@@ -369,7 +378,7 @@ public class Tank extends GameEntity {
 
 	public void reset() {
 		life = LIFE;
-		shootTime = 0;
+		megaShootTime = 0;
 		missiles.clear();
 		setRandomPosition();
 	}
@@ -422,7 +431,7 @@ public class Tank extends GameEntity {
 			laser.releaseShoot();
 		}
 		for (MissileState missileState : tankState.getMissiles()) {
-			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileSize.x, missileSize.y, missileEffectScale, missileState.getTextureType(), missileState.getSpeed(), false);
+			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), false);
 			missile.setEffect(effect);
 			missile.setSound(sound);
 			missile.playSound();

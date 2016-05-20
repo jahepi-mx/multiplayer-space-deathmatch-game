@@ -148,8 +148,11 @@ public class Missile extends GameEntity {
 		MissileState missileState = new MissileState();
 		missileState.setX(position.x);
 		missileState.setY(position.y);
+		missileState.setWidth(size.x);
+		missileState.setHeight(size.y);
 		missileState.setRotation(rotation);
 		missileState.setSpeed(speed);
+		missileState.setEffectScale(effectScale);
 		missileState.setTextureType(textureType);
 		return missileState;
 	}
