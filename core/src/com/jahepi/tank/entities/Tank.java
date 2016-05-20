@@ -195,17 +195,17 @@ public class Tank extends GameEntity {
 	
 	public void shoot() {
 		if (!isDead()) {
-			shooting = true;
 			laser.shoot();
-			if (!disableShooting && shootTime >= SHOOT_TIME) {
+			if (!disableShooting && !shooting) {
 				shootTime = 0;
 				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
-				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed);
+				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, true);
 				missile.setEffect(effect);
 				missile.setSound(sound);
 				missile.playSound();
 				missiles.add(missile);
 			}
+			shooting = true;
 		}
 	}
 	
@@ -422,7 +422,7 @@ public class Tank extends GameEntity {
 			laser.releaseShoot();
 		}
 		for (MissileState missileState : tankState.getMissiles()) {
-			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileSize.x, missileSize.y, missileEffectScale, missileState.getTextureType(), missileState.getSpeed());
+			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileSize.x, missileSize.y, missileEffectScale, missileState.getTextureType(), missileState.getSpeed(), false);
 			missile.setEffect(effect);
 			missile.setSound(sound);
 			missile.playSound();

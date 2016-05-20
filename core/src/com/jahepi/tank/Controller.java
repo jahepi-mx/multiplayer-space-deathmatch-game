@@ -222,9 +222,9 @@ public class Controller {
 					tank.rotateDown();
 				}
 				if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-					tank.shoot();
+					// tank.shoot();
 				} else {
-					tank.onReleaseShoot();
+					// tank.onReleaseShoot();
 				}
 			}
 	

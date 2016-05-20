@@ -30,12 +30,16 @@ public class Missile extends GameEntity {
 	protected TEXTURE_MISSILE_TYPE textureType;
 	private Assets assets;
 	
-	public Missile(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed) {
+	public Missile(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, boolean fixPosition) {
 		super();
 		assets = Assets.getInstance();
 		this.textureType = textureType;
 		size.set(width, height);
-		position.set(x - (size.x / 2), y - (size.y / 2));
+		if (fixPosition) {
+            position.set(x - (size.x / 2), y - (size.y / 2));
+		} else {
+            position.set(x, y);
+		}
 		this.speed = speed;
 		this.rotation = rotation;
 		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
