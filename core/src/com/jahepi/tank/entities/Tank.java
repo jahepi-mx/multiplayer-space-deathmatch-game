@@ -316,7 +316,6 @@ public class Tank extends GameEntity {
 			laser.setRotation(rotation);
 			laser.update(deltatime);
 		}
-		Gdx.app.log(TAG, "rotation: " + rotation + " x: " + getX() + " y: " + getY());
 		effect.update(deltatime);
 	}
 	
