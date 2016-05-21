@@ -27,6 +27,7 @@ public class Tank extends GameEntity {
 	public static final float DEFAULT_VELOCITY = 10.0f;
 	public static final float FRICTION = 0.99f;
 	public static final float MEGA_SHOOT_TIME = 2.0f;
+	public static final float MEGA_SHOOT_ANIMATION_TIME = 0.5f;
 	public static final int LIFE = 50;
 	public static enum TEXTURE_TYPE {
 		SHIP1, SHIP2, SHIP3, SHIP4, SHIP5
@@ -36,6 +37,7 @@ public class Tank extends GameEntity {
 	protected Laser laser;
 	protected float megaShootTime;
     protected boolean megaShootEnable;
+	protected boolean megaShootEnableAnimation;
 	protected int life;
 	protected int wins;
 	protected TextureRegion texture;
@@ -46,7 +48,7 @@ public class Tank extends GameEntity {
 	protected Array<PowerUpStateStrategy> powerUpStrategies;
 	protected Array<PowerUpStateStrategy> collectedPowerUpStrategies;
 	protected float defaultSize = 2.0f;
-	protected int damage = 1;
+	protected int missileDamage = 1;
 	protected TEXTURE_MISSILE_TYPE missileTextureType;
 	protected float missileEffectScale = 1.0f;
 	protected float missileSpeed = 11.0f;
@@ -56,6 +58,7 @@ public class Tank extends GameEntity {
 	protected float lastSpeedUpTime;
 	protected boolean activeSpeedUpTime;
 	protected Animation speedUpAnimation;
+	protected Animation megaShootAnimation;
 	protected TextureRegion speedUpTexture;
 	protected float time;
 	protected Assets assets;
@@ -79,6 +82,7 @@ public class Tank extends GameEntity {
 		}
 		velocity = DEFAULT_VELOCITY;
 		this.speedUpAnimation = assets.getSpeedUpAnimation();
+		this.megaShootAnimation = assets.getMegaShootAnimation();
 		size.set(defaultSize, defaultSize);
 		position.set(Config.WIDTH / 2, Config.HEIGHT / 2);
 		missiles = new Array<Missile>();
@@ -114,8 +118,8 @@ public class Tank extends GameEntity {
 		return missileSize;
 	}
 
-	public void setDamage(int damage) {
-		this.damage = damage;
+	public void setMissileDamage(int missileDamage) {
+		this.missileDamage = missileDamage;
 	}
 
 	public void setMissileEffectScale(float missileEffectScale) {
@@ -164,7 +168,13 @@ public class Tank extends GameEntity {
 		}
 		
 		if (velocity > DEFAULT_VELOCITY && speedUpTexture != null) {
-			batch.draw(speedUpTexture, position.x + ((MathUtils.cosDeg(rotation) * -2)), position.y + ((MathUtils.sinDeg(rotation) * -1)), size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+			Vector2 vector = Util.getRotationPositionFromBack(size.x, size.y, position.x, position.y, rotation);
+			batch.draw(speedUpTexture, vector.x - (size.x / 2), vector.y - (size.y / 2), size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+		}
+
+		if (megaShootEnableAnimation) {
+			Vector2 vector = Util.getRotationPosition(size.x, size.y, position.x, position.y, rotation);
+			batch.draw(megaShootAnimation.getKeyFrame(time), vector.x - (size.x / 2), vector.y - (size.y / 2), size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
 	}
 	
@@ -188,10 +198,11 @@ public class Tank extends GameEntity {
 		shooting = false;
 		laser.releaseShoot();
         megaShootTime = 0;
+		megaShootEnableAnimation = false;
         if (megaShootEnable) {
             megaShootEnable = false;
             Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
-            Missile missile = new Missile(position.x, position.y, rotation, 3.0f, 3.0f, 3.0f, TEXTURE_MISSILE_TYPE.MISSILE2, missileSpeed, true);
+            Missile missile = new Missile(position.x, position.y, rotation, 4.0f, 4.0f, 3.0f, TEXTURE_MISSILE_TYPE.MISSILE7, missileSpeed, 5, true);
             missile.setEffect(effect);
             missile.setSound(sound);
             missile.playSound();
@@ -205,7 +216,7 @@ public class Tank extends GameEntity {
 			laser.shoot();
 			if (!shooting) {
 				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
-				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, true);
+				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, missileDamage, true);
 				missile.setEffect(effect);
 				missile.setSound(sound);
 				missile.playSound();
@@ -215,6 +226,9 @@ public class Tank extends GameEntity {
                 megaShootTime = 0;
                 megaShootEnable = true;
             }
+			if (megaShootTime >= MEGA_SHOOT_ANIMATION_TIME) {
+				megaShootEnableAnimation = true;
+			}
 			shooting = true;
 		}
 	}
@@ -353,12 +367,12 @@ public class Tank extends GameEntity {
 			for (Missile missile : missiles) {
 				if (missile != null && missile.collide(tank.getRectangle()) && !missile.isHit()) {
 					missile.setHit(true);
-					tank.setLife(tank.getLife() - damage);
+					tank.setLife(tank.getLife() - missile.getDamage());
 				}
 			}
 			if (laser.isHit(tank)) {
 				tank.startEffect();
-				tank.setLife(tank.getLife() - damage);
+				tank.setLife(tank.getLife() - laser.getDamage());
 			}
 		}
 	}
@@ -397,6 +411,7 @@ public class Tank extends GameEntity {
 		tankState.setTextureType(textureType);
 		tankState.setMissileTextureType(missileTextureType);
 		tankState.setName(name);
+		tankState.setMegaShoot(megaShootEnableAnimation);
 		for (Missile missile : missiles) {
 			if (missile != null && !missile.isSend()) {
 				missile.setSend(true);
@@ -420,6 +435,7 @@ public class Tank extends GameEntity {
 		shooting = tankState.isShooting();
 		removed = tankState.isRemoved();
 		velocity = tankState.getVelocity();
+		megaShootEnableAnimation = tankState.isMegaShoot();
 		if (isSend) {
 			life = tankState.getLife();
 			wins = tankState.getWins();
@@ -431,7 +447,7 @@ public class Tank extends GameEntity {
 			laser.releaseShoot();
 		}
 		for (MissileState missileState : tankState.getMissiles()) {
-			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), false);
+			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false);
 			missile.setEffect(effect);
 			missile.setSound(sound);
 			missile.playSound();

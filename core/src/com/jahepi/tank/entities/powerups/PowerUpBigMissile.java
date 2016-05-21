@@ -16,7 +16,7 @@ public class PowerUpBigMissile extends PowerUpStateStrategy {
 		Vector2 size = tank.getMissileSize();
 		tank.setMissileSize(size.x * 2.0f,size.y * 2.0f);
 		tank.setMissileEffectScale(3.0f);
-		tank.setDamage(2);
+		tank.setMissileDamage(2);
 		tank.setMissileSpeed(13.0f);
 	}
 
@@ -31,7 +31,7 @@ public class PowerUpBigMissile extends PowerUpStateStrategy {
 		Vector2 size = tank.getMissileSize();
 		tank.setMissileSize(size.x / 2.0f,size.y / 2.0f);
 		tank.setMissileEffectScale(1.0f);
-		tank.setDamage(1);
+		tank.setMissileDamage(1);
 		tank.setMissileSpeed(7.0f);
 	}
 }

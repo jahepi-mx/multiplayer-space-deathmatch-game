@@ -20,6 +20,7 @@ public class Laser extends GameEntity {
 	private float damageTime;
 	private float laserSoundTime;
 	private Assets assets;
+	private int damage;
 	
 	public Laser() {
 		float height = 3.0f;
@@ -31,6 +32,7 @@ public class Laser extends GameEntity {
 		rectangle.setRotation(rotation);
 		this.texture = assets.getLaser();
 		laserSoundTime = LASER_SOUND_TIME_LIMIT;
+		damage = 2;
 	}
 
 	@Override
@@ -105,5 +107,9 @@ public class Laser extends GameEntity {
 		if (isVisible()) {
 			setActivated(false);
 		}
+	}
+
+	public int getDamage() {
+		return damage;
 	}
 }

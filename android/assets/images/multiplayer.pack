@@ -5,260 +5,309 @@ filter: Linear,Linear
 repeat: none
 background_game
   rotate: false
-  xy: 1, 1223
+  xy: 1, 1235
   size: 1024, 810
   orig: 1024, 810
   offset: 0, 0
   index: -1
 background_main
   rotate: false
-  xy: 1, 411
+  xy: 1, 423
   size: 1024, 810
   orig: 1024, 810
   offset: 0, 0
   index: -1
 laser
   rotate: false
-  xy: 1027, 1433
+  xy: 1027, 1445
   size: 100, 600
   orig: 100, 600
   offset: 0, 0
   index: -1
+rocket7
+  rotate: false
+  xy: 1, 141
+  size: 280, 280
+  orig: 280, 280
+  offset: 0, 0
+  index: -1
+BlueBulletExplo
+  rotate: false
+  xy: 1129, 1799
+  size: 228, 246
+  orig: 228, 246
+  offset: 0, 0
+  index: 6
 OrangeBulletExplo
   rotate: false
-  xy: 1, 163
+  xy: 283, 175
   size: 228, 246
   orig: 228, 246
   offset: 0, 0
   index: 6
 ship5
   rotate: false
-  xy: 1129, 1805
+  xy: 1129, 1569
   size: 180, 228
   orig: 180, 228
   offset: 0, 0
   index: -1
 energy
   rotate: false
-  xy: 231, 211
+  xy: 1359, 1847
   size: 200, 198
   orig: 200, 198
   offset: 0, 0
   index: -1
 freeze
   rotate: false
-  xy: 1311, 1835
+  xy: 513, 223
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 health
   rotate: false
-  xy: 433, 211
+  xy: 1561, 1847
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 nuke
   rotate: false
-  xy: 1512, 1835
+  xy: 714, 223
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 poison
   rotate: false
-  xy: 634, 211
+  xy: 1762, 1847
   size: 199, 198
   orig: 199, 198
+  offset: 0, 0
+  index: -1
+ship4
+  rotate: false
+  xy: 1, 1
+  size: 173, 138
+  orig: 173, 138
   offset: 0, 0
   index: -1
 shield
   rotate: false
-  xy: 1713, 1835
+  xy: 915, 223
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
+BlueBulletExplo
+  rotate: false
+  xy: 1129, 1371
+  size: 197, 196
+  orig: 197, 196
+  offset: 0, 0
+  index: 5
 OrangeBulletExplo
   rotate: false
-  xy: 835, 213
+  xy: 1027, 1173
   size: 196, 196
   orig: 196, 196
   offset: 0, 0
   index: 5
 ship2
   rotate: false
-  xy: 1, 1
+  xy: 1027, 1011
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
 ship3
   rotate: false
-  xy: 1129, 1643
+  xy: 1027, 849
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
 ship1
   rotate: false
-  xy: 1129, 1481
+  xy: 1027, 687
   size: 140, 160
   orig: 140, 160
   offset: 0, 0
   index: -1
 skull
   rotate: false
-  xy: 1027, 1271
+  xy: 1027, 525
   size: 136, 160
   orig: 136, 160
   offset: 0, 0
   index: -1
-OrangeBulletExplo
+BlueBulletExplo
   rotate: false
-  xy: 1027, 1120
-  size: 149, 149
-  orig: 149, 149
+  xy: 1225, 1220
+  size: 148, 149
+  orig: 148, 149
   offset: 0, 0
   index: 4
-ship4
+BlueBulletExplo
   rotate: false
-  xy: 1027, 980
-  size: 173, 138
-  orig: 173, 138
-  offset: 0, 0
-  index: -1
-OrangeBulletExplo
-  rotate: false
-  xy: 1027, 840
+  xy: 176, 1
   size: 138, 138
   orig: 138, 138
   offset: 0, 0
   index: 3
 OrangeBulletExplo
   rotate: false
-  xy: 1914, 1920
+  xy: 316, 24
+  size: 149, 149
+  orig: 149, 149
+  offset: 0, 0
+  index: 4
+OrangeBulletExplo
+  rotate: false
+  xy: 513, 83
+  size: 138, 138
+  orig: 138, 138
+  offset: 0, 0
+  index: 3
+BlueBulletExplo
+  rotate: false
+  xy: 653, 108
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: 2
-rocket5
+OrangeBulletExplo
   rotate: false
-  xy: 163, 30
-  size: 60, 131
-  orig: 60, 131
+  xy: 768, 108
+  size: 113, 113
+  orig: 113, 113
   offset: 0, 0
-  index: -1
-rocket6
-  rotate: false
-  xy: 1027, 707
-  size: 59, 131
-  orig: 59, 131
-  offset: 0, 0
-  index: -1
+  index: 2
 button_arrow_bottom
   rotate: false
-  xy: 1914, 1838
+  xy: 1963, 1965
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_bottom_on
   rotate: false
-  xy: 1088, 758
+  xy: 1027, 443
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-rocket3
-  rotate: false
-  xy: 1027, 590
-  size: 33, 115
-  orig: 33, 115
-  offset: 0, 0
-  index: -1
 button_arrow_left
   rotate: false
-  xy: 1088, 676
+  xy: 883, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_left_on
   rotate: false
-  xy: 1062, 594
+  xy: 1963, 1883
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-rocket4
-  rotate: false
-  xy: 1167, 877
-  size: 28, 101
-  orig: 28, 101
-  offset: 0, 0
-  index: -1
 button_arrow_right
   rotate: false
-  xy: 231, 129
+  xy: 965, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_right_on
   rotate: false
-  xy: 313, 129
+  xy: 1047, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_top
   rotate: false
-  xy: 395, 129
+  xy: 1109, 443
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_top_on
   rotate: false
-  xy: 477, 129
+  xy: 1116, 361
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot
   rotate: false
-  xy: 559, 129
+  xy: 1116, 279
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot_on
   rotate: false
-  xy: 641, 129
+  xy: 1311, 1717
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 OrangeBulletExplo
   rotate: false
-  xy: 723, 147
+  xy: 1027, 1381
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: 1
+BlueBulletExplo
+  rotate: false
+  xy: 1311, 1654
+  size: 61, 61
+  orig: 61, 61
+  offset: 0, 0
+  index: 1
+rocket5
+  rotate: false
+  xy: 467, 108
+  size: 37, 65
+  orig: 37, 65
+  offset: 0, 0
+  index: -1
+rocket6
+  rotate: false
+  xy: 1311, 1587
+  size: 37, 65
+  orig: 37, 65
+  offset: 0, 0
+  index: -1
 rocket1
   rotate: false
-  xy: 1027, 524
+  xy: 1189, 1107
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket2
   rotate: false
-  xy: 1129, 1445
-  size: 35, 34
-  orig: 35, 34
+  xy: 1225, 1154
+  size: 34, 64
+  orig: 34, 64
+  offset: 0, 0
+  index: -1
+rocket3
+  rotate: false
+  xy: 467, 42
+  size: 34, 64
+  orig: 34, 64
+  offset: 0, 0
+  index: -1
+rocket4
+  rotate: false
+  xy: 1189, 1041
+  size: 34, 64
+  orig: 34, 64
   offset: 0, 0
   index: -1

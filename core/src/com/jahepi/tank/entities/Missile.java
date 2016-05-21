@@ -17,7 +17,7 @@ public class Missile extends GameEntity {
 
 	private static final String TAG = "Missile";
 	public static enum TEXTURE_MISSILE_TYPE {
-		MISSILE1, MISSILE2, MISSILE3, MISSILE4, MISSILE5, MISSILE6
+		MISSILE1, MISSILE2, MISSILE3, MISSILE4, MISSILE5, MISSILE6, MISSILE7
 	}
 	
 	private boolean send;
@@ -29,8 +29,9 @@ public class Missile extends GameEntity {
 	private Sound sound;
 	protected TEXTURE_MISSILE_TYPE textureType;
 	private Assets assets;
+	private int damage;
 	
-	public Missile(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, boolean fixPosition) {
+	public Missile(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, int damage, boolean fixPosition) {
 		super();
 		assets = Assets.getInstance();
 		this.textureType = textureType;
@@ -42,7 +43,7 @@ public class Missile extends GameEntity {
 		}
 		this.speed = speed;
 		this.rotation = rotation;
-		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
+		rectangle.setVertices(new float[]{0, 0, size.x, 0, size.x, size.y, 0, size.y});
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		rectangle.setRotation(rotation);
@@ -57,9 +58,12 @@ public class Missile extends GameEntity {
 			texture = assets.getRocket4();
 		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE5) {
 			texture = assets.getRocket5();
-		} else {
+		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE6) {
 			texture = assets.getRocket6();
+		} else {
+			texture = assets.getRocket7();
 		}
+		this.damage = damage;
 		Gdx.app.log(TAG, "Created");
 	}
 	
@@ -144,6 +148,10 @@ public class Missile extends GameEntity {
 		this.hit = hit;
 	}
 
+	public int getDamage() {
+		return damage;
+	}
+
 	public MissileState getState() {
 		MissileState missileState = new MissileState();
 		missileState.setX(position.x);
@@ -154,11 +162,12 @@ public class Missile extends GameEntity {
 		missileState.setSpeed(speed);
 		missileState.setEffectScale(effectScale);
 		missileState.setTextureType(textureType);
+		missileState.setDamage(damage);
 		return missileState;
 	}
 	
 	public static TEXTURE_MISSILE_TYPE getRandomTextureType() {
-		int rand = MathUtils.random(0, TEXTURE_TYPE.values().length - 1);
+		int rand = MathUtils.random(0, TEXTURE_TYPE.values().length - 2);
 		return TEXTURE_MISSILE_TYPE.values()[rand];
 	}
 }

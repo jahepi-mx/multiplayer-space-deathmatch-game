@@ -191,6 +191,10 @@ public class Assets implements Disposable {
 		return atlas.findRegion("rocket6");
 	}
 
+	public TextureRegion getRocket7() {
+		return atlas.findRegion("rocket7");
+	}
+
 	public ParticleEffect getEffect1() {
 		return effect1;
 	}
@@ -342,6 +346,10 @@ public class Assets implements Disposable {
 	
 	public Animation getSpeedUpAnimation() {
 		return new Animation(1.0f/12.0f, atlas.findRegions("OrangeBulletExplo"), Animation.PlayMode.LOOP);
+	}
+
+	public Animation getMegaShootAnimation() {
+		return new Animation(1.0f/12.0f, atlas.findRegions("BlueBulletExplo"), Animation.PlayMode.LOOP);
 	}
 
 	public Skin getSkin() {

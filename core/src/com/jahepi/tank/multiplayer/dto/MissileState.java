@@ -6,6 +6,7 @@ public class MissileState {
 
 	private float effectScale, width, height, x, y, rotation, speed;
 	private TEXTURE_MISSILE_TYPE textureType;
+	private int damage;
 	
 	public MissileState() {
 		// TODO Auto-generated constructor stub
@@ -73,5 +74,13 @@ public class MissileState {
 
 	public void setTextureType(TEXTURE_MISSILE_TYPE textureType) {
 		this.textureType = textureType;
+	}
+
+	public int getDamage() {
+		return damage;
+	}
+
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
 }
