@@ -17,7 +17,7 @@ import com.jahepi.tank.multiplayer.dto.TankState;
 
 public class Controller {
 
-	private static enum GAME_STATUS {
+	private enum GAME_STATUS {
 		PLAYING, GAMEOVER
 	}
 	
@@ -77,7 +77,7 @@ public class Controller {
 						break;
 					}
 				}
-				if (found == false) {
+				if (!found) {
 					Assets assets = Assets.getInstance();
 					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), tankState.getMissileTextureType(), assets.getEffect2(), assets.getAudio1());
 					opponent.setMissileSize(1.0f, 0.5f);

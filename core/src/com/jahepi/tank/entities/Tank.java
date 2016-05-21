@@ -29,7 +29,7 @@ public class Tank extends GameEntity {
 	public static final float MEGA_SHOOT_TIME = 2.0f;
 	public static final float MEGA_SHOOT_ANIMATION_TIME = 0.5f;
 	public static final int LIFE = 50;
-	public static enum TEXTURE_TYPE {
+	public enum TEXTURE_TYPE {
 		SHIP1, SHIP2, SHIP3, SHIP4, SHIP5
 	}
 	
