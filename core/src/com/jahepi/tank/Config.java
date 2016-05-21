@@ -2,7 +2,7 @@ package com.jahepi.tank;
 
 public class Config {
 
-	public static final String VERSION = "v1.2";
+	public static final String VERSION = "v1.3";
 	public static final String ADMOB_KEY = "ca-app-pub-3227769552322799/6244007069";
 
 	public static final float WIDTH = 21.33f * 3.0f;

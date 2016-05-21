@@ -30,6 +30,7 @@ public class Missile extends GameEntity {
 	protected TEXTURE_MISSILE_TYPE textureType;
 	private Assets assets;
 	private int damage;
+	private float textureRotation;
 	
 	public Missile(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, int damage, boolean fixPosition) {
 		super();
@@ -91,7 +92,12 @@ public class Missile extends GameEntity {
 	@Override
 	public void render(SpriteBatch batch) {
 		if (!isHit()) {
-			batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+			// If it is a square, rotate
+			if (getWidth() == getHeight()) {
+				batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, textureRotation, true);
+			} else {
+				batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+			}
 		}
 		if (effect != null) {
 			effect.draw(batch);
@@ -109,6 +115,10 @@ public class Missile extends GameEntity {
 				}
 			}
 		} else {
+			// If it is a square, rotate
+			if (getWidth() == getHeight()) {
+				textureRotation += 180.0f * deltatime;
+			}
 			position.x += (MathUtils.cosDeg(rotation) * speed) * deltatime;
 			position.y += (MathUtils.sinDeg(rotation) * speed) * deltatime;
 			rectangle.setPosition(position.x, position.y);

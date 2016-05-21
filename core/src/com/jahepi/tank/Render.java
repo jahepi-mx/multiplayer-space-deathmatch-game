@@ -40,9 +40,7 @@ public class Render implements Disposable, ControllerListener {
 	private SpriteBatch batch;
 	private Controller controller;
 	private Stage stage;
-	private Label lifeLabel;
 	private Label endLabel;
-	private Label winLabel;
 	private Label disconnectLabel;
 	private Label waitingLabel;
 	private Button rematchBtn;
@@ -123,20 +121,7 @@ public class Render implements Disposable, ControllerListener {
 				}
 			}	
 		});
-		
-		lifeLabel = new Label(String.format(Language.getInstance().get("life_label"), controller.getTankLife()), labelStyle);
-		float x = 0;
-		float y = Config.UI_HEIGHT;
-		lifeLabel.setX(x);
-		lifeLabel.setY(y - lifeLabel.getHeight());
-		stage.addActor(lifeLabel);
-		
-		winLabel = new Label(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), labelStyle);
-		winLabel.setColor(Color.GREEN);
-		winLabel.setX(x);
-		winLabel.setY(lifeLabel.getY() - winLabel.getHeight());
-		stage.addActor(winLabel);
-		
+
 		Label exitLabel = new Label(Language.getInstance().get("quit_btn"), labelStyle);
 		Button exitBtn = new Button(skin);
 		exitBtn.add(exitLabel);
@@ -309,9 +294,7 @@ public class Render implements Disposable, ControllerListener {
 			opponentTank.render(batch);
 		}
 		batch.end();
-		
-		lifeLabel.setText(String.format(Language.getInstance().get("life_label"), controller.getTankLife()));
-		winLabel.setText(String.format(Language.getInstance().get("wins_label"), controller.getTankWins()));
+
 		waitingLabel.setVisible(!controller.isStarted());
 		
 		stage.draw();
@@ -323,14 +306,25 @@ public class Render implements Disposable, ControllerListener {
 		batch.setColor(1, 1, 1, 1);
 		batch.setProjectionMatrix(uiCamera.combined);
 		batch.begin();
+		float x = (Config.UI_CAMERA_WIDTH * Config.UI_CAMERA_WIDTH_RATIO) / 2;
+		float y = (Config.UI_CAMERA_HEIGHT * Config.UI_CAMERA_HEIGHT_RATIO) / 2;
+		batch.draw(assets.getLife1(), uiCamera.position.x - x, uiCamera.position.y + y - 80, 80, 80);
+		float life = ((float) controller.getTankLife() / (float) Tank.LIFE * 100);
+		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", uiCamera.position.x - x + 12, uiCamera.position.y + y - 20);
+		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), uiCamera.position.x - x + 12, uiCamera.position.y + y - 50);
 		controller.getTank().renderName(batch);
-		BitmapFont font = assets.getUIFontSmall();
-		font.setColor(Color.YELLOW);
-		float lineBreak = 240.0f;
+		float lineBreak = 93.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
+			BitmapFont font = assets.getUIFontOpponent();
+			float opponentLife = ((float) opponentTank.getLife() / (float) Tank.LIFE * 100);
+			batch.draw(assets.getLife2(), uiCamera.position.x - x, uiCamera.position.y + y - lineBreak - 40, 55, 55);
+			font.setColor(Color.RED);
+			font.draw(batch, opponentTank.getName(), uiCamera.position.x - x + 55, uiCamera.position.y + y - lineBreak + 10);
+			font.setColor(Color.WHITE);
+			font.draw(batch, (opponentLife > 0 ? (int) opponentLife : 0) + "", uiCamera.position.x - x + 15, uiCamera.position.y + y - lineBreak);
+			font.draw(batch, String.format(Language.getInstance().get("wins_label"), opponentTank.getWins()), uiCamera.position.x - x + 5, uiCamera.position.y + y - lineBreak - 15);
 			opponentTank.renderName(batch);
-			font.draw(batch, opponentTank.getName() + " " + opponentTank.getLife() + " " + Language.getInstance().get("opponent_win_label") + " " + opponentTank.getWins(), uiCamera.position.x - ((Config.UI_CAMERA_WIDTH * Config.UI_CAMERA_WIDTH_RATIO) / 2), uiCamera.position.y + (Config.UI_CAMERA_HEIGHT * Config.UI_CAMERA_WIDTH_RATIO) - lineBreak);
-			lineBreak += 25.0f; 
+			lineBreak += 55.0f;
 		}
 		batch.end();
 		
@@ -364,7 +358,7 @@ public class Render implements Disposable, ControllerListener {
 			controller.getTank().debugRender(shapeRenderer);
 			ArrayIterator<OpponentTank> opponents2 = new ArrayIterator<OpponentTank>(controller.getOpponentTanks());
 			while (opponents2.hasNext()) {
-				OpponentTank opponentTank = (OpponentTank) opponents2.next();
+				OpponentTank opponentTank = opponents2.next();
 				opponentTank.debugRender(shapeRenderer);
 			}
 			for (PowerUp powerUp : controller.getPowerUps()) {
@@ -376,18 +370,20 @@ public class Render implements Disposable, ControllerListener {
 		}
 		
 		shapeRenderer.setProjectionMatrix(mapCamera.combined);
-		shapeRenderer.begin();
 		drawMap(shapeRenderer);
-		shapeRenderer.end();
 	}
 	
 	public void drawMap(ShapeRenderer renderer) {
 		float mapWidth = Config.WIDTH * Config.MAP_SCALE_FACTOR;
 		float mapHeight = Config.HEIGHT * Config.MAP_SCALE_FACTOR;
-		renderer.setColor(Color.GREEN);
+		renderer.setColor(Color.WHITE);
 		float x = (Config.WIDTH / 2) - (mapWidth / 2);
 		float y = Config.HEIGHT - mapHeight - 5.0f;
+		shapeRenderer.begin();
 		renderer.rect(x, y, 0, 0, mapWidth, mapHeight, 1, 1, 0);
+		shapeRenderer.end();
+
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		Tank tank = controller.getTank();
 		if (tank != null) {
 			float width = tank.getWidth() * Config.MAP_SCALE_FACTOR;
@@ -395,12 +391,14 @@ public class Render implements Disposable, ControllerListener {
 			float xTank = tank.getX() * Config.MAP_SCALE_FACTOR;
 			float yTank = tank.getY() * Config.MAP_SCALE_FACTOR;
 			float rotation = tank.getRotation();
+			renderer.setColor(Color.GREEN);
 			renderer.rect(x + xTank, y + yTank, width / 2, height / 2, width, height, 1, 1, rotation);
 		}
 		
 		ArrayIterator<OpponentTank> opponents = new ArrayIterator<OpponentTank>(controller.getOpponentTanks());
+		renderer.setColor(Color.RED);
 		while (opponents.hasNext()) {
-			OpponentTank opponentTank = (OpponentTank) opponents.next();
+			OpponentTank opponentTank = opponents.next();
 			float width = opponentTank.getWidth() * Config.MAP_SCALE_FACTOR;
 			float height = opponentTank.getHeight() * Config.MAP_SCALE_FACTOR;
 			float xTank = opponentTank.getX() * Config.MAP_SCALE_FACTOR;
@@ -418,6 +416,7 @@ public class Render implements Disposable, ControllerListener {
 				renderer.rect(x + xPowerUp, y + yPowerUp, size, size);
 			}
 		}
+		shapeRenderer.end();
 	}
 
 	@Override

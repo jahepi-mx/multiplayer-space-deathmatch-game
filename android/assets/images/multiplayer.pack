@@ -115,41 +115,41 @@ OrangeBulletExplo
   orig: 196, 196
   offset: 0, 0
   index: 5
+life1
+  rotate: false
+  xy: 1027, 989
+  size: 182, 182
+  orig: 182, 182
+  offset: 0, 0
+  index: -1
+life2
+  rotate: false
+  xy: 1027, 805
+  size: 182, 182
+  orig: 182, 182
+  offset: 0, 0
+  index: -1
 ship2
   rotate: false
-  xy: 1027, 1011
+  xy: 1027, 643
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
 ship3
   rotate: false
-  xy: 1027, 849
+  xy: 1027, 481
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
 ship1
   rotate: false
-  xy: 1027, 687
+  xy: 1225, 1209
   size: 140, 160
   orig: 140, 160
   offset: 0, 0
   index: -1
-skull
-  rotate: false
-  xy: 1027, 525
-  size: 136, 160
-  orig: 136, 160
-  offset: 0, 0
-  index: -1
-BlueBulletExplo
-  rotate: false
-  xy: 1225, 1220
-  size: 148, 149
-  orig: 148, 149
-  offset: 0, 0
-  index: 4
 BlueBulletExplo
   rotate: false
   xy: 176, 1
@@ -164,23 +164,37 @@ OrangeBulletExplo
   orig: 149, 149
   offset: 0, 0
   index: 4
+skull
+  rotate: false
+  xy: 1311, 1637
+  size: 136, 160
+  orig: 136, 160
+  offset: 0, 0
+  index: -1
+BlueBulletExplo
+  rotate: false
+  xy: 1449, 1696
+  size: 148, 149
+  orig: 148, 149
+  offset: 0, 0
+  index: 4
 OrangeBulletExplo
   rotate: false
-  xy: 513, 83
+  xy: 1599, 1707
   size: 138, 138
   orig: 138, 138
   offset: 0, 0
   index: 3
 BlueBulletExplo
   rotate: false
-  xy: 653, 108
+  xy: 1739, 1732
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: 2
 OrangeBulletExplo
   rotate: false
-  xy: 768, 108
+  xy: 1854, 1732
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
@@ -194,63 +208,63 @@ button_arrow_bottom
   index: -1
 button_arrow_bottom_on
   rotate: false
-  xy: 1027, 443
+  xy: 1963, 1883
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_left
   rotate: false
-  xy: 883, 141
+  xy: 1449, 1614
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_left_on
   rotate: false
-  xy: 1963, 1883
+  xy: 1531, 1614
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_right
   rotate: false
-  xy: 965, 141
+  xy: 1613, 1625
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_right_on
   rotate: false
-  xy: 1047, 141
+  xy: 513, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_top
   rotate: false
-  xy: 1109, 443
+  xy: 595, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_top_on
   rotate: false
-  xy: 1116, 361
+  xy: 677, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot
   rotate: false
-  xy: 1116, 279
+  xy: 759, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot_on
   rotate: false
-  xy: 1311, 1717
+  xy: 841, 141
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
@@ -264,49 +278,49 @@ OrangeBulletExplo
   index: 1
 BlueBulletExplo
   rotate: false
-  xy: 1311, 1654
+  xy: 1311, 1574
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: 1
 rocket5
   rotate: false
-  xy: 467, 108
+  xy: 1695, 1640
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket6
   rotate: false
-  xy: 1311, 1587
+  xy: 467, 108
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket1
   rotate: false
-  xy: 1189, 1107
+  xy: 923, 157
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket2
   rotate: false
-  xy: 1225, 1154
+  xy: 467, 42
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket3
   rotate: false
-  xy: 467, 42
+  xy: 959, 157
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket4
   rotate: false
-  xy: 1189, 1041
+  xy: 995, 157
   size: 34, 64
   orig: 34, 64
   offset: 0, 0

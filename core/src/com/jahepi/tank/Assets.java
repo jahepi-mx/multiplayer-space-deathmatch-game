@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -32,7 +33,7 @@ public class Assets implements Disposable {
 	private Sound destroySound;
 	private Music music, action;
 	private FreeTypeFontGenerator fontGenerator;
-	private BitmapFont UIFontMain, UIFont, UIFontSmall, UIFontTitle, UIFontExtraSmall;
+	private BitmapFont UIFontMain, UIFont, UIFontSmall, UIFontTitle, UIFontExtraSmall, UIFontOpponent;
 	private ShaderProgram monochromeShader;
 	private Skin skin;
 	private Preferences preferences;
@@ -123,6 +124,11 @@ public class Assets implements Disposable {
 	    parameters5.borderWidth = 2;
 	    parameters5.borderColor = Color.WHITE;
 	    UIFontMain = fontGenerator.generateFont(parameters5);
+
+		FreeTypeFontParameter parameters6 = new FreeTypeFontParameter();
+		parameters6.size = 30;
+		parameters6.color = Color.WHITE;
+		UIFontOpponent = fontGenerator.generateFont(parameters6);
 	    
 	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
 	    monochromeShader.setUniformf("u_amount", 1.0f);
@@ -268,6 +274,10 @@ public class Assets implements Disposable {
 		return UIFontTitle;
 	}
 	
+	public BitmapFont getUIFontOpponent() {
+		return UIFontOpponent;
+	}
+
 	public BitmapFont getUIFontExtraSmall() {
 		return UIFontExtraSmall;
 	}
@@ -338,6 +348,14 @@ public class Assets implements Disposable {
 	
 	public TextureRegion getLaser() {
 		return atlas.findRegion("laser");
+	}
+
+	public TextureRegion getLife1() {
+		return atlas.findRegion("life1");
+	}
+
+	public TextureRegion getLife2() {
+		return atlas.findRegion("life2");
 	}
 
 	public ShaderProgram getMonochromeShader() {
@@ -429,6 +447,7 @@ public class Assets implements Disposable {
 		UIFontTitle.dispose();
 		UIFontMain.dispose();
 		UIFontExtraSmall.dispose();
+		UIFontOpponent.dispose();
 		skin.dispose();
 	}
 }
