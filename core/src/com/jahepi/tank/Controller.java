@@ -227,6 +227,10 @@ public class Controller {
 					// tank.onReleaseShoot();
 				}
 			}
+
+			if (Gdx.input.isTouched()) {
+				controllerListener.onTouch(Gdx.input.getX(), Gdx.input.getY());
+			}
 	
 			tank.update(deltatime);
 			
@@ -369,6 +373,10 @@ public class Controller {
 		return cameraHelper;
 	}
 
+	public void joystickRotate(float degrees) {
+		tank.setTargetRotation(degrees);
+	}
+
 	public void reset() {
 		powerUps.clear();
 		gameStatus = GAME_STATUS.PLAYING;
@@ -385,6 +393,7 @@ public class Controller {
 		void onWinMatch();
 		void onLostMatch();
 		void onPlaying();
+		void onTouch(float x, float y);
 	}
 	
 	public interface GameChangeStateListener {

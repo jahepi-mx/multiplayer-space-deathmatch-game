@@ -62,6 +62,7 @@ public class Tank extends GameEntity {
 	protected TextureRegion speedUpTexture;
 	protected float time;
 	protected Assets assets;
+	protected float targetRotation;
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
@@ -271,9 +272,13 @@ public class Tank extends GameEntity {
 		speedUpTime += deltatime;
 		time += deltatime;
 		speed *= FRICTION;
-		rotationSpeed *= FRICTION;
-		rotation += rotationSpeed * deltatime;
-		
+		//rotationSpeed *= FRICTION;
+		//rotation += rotationSpeed * deltatime;
+
+		float alpha = 0.2f;
+		final float invAlpha = 1.0f - alpha;
+		this.rotation = ((rotation * invAlpha) + (targetRotation * alpha));
+
 		if (activeSpeedUpTime) {
 			if (speedUpTime >= 1.0f) {
 				velocity = DEFAULT_VELOCITY;
@@ -468,5 +473,9 @@ public class Tank extends GameEntity {
 	public static TEXTURE_TYPE getRandomTextureType() {
 		int rand = MathUtils.random(0, TEXTURE_TYPE.values().length - 1);
 		return TEXTURE_TYPE.values()[rand];
+	}
+
+	public void setTargetRotation(float targetRotation) {
+		this.targetRotation = targetRotation;
 	}
 }

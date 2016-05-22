@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -26,6 +28,7 @@ import com.jahepi.tank.TankField.SCREEN_TYPE;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Tank;
+import com.jahepi.tank.input.Joystick;
 import com.jahepi.tank.multiplayer.dto.GameState;
 
 public class Render implements Disposable, ControllerListener {
@@ -50,12 +53,16 @@ public class Render implements Disposable, ControllerListener {
 	private boolean isRotatingDown;
 	private boolean resetFlag;
 	private Assets assets;
+	private Joystick joystick;
 	
 	public Render(TankField tankFieldParam, GameChangeStateListener gameStateChangeListener) {
 		this.tankField = tankFieldParam;
 		this.shapeRenderer = tankField.getDebugRender();
 		this.batch = tankField.getBatch();
 		assets = Assets.getInstance();
+		joystick = new Joystick();
+		joystick.setSize(100, 100);
+		joystick.setXOffset(200);
 		
 		controller = new Controller(gameStateChangeListener, this, tankField.isServer(), tankField.getName());
 		
@@ -258,7 +265,7 @@ public class Render implements Disposable, ControllerListener {
 		camera.position.x = controller.getCameraHelper().getX();
 		camera.position.y = controller.getCameraHelper().getY();
 		camera.update();
-		
+
 		// Assign id to main player if it is a client socket.
 		if (tankField.isNewConnection()) {
 			disconnectLabel.setVisible(false);
@@ -371,6 +378,7 @@ public class Render implements Disposable, ControllerListener {
 		
 		shapeRenderer.setProjectionMatrix(mapCamera.combined);
 		drawMap(shapeRenderer);
+		renderJoystick(deltatime);
 	}
 	
 	public void drawMap(ShapeRenderer renderer) {
@@ -452,7 +460,23 @@ public class Render implements Disposable, ControllerListener {
 			rematchBtn.setVisible(true);
 		}
 	}
-	
+
+	public void renderJoystick(float deltatime) {
+		shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
+		joystick.update(deltatime);
+		joystick.render(shapeRenderer);
+		if (joystick.isActive()) {
+			controller.joystickRotate(joystick.getDegrees());
+		}
+		joystick.resetPosition();
+	}
+
+	@Override
+	public void onTouch(float x, float y) {
+		Vector3 vector = stage.getCamera().unproject(new Vector3(x, y, 0));
+		joystick.setPosition(vector.x, vector.y);
+	}
+
 	public void resize(int width, int height) {
 		stage.getViewport().update(width, height, false);
 	}
