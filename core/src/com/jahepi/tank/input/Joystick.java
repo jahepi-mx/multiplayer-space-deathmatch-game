@@ -1,8 +1,6 @@
 package com.jahepi.tank.input;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.jahepi.tank.Assets;
@@ -63,7 +61,6 @@ public class Joystick {
             distance = (float) Math.sqrt((x * x) + (y * y));
             degrees = radians * MathUtils.radiansToDegrees;
             isActive = true;
-            Gdx.app.log(TAG, "" + getDistancePercentage());
         }
     }
 

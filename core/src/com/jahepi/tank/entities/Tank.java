@@ -260,8 +260,13 @@ public class Tank extends GameEntity {
 		speed *= FRICTION;
 
 		float alpha = 0.05f;
-		final float invAlpha = 1.0f - alpha;
-		this.rotation = ((rotation * invAlpha) + (targetRotation * alpha));
+		float dtheta = targetRotation - rotation;
+		if (dtheta > 180) {
+			rotation += 360;
+		} else if (dtheta < -180) {
+			rotation -= 360;
+		}
+		rotation += (targetRotation - rotation) * alpha;
 
 		if (activeSpeedUpTime) {
 			if (speedUpTime >= 1.0f) {
