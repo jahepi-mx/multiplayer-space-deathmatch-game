@@ -3,11 +3,9 @@ package com.jahepi.tank;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -48,9 +46,6 @@ public class Render implements Disposable, ControllerListener {
 	private Label waitingLabel;
 	private Button rematchBtn;
 	private boolean isShooting;
-	private boolean isMovingRight;
-	private boolean isRotatingUp;
-	private boolean isRotatingDown;
 	private boolean resetFlag;
 	private Assets assets;
 	private Joystick joystick;
@@ -61,8 +56,8 @@ public class Render implements Disposable, ControllerListener {
 		this.batch = tankField.getBatch();
 		assets = Assets.getInstance();
 		joystick = new Joystick();
-		joystick.setSize(100, 100);
-		joystick.setXOffset(200);
+		joystick.setSize(150, 150);
+		joystick.setXOffset(10);
 		
 		controller = new Controller(gameStateChangeListener, this, tankField.isServer(), tankField.getName());
 		
@@ -173,62 +168,6 @@ public class Render implements Disposable, ControllerListener {
 			exitBtn.setX(left);
 		}
 		
-		float padX = Config.UI_WIDTH * 0.02f;
-		float padY = Config.UI_WIDTH * 0.06f;
-		
-		TextureRegionDrawable rightArrow = new TextureRegionDrawable(assets.getRightArrow());
-		TextureRegionDrawable rightArrowOn = new TextureRegionDrawable(assets.getRightArrowOn());
-		ImageButton rightImageBtn = new ImageButton(rightArrow, rightArrowOn);
-		rightImageBtn.setX(rightImageBtn.getWidth() - padX);
-		rightImageBtn.setY(padY);
-		stage.addActor(rightImageBtn);
-		rightImageBtn.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				isMovingRight = true;
-				controller.speedUp();
-				return true;
-			}
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				isMovingRight = false;
-			}
-		});
-		
-		TextureRegionDrawable upArrow = new TextureRegionDrawable(assets.getTopArrow());
-		TextureRegionDrawable upArrowOn = new TextureRegionDrawable(assets.getTopArrowOn());
-		ImageButton upImageBtn = new ImageButton(upArrow, upArrowOn);
-		upImageBtn.setY(rightImageBtn.getY() + padY);
-		stage.addActor(upImageBtn);
-		upImageBtn.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				isRotatingUp = true;
-				return true;
-			}
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				isRotatingUp = false;
-			}
-		});
-		
-		TextureRegionDrawable downArrow = new TextureRegionDrawable(assets.getBottomArrow());
-		TextureRegionDrawable bottomArrowOn = new TextureRegionDrawable(assets.getBottomArrowOn());
-		ImageButton downImageBtn = new ImageButton(downArrow, bottomArrowOn);
-		downImageBtn.setY(rightImageBtn.getY() - padY);
-		stage.addActor(downImageBtn);
-		downImageBtn.addListener(new ClickListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				isRotatingDown = true;
-				return true;
-			}
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				isRotatingDown = false;
-			}
-		});
-		
 		TextureRegionDrawable shootButtonTexture = new TextureRegionDrawable(assets.getShootButton());
 		TextureRegionDrawable shootButtonOn = new TextureRegionDrawable(assets.getShootButtonOn());
 		ImageButton shootImageBtn = new ImageButton(shootButtonTexture, shootButtonOn);
@@ -313,25 +252,31 @@ public class Render implements Disposable, ControllerListener {
 		batch.setColor(1, 1, 1, 1);
 		batch.setProjectionMatrix(uiCamera.combined);
 		batch.begin();
-		float x = (Config.UI_CAMERA_WIDTH * Config.UI_CAMERA_WIDTH_RATIO) / 2;
-		float y = (Config.UI_CAMERA_HEIGHT * Config.UI_CAMERA_HEIGHT_RATIO) / 2;
-		batch.draw(assets.getLife1(), uiCamera.position.x - x, uiCamera.position.y + y - 80, 80, 80);
-		float life = ((float) controller.getTankLife() / (float) Tank.LIFE * 100);
-		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", uiCamera.position.x - x + 12, uiCamera.position.y + y - 20);
-		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), uiCamera.position.x - x + 12, uiCamera.position.y + y - 50);
 		controller.getTank().renderName(batch);
-		float lineBreak = 93.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
-			BitmapFont font = assets.getUIFontOpponent();
-			float opponentLife = ((float) opponentTank.getLife() / (float) Tank.LIFE * 100);
-			batch.draw(assets.getLife2(), uiCamera.position.x - x, uiCamera.position.y + y - lineBreak - 40, 55, 55);
-			font.setColor(Color.RED);
-			font.draw(batch, opponentTank.getName(), uiCamera.position.x - x + 55, uiCamera.position.y + y - lineBreak + 10);
-			font.setColor(Color.WHITE);
-			font.draw(batch, (opponentLife > 0 ? (int) opponentLife : 0) + "", uiCamera.position.x - x + 15, uiCamera.position.y + y - lineBreak);
-			font.draw(batch, String.format(Language.getInstance().get("wins_label"), opponentTank.getWins()), uiCamera.position.x - x + 5, uiCamera.position.y + y - lineBreak - 15);
 			opponentTank.renderName(batch);
-			lineBreak += 55.0f;
+		}
+		batch.end();
+
+		batch.setColor(1, 1, 1, 1);
+		batch.setProjectionMatrix(stage.getCamera().combined);
+		batch.begin();
+		float x = 0;
+		float y = Config.UI_HEIGHT;
+		batch.draw(assets.getLife1(), x, y - 80, 80, 80);
+		float life = ((float) controller.getTankLife() / (float) Tank.LIFE * 100);
+		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", x + 12, y - 20);
+		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), x + 12, y - 50);
+		float lineBreak = 122.0f;
+		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
+			float opponentLife = ((float) opponentTank.getLife() / (float) Tank.LIFE * 100);
+			batch.draw(assets.getLife2(), x, y - lineBreak - 40, 80, 80);
+			assets.getUIFontExtraSmall().setColor(Color.RED);
+			assets.getUIFontExtraSmall().draw(batch, opponentTank.getName(), x + 65, y - lineBreak + 35);
+			assets.getUIFontExtraSmall().setColor(Color.WHITE);
+			assets.getUIFontOpponent().draw(batch, (opponentLife > 0 ? (int) opponentLife : 0) + "", x + 12, y - lineBreak + 20);
+			assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), opponentTank.getWins()), x + 12, y - lineBreak - 10);
+			lineBreak += 82.0f;
 		}
 		batch.end();
 		
@@ -341,16 +286,6 @@ public class Render implements Disposable, ControllerListener {
 			controller.shoot();
 		} else {
 			controller.onReleaseShoot();
-		}
-		
-		if (isMovingRight) {
-			controller.right();
-		}
-		if (isRotatingUp) {
-			controller.rotateUp();
-		}
-		if (isRotatingDown) {
-			controller.rotateDown();
 		}
 		
 		controller.update(deltatime);
@@ -375,13 +310,13 @@ public class Render implements Disposable, ControllerListener {
 			}
 			shapeRenderer.end();
 		}
-		
-		shapeRenderer.setProjectionMatrix(mapCamera.combined);
+
 		drawMap(shapeRenderer);
-		renderJoystick(deltatime);
+		renderJoystick(batch);
 	}
 	
 	public void drawMap(ShapeRenderer renderer) {
+		shapeRenderer.setProjectionMatrix(mapCamera.combined);
 		float mapWidth = Config.WIDTH * Config.MAP_SCALE_FACTOR;
 		float mapHeight = Config.HEIGHT * Config.MAP_SCALE_FACTOR;
 		renderer.setColor(Color.WHITE);
@@ -461,12 +396,15 @@ public class Render implements Disposable, ControllerListener {
 		}
 	}
 
-	public void renderJoystick(float deltatime) {
+	public void renderJoystick(SpriteBatch batch) {
 		shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
-		joystick.update(deltatime);
-		joystick.render(shapeRenderer);
+		batch.setProjectionMatrix(stage.getCamera().combined);
+		joystick.update();
+		joystick.render(batch);
 		if (joystick.isActive()) {
 			controller.joystickRotate(joystick.getDegrees());
+			controller.right(joystick.getDistancePercentage());
+			controller.speedUp();
 		}
 		joystick.resetPosition();
 	}

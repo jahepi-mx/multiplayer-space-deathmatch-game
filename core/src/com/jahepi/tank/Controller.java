@@ -1,8 +1,6 @@
 package com.jahepi.tank;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
@@ -210,23 +208,6 @@ public class Controller {
 					powerUpTime = 0;
 				}
 			}
-			
-			if (Gdx.app.getType() == ApplicationType.Desktop) {
-				if (Gdx.input.isKeyPressed(Keys.D)) {
-					tank.right();
-				} 
-				if (Gdx.input.isKeyPressed(Keys.W)) {
-					tank.rotateUp();
-				} 
-				if (Gdx.input.isKeyPressed(Keys.S)) {
-					tank.rotateDown();
-				}
-				if (Gdx.input.isKeyPressed(Keys.SPACE)) {
-					// tank.shoot();
-				} else {
-					// tank.onReleaseShoot();
-				}
-			}
 
 			if (Gdx.input.isTouched()) {
 				controllerListener.onTouch(Gdx.input.getX(), Gdx.input.getY());
@@ -243,7 +224,7 @@ public class Controller {
 						// Check if each opponent´s missile collide against the rest of opponents
 						ArrayIterator<OpponentTank> iterator = new ArrayIterator<OpponentTank>(opponentTanks);
 						while (iterator.hasNext()) {
-							OpponentTank innerOpponent = (OpponentTank) iterator.next();
+							OpponentTank innerOpponent = iterator.next();
 							if (innerOpponent != null && opponent != innerOpponent) {
 								opponent.isHit(innerOpponent);
 							}
@@ -310,16 +291,8 @@ public class Controller {
 		tank.speedUp();
 	}
 	
-	public void right() {
-		tank.right();
-	}
-	
-	public void rotateUp() {
-		tank.rotateUp();
-	}
-	
-	public void rotateDown() {
-		tank.rotateDown();
+	public void right(float percentage) {
+		tank.right(percentage);
 	}
 	
 	public void shoot() {

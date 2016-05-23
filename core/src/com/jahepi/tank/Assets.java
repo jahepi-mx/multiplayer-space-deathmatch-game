@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -126,8 +125,12 @@ public class Assets implements Disposable {
 	    UIFontMain = fontGenerator.generateFont(parameters5);
 
 		FreeTypeFontParameter parameters6 = new FreeTypeFontParameter();
-		parameters6.size = 30;
-		parameters6.color = Color.WHITE;
+		parameters6.size = 80;
+		parameters6.shadowOffsetX = 1;
+		parameters6.shadowOffsetY = 1;
+		parameters6.color = Color.RED;
+		parameters6.borderWidth = 2;
+		parameters6.borderColor = Color.WHITE;
 		UIFontOpponent = fontGenerator.generateFont(parameters6);
 	    
 	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
@@ -169,7 +172,7 @@ public class Assets implements Disposable {
 		return atlas.findRegion("ship5");
 	}
 	
-	public TextureRegion getSKull() {
+	public TextureRegion getSkull() {
 		return atlas.findRegion("skull");
 	}
 
@@ -306,36 +309,12 @@ public class Assets implements Disposable {
 		return atlas.findRegion("freeze");
 	}
 
-	public TextureRegion getLeftArrow() {
-		return atlas.findRegion("button_arrow_left");
-	}
-	
-	public TextureRegion getLeftArrowOn() {
-		return atlas.findRegion("button_arrow_left_on");
+	public TextureRegion getControlField() {
+		return atlas.findRegion("control_field");
 	}
 
-	public TextureRegion getRightArrow() {
-		return atlas.findRegion("button_arrow_right");
-	}
-	
-	public TextureRegion getRightArrowOn() {
-		return atlas.findRegion("button_arrow_right_on");
-	}
-
-	public TextureRegion getTopArrow() {
-		return atlas.findRegion("button_arrow_top");
-	}
-	
-	public TextureRegion getTopArrowOn() {
-		return atlas.findRegion("button_arrow_top_on");
-	}
-
-	public TextureRegion getBottomArrow() {
-		return atlas.findRegion("button_arrow_bottom");
-	}
-	
-	public TextureRegion getBottomArrowOn() {
-		return atlas.findRegion("button_arrow_bottom_on");
+	public TextureRegion getControlStick() {
+		return atlas.findRegion("control_stick");
 	}
 
 	public TextureRegion getShootButton() {

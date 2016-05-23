@@ -1,19 +1,19 @@
 package com.jahepi.tank.input;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.jahepi.tank.Assets;
 
 /**
  * Created by jahepi on 22/05/16.
  */
 public class Joystick {
 
-    public static final float ACTIVE_RADIUS = 2.0f;
     public static final String TAG = "Joystick";
 
-    private Vector2 boundary;
     private Vector2 size;
     private float xOffset;
     private float yOffset;
@@ -23,7 +23,6 @@ public class Joystick {
     private float distance;
 
     public Joystick() {
-        boundary = new Vector2();
         size = new Vector2();
         position = new Vector2();
     }
@@ -31,11 +30,6 @@ public class Joystick {
     public void setSize(float width, float height) {
         size.x = width;
         size.y = height;
-    }
-
-    public void setBoundary(float width, float height) {
-        boundary.x = width;
-        boundary.y = height;
     }
 
     public void setPosition(float x, float y) {
@@ -55,7 +49,7 @@ public class Joystick {
         this.yOffset = yOffset;
     }
 
-    public void update(float deltatime) {
+    public void update() {
         float xCenter = size.x / 2;
         float yCenter = size.y / 2;
 
@@ -69,23 +63,30 @@ public class Joystick {
             distance = (float) Math.sqrt((x * x) + (y * y));
             degrees = radians * MathUtils.radiansToDegrees;
             isActive = true;
-            Gdx.app.log(TAG, "d " + degrees);
+            Gdx.app.log(TAG, "" + getDistancePercentage());
         }
     }
 
-    public void render(ShapeRenderer renderer) {
-        renderer.begin();
-        renderer.rect(xOffset, yOffset, size.x, size.y);
+    public void render(SpriteBatch batch) {
+        batch.begin();
+        float distance = 0;
         float xCenter = xOffset + (size.x / 2);
         float yCenter = yOffset + (size.y / 2);
-        if (position.x == 0 && position.y == 0) {
-            renderer.circle(xCenter, yCenter, 20, 10);
+        float stickSize = 40;
+        batch.draw(Assets.getInstance().getControlField(), xOffset, yOffset, size.x * 0.98f, size.y * 0.98f);
+        if (!isActive()) {
+            batch.draw(Assets.getInstance().getControlStick(), xCenter - (stickSize / 2), yCenter - (stickSize / 2), stickSize, stickSize);
         } else {
-            float x = xCenter + (MathUtils.cosDeg(degrees) * distance);
-            float y = yCenter + (MathUtils.sinDeg(degrees) * distance);
-            renderer.circle(x, y, 20, 10);
+            if (this.distance >= ((size.x / 2) * 0.75f)) {
+                distance = (size.x / 2) * 0.75f;
+            } else {
+                distance = this.distance;
+            }
+            float x = xCenter - (stickSize / 2) + (MathUtils.cosDeg(degrees) * distance);
+            float y = yCenter - (stickSize / 2) + (MathUtils.sinDeg(degrees) * distance);
+            batch.draw(Assets.getInstance().getControlStick(), x, y, stickSize, stickSize);
         }
-        renderer.end();
+        batch.end();
     }
 
     public float getDegrees() {
@@ -96,5 +97,13 @@ public class Joystick {
         position.x = 0;
         position.y = 0;
         isActive = false;
+    }
+
+    public float getDistancePercentage() {
+        float percentage =  distance / ((size.x / 2) * 0.75f);
+        if (percentage < 1) {
+            return percentage;
+        }
+        return 1;
     }
 }

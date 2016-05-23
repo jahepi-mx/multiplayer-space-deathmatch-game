@@ -17,9 +17,16 @@ background_main
   orig: 1024, 810
   offset: 0, 0
   index: -1
+control_field
+  rotate: false
+  xy: 1027, 1561
+  size: 484, 484
+  orig: 484, 484
+  offset: 0, 0
+  index: -1
 laser
   rotate: false
-  xy: 1027, 1445
+  xy: 1027, 959
   size: 100, 600
   orig: 100, 600
   offset: 0, 0
@@ -33,60 +40,81 @@ rocket7
   index: -1
 BlueBulletExplo
   rotate: false
-  xy: 1129, 1799
+  xy: 1513, 1799
   size: 228, 246
   orig: 228, 246
   offset: 0, 0
   index: 6
 OrangeBulletExplo
   rotate: false
-  xy: 283, 175
+  xy: 1129, 1313
   size: 228, 246
   orig: 228, 246
   offset: 0, 0
   index: 6
 ship5
   rotate: false
-  xy: 1129, 1569
+  xy: 283, 193
   size: 180, 228
   orig: 180, 228
   offset: 0, 0
   index: -1
 energy
   rotate: false
-  xy: 1359, 1847
+  xy: 1513, 1599
   size: 200, 198
   orig: 200, 198
   offset: 0, 0
   index: -1
 freeze
   rotate: false
-  xy: 513, 223
+  xy: 1743, 1847
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 health
   rotate: false
-  xy: 1561, 1847
+  xy: 1129, 1113
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 nuke
   rotate: false
-  xy: 714, 223
+  xy: 465, 223
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
 poison
   rotate: false
-  xy: 1762, 1847
+  xy: 666, 223
   size: 199, 198
   orig: 199, 198
   offset: 0, 0
   index: -1
+shield
+  rotate: false
+  xy: 867, 223
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+BlueBulletExplo
+  rotate: false
+  xy: 1129, 915
+  size: 197, 196
+  orig: 197, 196
+  offset: 0, 0
+  index: 5
+OrangeBulletExplo
+  rotate: false
+  xy: 1359, 1363
+  size: 196, 196
+  orig: 196, 196
+  offset: 0, 0
+  index: 5
 ship4
   rotate: false
   xy: 1, 1
@@ -94,233 +122,177 @@ ship4
   orig: 173, 138
   offset: 0, 0
   index: -1
-shield
-  rotate: false
-  xy: 915, 223
-  size: 199, 198
-  orig: 199, 198
-  offset: 0, 0
-  index: -1
-BlueBulletExplo
-  rotate: false
-  xy: 1129, 1371
-  size: 197, 196
-  orig: 197, 196
-  offset: 0, 0
-  index: 5
-OrangeBulletExplo
-  rotate: false
-  xy: 1027, 1173
-  size: 196, 196
-  orig: 196, 196
-  offset: 0, 0
-  index: 5
 life1
   rotate: false
-  xy: 1027, 989
+  xy: 1557, 1415
   size: 182, 182
   orig: 182, 182
   offset: 0, 0
   index: -1
 life2
   rotate: false
-  xy: 1027, 805
+  xy: 1027, 731
   size: 182, 182
   orig: 182, 182
   offset: 0, 0
   index: -1
 ship2
   rotate: false
-  xy: 1027, 643
+  xy: 1027, 569
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-ship3
+BlueBulletExplo
   rotate: false
-  xy: 1027, 481
-  size: 160, 160
-  orig: 160, 160
+  xy: 1027, 429
+  size: 138, 138
+  orig: 138, 138
   offset: 0, 0
-  index: -1
+  index: 3
 ship1
   rotate: false
-  xy: 1225, 1209
+  xy: 1211, 753
   size: 140, 160
   orig: 140, 160
   offset: 0, 0
   index: -1
-BlueBulletExplo
+ship3
+  rotate: false
+  xy: 1068, 267
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+OrangeBulletExplo
   rotate: false
   xy: 176, 1
   size: 138, 138
   orig: 138, 138
   offset: 0, 0
   index: 3
-OrangeBulletExplo
-  rotate: false
-  xy: 316, 24
-  size: 149, 149
-  orig: 149, 149
-  offset: 0, 0
-  index: 4
-skull
-  rotate: false
-  xy: 1311, 1637
-  size: 136, 160
-  orig: 136, 160
-  offset: 0, 0
-  index: -1
 BlueBulletExplo
   rotate: false
-  xy: 1449, 1696
+  xy: 316, 42
   size: 148, 149
   orig: 148, 149
   offset: 0, 0
   index: 4
 OrangeBulletExplo
   rotate: false
-  xy: 1599, 1707
-  size: 138, 138
-  orig: 138, 138
+  xy: 466, 72
+  size: 149, 149
+  orig: 149, 149
   offset: 0, 0
-  index: 3
+  index: 4
+skull
+  rotate: false
+  xy: 617, 61
+  size: 136, 160
+  orig: 136, 160
+  offset: 0, 0
+  index: -1
 BlueBulletExplo
   rotate: false
-  xy: 1739, 1732
+  xy: 755, 108
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: 2
 OrangeBulletExplo
   rotate: false
-  xy: 1854, 1732
+  xy: 870, 108
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: 2
+control_stick
+  rotate: false
+  xy: 985, 110
+  size: 111, 111
+  orig: 111, 111
+  offset: 0, 0
+  index: -1
 button_arrow_bottom
   rotate: false
-  xy: 1963, 1965
+  xy: 1944, 1965
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_arrow_bottom_on
   rotate: false
-  xy: 1963, 1883
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_arrow_left
-  rotate: false
-  xy: 1449, 1614
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_arrow_left_on
-  rotate: false
-  xy: 1531, 1614
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_arrow_right
-  rotate: false
-  xy: 1613, 1625
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_arrow_right_on
-  rotate: false
-  xy: 513, 141
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_arrow_top
-  rotate: false
-  xy: 595, 141
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_arrow_top_on
-  rotate: false
-  xy: 677, 141
+  xy: 1944, 1883
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot
   rotate: false
-  xy: 759, 141
+  xy: 1557, 1333
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 button_shoot_on
   rotate: false
-  xy: 841, 141
+  xy: 1639, 1333
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 OrangeBulletExplo
   rotate: false
-  xy: 1027, 1381
+  xy: 1359, 1299
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: 1
 BlueBulletExplo
   rotate: false
-  xy: 1311, 1574
+  xy: 1423, 1300
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: 1
 rocket5
   rotate: false
-  xy: 1695, 1640
+  xy: 1486, 1296
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket6
   rotate: false
-  xy: 467, 108
+  xy: 1715, 1732
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket1
   rotate: false
-  xy: 923, 157
+  xy: 1715, 1666
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket2
   rotate: false
-  xy: 467, 42
+  xy: 1715, 1600
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket3
   rotate: false
-  xy: 959, 157
+  xy: 1189, 665
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket4
   rotate: false
-  xy: 995, 157
+  xy: 1189, 599
   size: 34, 64
   orig: 34, 64
   offset: 0, 0

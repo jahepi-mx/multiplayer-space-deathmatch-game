@@ -163,7 +163,7 @@ public class Tank extends GameEntity {
 		}
 		effect.draw(batch);
 		if (isDead()) {
-			batch.draw(assets.getSKull(), position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, 90.0f, true);
+			batch.draw(assets.getSkull(), position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, 90.0f, true);
 		} else {
 			batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
@@ -247,24 +247,10 @@ public class Tank extends GameEntity {
 		lastSpeedUpTime = speedUpTime;
 	}
 	
-	public void right() {
-		speed = this.velocity;	
+	public void right(float percentage) {
+		speed = this.velocity * percentage;
 		if (isDead()) {
 			speed = 0;
-		}
-	}
-	
-	public void rotateUp() {
-		rotationSpeed = 90.0f;
-		if (isDead()) {
-			rotationSpeed = 0;
-		}
-	}
-	
-	public void rotateDown() {
-		rotationSpeed = -90.0f;
-		if (isDead()) {
-			rotationSpeed = 0;
 		}
 	}
 	
@@ -272,10 +258,8 @@ public class Tank extends GameEntity {
 		speedUpTime += deltatime;
 		time += deltatime;
 		speed *= FRICTION;
-		//rotationSpeed *= FRICTION;
-		//rotation += rotationSpeed * deltatime;
 
-		float alpha = 0.2f;
+		float alpha = 0.05f;
 		final float invAlpha = 1.0f - alpha;
 		this.rotation = ((rotation * invAlpha) + (targetRotation * alpha));
 
