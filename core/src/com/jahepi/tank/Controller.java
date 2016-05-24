@@ -208,10 +208,6 @@ public class Controller {
 					powerUpTime = 0;
 				}
 			}
-
-			if (Gdx.input.isTouched()) {
-				controllerListener.onTouch(Gdx.input.getX(), Gdx.input.getY());
-			}
 	
 			tank.update(deltatime);
 			
@@ -366,7 +362,6 @@ public class Controller {
 		void onWinMatch();
 		void onLostMatch();
 		void onPlaying();
-		void onTouch(float x, float y);
 	}
 	
 	public interface GameChangeStateListener {

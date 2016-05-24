@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -184,6 +183,29 @@ public class Render implements Disposable, ControllerListener {
 				isShooting = false;
 			}
 		});
+
+		TextureRegionDrawable joystickBtnTexture = new TextureRegionDrawable(assets.getControlField());
+		ImageButton joystickBtn = new ImageButton(joystickBtnTexture);
+		joystickBtn.setX(joystick.getXOffset());
+		joystickBtn.setSize(joystick.getWidth(), joystick.getHeight());
+		stage.addActor(joystickBtn);
+		joystickBtn.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				joystick.setPosition(joystick.getXOffset() + x, joystick.getYOffset() + y);
+				return true;
+			}
+
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				joystick.resetPosition();
+			}
+
+			@Override
+			public void touchDragged(InputEvent event, float x, float y, int pointer) {
+				joystick.setPosition(joystick.getXOffset() + x, joystick.getYOffset() + y);
+			}
+		});
 		
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -262,21 +284,25 @@ public class Render implements Disposable, ControllerListener {
 		batch.setProjectionMatrix(stage.getCamera().combined);
 		batch.begin();
 		float x = 0;
+		float size = 80;
+		float marginLeft = 12;
+		float marginTopLife = 20;
+		float marginTopWins = 50;
 		float y = Config.UI_HEIGHT;
-		batch.draw(assets.getLife1(), x, y - 80, 80, 80);
+		batch.draw(assets.getLife1(), x, y - size, size, size);
 		float life = ((float) controller.getTankLife() / (float) Tank.LIFE * 100);
-		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", x + 12, y - 20);
-		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), x + 12, y - 50);
-		float lineBreak = 122.0f;
+		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", x + marginLeft, y - marginTopLife);
+		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), x + marginLeft, y - marginTopWins);
+		float lineBreak = 160.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
 			float opponentLife = ((float) opponentTank.getLife() / (float) Tank.LIFE * 100);
-			batch.draw(assets.getLife2(), x, y - lineBreak - 40, 80, 80);
+			batch.draw(assets.getLife2(), x, y - lineBreak, size, size);
 			assets.getUIFontExtraSmall().setColor(Color.RED);
-			assets.getUIFontExtraSmall().draw(batch, opponentTank.getName(), x + 65, y - lineBreak + 35);
+			assets.getUIFontExtraSmall().draw(batch, opponentTank.getName(), x + (marginLeft * 5.4f), y - lineBreak + size);
 			assets.getUIFontExtraSmall().setColor(Color.WHITE);
-			assets.getUIFontOpponent().draw(batch, (opponentLife > 0 ? (int) opponentLife : 0) + "", x + 12, y - lineBreak + 20);
-			assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), opponentTank.getWins()), x + 12, y - lineBreak - 10);
-			lineBreak += 82.0f;
+			assets.getUIFontOpponent().draw(batch, (opponentLife > 0 ? (int) opponentLife : 0) + "", x + marginLeft, y - lineBreak + size - marginTopLife);
+			assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), opponentTank.getWins()), x + marginLeft, y - lineBreak + size - marginTopWins);
+			lineBreak += size;
 		}
 		batch.end();
 		
@@ -406,13 +432,6 @@ public class Render implements Disposable, ControllerListener {
 			controller.right(joystick.getDistancePercentage());
 			controller.speedUp();
 		}
-		joystick.resetPosition();
-	}
-
-	@Override
-	public void onTouch(float x, float y) {
-		Vector3 vector = stage.getCamera().unproject(new Vector3(x, y, 0));
-		joystick.setPosition(vector.x, vector.y);
 	}
 
 	public void resize(int width, int height) {
