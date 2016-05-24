@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Json;
 import com.jahepi.tank.Controller.GameChangeStateListener;
+import com.jahepi.tank.ads.AdListener;
 import com.jahepi.tank.multiplayer.Client;
 import com.jahepi.tank.multiplayer.Server;
 import com.jahepi.tank.multiplayer.Server.ServerListener;
@@ -36,9 +37,17 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private ServerFinder serverFinder;
 	private String name;
 	private Assets assets;
+	private AdListener adListener;
 	
-	public static enum SCREEN_TYPE {
+	public enum SCREEN_TYPE {
 		MAIN, GAMEOPTIONS, CREDITS, CONFIG, GAME
+	}
+
+	public TankField() {
+	}
+
+	public TankField(AdListener adListener) {
+		this.adListener = adListener;
 	}
 	
 	@Override
@@ -58,15 +67,24 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		if (type == SCREEN_TYPE.MAIN) {
 			currentScreen = new Main(this);
 			setScreen(currentScreen);
+			if (adListener != null) {
+				adListener.show(true);
+			}
 		} else if (type == SCREEN_TYPE.GAMEOPTIONS) {
 			currentScreen = new GameOptions(this);
 			setScreen(currentScreen);
+			if (adListener != null) {
+				adListener.show(false);
+			}
 		} else if (type == SCREEN_TYPE.GAME) {
 			currentScreen = new GamePlay(this);
 			setScreen(currentScreen);
 		} else if (type == SCREEN_TYPE.CONFIG) {
 			currentScreen = new Configuration(this);
 			setScreen(currentScreen);
+			if (adListener != null) {
+				adListener.show(false);
+			}
 		}
 	}
 

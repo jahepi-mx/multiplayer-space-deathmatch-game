@@ -100,7 +100,7 @@ public class Main implements Screen {
 		});
 		
 		Table table = new Table();
-		table.add(titleLabel).width(Config.UI_WIDTH * 0.6f).pad(30.0f);
+		table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(30.0f);
 		table.row();
 		table.add(playBtn).pad(10.0f).uniform();
 		table.row();

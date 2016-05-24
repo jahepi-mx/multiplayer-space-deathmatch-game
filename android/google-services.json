@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "99699096933",
+    "firebase_url": "https://sturdy-bastion-127119.firebaseio.com",
+    "project_id": "sturdy-bastion-127119",
+    "storage_bucket": "sturdy-bastion-127119.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99699096933:android:2118dc5928bfc220",
+        "android_client_info": {
+          "package_name": "com.jahepi.tank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99699096933-nism3ho7k6chc9d27gpee498e1pjl6eh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2czbJVzFOQNq58DSsHTWajpZXNyXYSbk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

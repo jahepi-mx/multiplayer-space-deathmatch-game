@@ -11,7 +11,7 @@
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>
     <item name="start_game_btn">INICIAR</item>
-    <item name="game_title">MULTIJUGADOR ESPACIAL COMBATE A MUERTE %s</item>
+    <item name="game_title">MULTIJUGADOR ESPACIAL A MUERTE %s</item>
     <item name="game_options_title">OPCIONES DEL JUEGO</item>
     <item name="config_title">CONFIGURACIÓN</item>
     <item name="port_label">Puerto por defecto</item>
