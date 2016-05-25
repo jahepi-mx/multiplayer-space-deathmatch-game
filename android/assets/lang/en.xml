@@ -5,6 +5,7 @@
     <item name="play_btn">PLAY</item>
     <item name="config_btn">SETTINGS</item>
     <item name="credits_btn">CREDITS</item>
+    <item name="ip_btn">WHATS MY IP?</item>
     <item name="back_btn">GO BACK</item>
     <item name="exit_btn">EXIT GAME</item>
     <item name="english_btn">English</item>

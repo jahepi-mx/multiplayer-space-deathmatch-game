@@ -21,6 +21,7 @@ import com.jahepi.tank.Config;
 import com.jahepi.tank.Language;
 import com.jahepi.tank.TankField;
 import com.jahepi.tank.TankField.SCREEN_TYPE;
+import com.jahepi.tank.dialogs.IpDialog;
 
 public class Main implements Screen {
 	
@@ -30,7 +31,8 @@ public class Main implements Screen {
 	private TankField tankField;
 	private SpriteBatch batch;
 	private Assets assets;
-	
+	private IpDialog ipDialog;
+
 	public Main(TankField tankField) {
 		this.tankField = tankField;
 		batch = tankField.getBatch();
@@ -38,6 +40,7 @@ public class Main implements Screen {
 		stage = new Stage(viewport, batch);
 		Gdx.input.setInputProcessor(stage);
 		assets = Assets.getInstance();
+		ipDialog = new IpDialog();
 	}
 
 	@Override
@@ -72,6 +75,11 @@ public class Main implements Screen {
 		Button creditsBtn = new Button(new ButtonStyle());
 		creditsBtn.setWidth(creditsLabel.getWidth());
 		creditsBtn.add(creditsLabel);
+
+		Label ipLabel = new Label(Language.getInstance().get("ip_btn"), style);
+		Button ipBtn = new Button(new ButtonStyle());
+		ipBtn.setWidth(ipLabel.getWidth());
+		ipBtn.add(ipLabel);
 		
 		Label exitLabel = new Label(Language.getInstance().get("exit_btn"), style);
 		Button exitBtn = new Button(new ButtonStyle());
@@ -82,25 +90,32 @@ public class Main implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				tankField.changeScreen(SCREEN_TYPE.GAMEOPTIONS);
-			}		
+			}
 		});
 		
 		configBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				tankField.changeScreen(SCREEN_TYPE.CONFIG);
-			}		
+			}
 		});
-		
+
+		ipBtn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				ipDialog.show(stage);
+			}
+		});
+
 		exitBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Gdx.app.exit();
-			}		
+			}
 		});
 		
 		Table table = new Table();
-		table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(30.0f);
+		table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(20.0f);
 		table.row();
 		table.add(playBtn).pad(10.0f).uniform();
 		table.row();
@@ -108,12 +123,15 @@ public class Main implements Screen {
 		table.row();
 		table.add(creditsBtn).pad(10.0f).uniform();
 		table.row();
+		table.add(ipBtn).pad(10.0f).uniform();
+		table.row();
 		table.add(exitBtn).pad(10.0f).uniform();
 		table.setFillParent(true);
 		table.getColor().a = 0;
 		table.addAction(Actions.fadeIn(0.5f));
 		table.pack();
-		
+
+		stage.addActor(ipDialog);
 		stage.addActor(table);
 	}
 
