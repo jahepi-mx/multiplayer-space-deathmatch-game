@@ -22,7 +22,7 @@ public class AndroidLauncher extends AndroidApplication implements com.jahepi.ta
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		MobileAds.initialize(this, Config.ADMOB_KEY);
+		//MobileAds.initialize(this, Config.ADMOB_KEY);
 
 		RelativeLayout relativeLayout = new RelativeLayout(this);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
@@ -30,6 +30,7 @@ public class AndroidLauncher extends AndroidApplication implements com.jahepi.ta
 
 		relativeLayout.addView(gameView);
 
+		/*
 		adView = new AdView(this);
 		adView.setAdListener(new AdListener() {
 			@Override
@@ -54,6 +55,7 @@ public class AndroidLauncher extends AndroidApplication implements com.jahepi.ta
 
 		relativeLayout.addView(adView, params);
 		adView.loadAd(builder.build());
+		*/
 
 		setContentView(relativeLayout);
 	}
@@ -64,9 +66,9 @@ public class AndroidLauncher extends AndroidApplication implements com.jahepi.ta
 			@Override
 			public void run() {
 				if (active) {
-					adView.setVisibility(View.VISIBLE);
+					//adView.setVisibility(View.VISIBLE);
 				} else {
-					adView.setVisibility(View.GONE);
+					//adView.setVisibility(View.GONE);
 				}
 			}
 		});
