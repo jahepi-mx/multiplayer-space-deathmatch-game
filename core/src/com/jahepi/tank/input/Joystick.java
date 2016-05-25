@@ -70,7 +70,6 @@ public class Joystick {
         float xCenter = xOffset + (size.x / 2);
         float yCenter = yOffset + (size.y / 2);
         float stickSize = 40;
-        batch.draw(Assets.getInstance().getControlField(), xOffset, yOffset, size.x * 0.98f, size.y * 0.98f);
         if (!isActive()) {
             batch.draw(Assets.getInstance().getControlStick(), xCenter - (stickSize / 2), yCenter - (stickSize / 2), stickSize, stickSize);
         } else {
@@ -102,5 +101,21 @@ public class Joystick {
             return percentage;
         }
         return 1;
+    }
+
+    public float getWidth() {
+        return size.x;
+    }
+
+    public float getHeight() {
+        return size.y;
+    }
+
+    public float getXOffset() {
+        return xOffset;
+    }
+
+    public float getYOffset() {
+        return yOffset;
     }
 }
