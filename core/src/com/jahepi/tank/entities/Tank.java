@@ -403,6 +403,7 @@ public class Tank extends GameEntity {
 		tankState.setMissileTextureType(missileTextureType);
 		tankState.setName(name);
 		tankState.setMegaShoot(megaShootEnableAnimation);
+		tankState.setSpeedUp(activeSpeedUp);
 		for (Missile missile : missiles) {
 			if (missile != null && !missile.isSend()) {
 				missile.setSend(true);
@@ -426,6 +427,7 @@ public class Tank extends GameEntity {
 		shooting = tankState.isShooting();
 		removed = tankState.isRemoved();
 		velocity = tankState.getVelocity();
+		activeSpeedUp = tankState.isSpeedUp();
 		megaShootEnableAnimation = tankState.isMegaShoot();
 		if (isSend) {
 			life = tankState.getLife();

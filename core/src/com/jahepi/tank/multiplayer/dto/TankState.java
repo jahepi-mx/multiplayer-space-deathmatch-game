@@ -15,7 +15,7 @@ public class TankState {
 	private int life, wins;
 	private TEXTURE_TYPE textureType;
 	private TEXTURE_MISSILE_TYPE missileTextureType;
-	private boolean megaShoot;
+	private boolean megaShoot, speedUp;
 	
 	public TankState() {
 		powerUps = new Array<PowerUp.TYPE>();
@@ -156,5 +156,13 @@ public class TankState {
 
 	public void setMegaShoot(boolean megaShoot) {
 		this.megaShoot = megaShoot;
+	}
+
+	public boolean isSpeedUp() {
+		return speedUp;
+	}
+
+	public void setSpeedUp(boolean speedUp) {
+		this.speedUp = speedUp;
 	}
 }
