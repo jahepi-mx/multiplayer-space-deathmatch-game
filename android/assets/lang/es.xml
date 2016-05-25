@@ -10,6 +10,8 @@
     <item name="english_btn">Ingles</item>
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>
+    <item name="shoot_btn">DISPARA!</item>
+    <item name="speed_btn">ACELERA!</item>
     <item name="start_game_btn">INICIAR</item>
     <item name="game_title">MULTIJUGADOR ESPACIAL A MUERTE %s</item>
     <item name="game_options_title">OPCIONES DEL JUEGO</item>

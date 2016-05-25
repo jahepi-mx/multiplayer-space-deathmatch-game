@@ -40,7 +40,7 @@ public class CameraHelper {
 	
 	public void update() {
 		
-		lerpPosition.lerp(position, 0.02f);
+		lerpPosition.lerp(position, 0.05f);
 		
 		if (lerpPosition.x <= (size.x / 2)) {
 			lerpPosition.x = (size.x / 2);

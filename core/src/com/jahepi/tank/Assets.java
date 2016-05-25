@@ -317,12 +317,12 @@ public class Assets implements Disposable {
 		return atlas.findRegion("control_stick");
 	}
 
-	public TextureRegion getShootButton() {
-		return atlas.findRegion("button_shoot");
+	public TextureRegion getButton1() {
+		return atlas.findRegion("button");
 	}
 	
-	public TextureRegion getShootButtonOn() {
-		return atlas.findRegion("button_shoot_on");
+	public TextureRegion getButton2() {
+		return atlas.findRegion("button2");
 	}
 	
 	public TextureRegion getLaser() {

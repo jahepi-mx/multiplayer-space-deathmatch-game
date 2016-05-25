@@ -28,6 +28,7 @@ public class Tank extends GameEntity {
 	public static final float FRICTION = 0.99f;
 	public static final float MEGA_SHOOT_TIME = 2.0f;
 	public static final float MEGA_SHOOT_ANIMATION_TIME = 0.5f;
+	public static final float SPEED_UP_TIME = 5.0f;
 	public static final int LIFE = 100;
 	public enum TEXTURE_TYPE {
 		SHIP1, SHIP2, SHIP3, SHIP4, SHIP5
@@ -55,8 +56,7 @@ public class Tank extends GameEntity {
 	protected TEXTURE_TYPE textureType;
 	protected BitmapFont font;
 	protected float speedUpTime;
-	protected float lastSpeedUpTime;
-	protected boolean activeSpeedUpTime;
+	protected boolean activeSpeedUp;
 	protected Animation speedUpAnimation;
 	protected Animation megaShootAnimation;
 	protected TextureRegion speedUpTexture;
@@ -168,7 +168,7 @@ public class Tank extends GameEntity {
 			batch.draw(texture, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
 		
-		if (velocity > DEFAULT_VELOCITY && speedUpTexture != null) {
+		if (activeSpeedUp && speedUpTexture != null) {
 			Vector2 vector = Util.getRotationPositionFromBack(size.x, size.y, position.x, position.y, rotation);
 			batch.draw(speedUpTexture, vector.x - (size.x / 2), vector.y - (size.y / 2), size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
 		}
@@ -235,16 +235,13 @@ public class Tank extends GameEntity {
 	}
 	
 	public void speedUp() {
-		float diff = speedUpTime - lastSpeedUpTime;
-		if (!activeSpeedUpTime) {
-			if (diff > 0.1f && diff < 0.4f) {
-				activeSpeedUpTime = true;
-				velocity = 17.0f;
-				speedUpTime = 0;
-				assets.playAudioSpeedUp();
-			}
+		if (speedUpTime >= SPEED_UP_TIME) {
+			activeSpeedUp = true;
+			velocity *= 1.4;
+			speed = velocity;
+			speedUpTime = 0;
+			assets.playAudioSpeedUp();
 		}
-		lastSpeedUpTime = speedUpTime;
 	}
 	
 	public void right(float percentage) {
@@ -268,14 +265,14 @@ public class Tank extends GameEntity {
 		}
 		rotation += (targetRotation - rotation) * alpha;
 
-		if (activeSpeedUpTime) {
-			if (speedUpTime >= 1.0f) {
+		if (activeSpeedUp) {
+			if (speedUpTime >= 2.5f) {
+				activeSpeedUp = false;
 				velocity = DEFAULT_VELOCITY;
-				activeSpeedUpTime = false;
 			}
 		}
 		
-		if (velocity > DEFAULT_VELOCITY) {
+		if (activeSpeedUp) {
 			speedUpTexture = speedUpAnimation.getKeyFrame(time);
 		}
 		
@@ -466,5 +463,13 @@ public class Tank extends GameEntity {
 
 	public void setTargetRotation(float targetRotation) {
 		this.targetRotation = targetRotation;
+	}
+
+	public int getSpeedUpReloadPercentage() {
+		float percentage = speedUpTime / SPEED_UP_TIME;
+		if (percentage > 1) {
+			return 100;
+		}
+		return (int) (percentage * 100.0f);
 	}
 }

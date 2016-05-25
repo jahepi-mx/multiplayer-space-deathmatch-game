@@ -136,163 +136,149 @@ life2
   orig: 182, 182
   offset: 0, 0
   index: -1
-ship2
+button
   rotate: false
-  xy: 1027, 569
-  size: 160, 160
-  orig: 160, 160
+  xy: 1027, 550
+  size: 178, 179
+  orig: 178, 179
+  offset: 0, 0
+  index: -1
+button2
+  rotate: false
+  xy: 1211, 735
+  size: 178, 178
+  orig: 178, 178
   offset: 0, 0
   index: -1
 BlueBulletExplo
-  rotate: false
-  xy: 1027, 429
-  size: 138, 138
-  orig: 138, 138
-  offset: 0, 0
-  index: 3
-ship1
-  rotate: false
-  xy: 1211, 753
-  size: 140, 160
-  orig: 140, 160
-  offset: 0, 0
-  index: -1
-ship3
-  rotate: false
-  xy: 1068, 267
-  size: 160, 160
-  orig: 160, 160
-  offset: 0, 0
-  index: -1
-OrangeBulletExplo
   rotate: false
   xy: 176, 1
   size: 138, 138
   orig: 138, 138
   offset: 0, 0
   index: 3
-BlueBulletExplo
+ship2
   rotate: false
-  xy: 316, 42
-  size: 148, 149
-  orig: 148, 149
+  xy: 316, 31
+  size: 160, 160
+  orig: 160, 160
   offset: 0, 0
-  index: 4
+  index: -1
+ship3
+  rotate: false
+  xy: 478, 61
+  size: 160, 160
+  orig: 160, 160
+  offset: 0, 0
+  index: -1
+ship1
+  rotate: false
+  xy: 640, 61
+  size: 140, 160
+  orig: 140, 160
+  offset: 0, 0
+  index: -1
 OrangeBulletExplo
   rotate: false
-  xy: 466, 72
+  xy: 782, 72
   size: 149, 149
   orig: 149, 149
   offset: 0, 0
   index: 4
+BlueBulletExplo
+  rotate: false
+  xy: 933, 72
+  size: 148, 149
+  orig: 148, 149
+  offset: 0, 0
+  index: 4
+BlueBulletExplo
+  rotate: false
+  xy: 1027, 435
+  size: 113, 113
+  orig: 113, 113
+  offset: 0, 0
+  index: 2
 skull
   rotate: false
-  xy: 617, 61
+  xy: 1068, 273
   size: 136, 160
   orig: 136, 160
   offset: 0, 0
   index: -1
-BlueBulletExplo
+OrangeBulletExplo
   rotate: false
-  xy: 755, 108
+  xy: 1142, 435
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: 2
 OrangeBulletExplo
   rotate: false
-  xy: 870, 108
-  size: 113, 113
-  orig: 113, 113
+  xy: 1083, 133
+  size: 138, 138
+  orig: 138, 138
   offset: 0, 0
-  index: 2
+  index: 3
 control_stick
   rotate: false
-  xy: 985, 110
+  xy: 1083, 20
   size: 111, 111
   orig: 111, 111
   offset: 0, 0
   index: -1
-button_arrow_bottom
-  rotate: false
-  xy: 1944, 1965
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_arrow_bottom_on
-  rotate: false
-  xy: 1944, 1883
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_shoot
-  rotate: false
-  xy: 1557, 1333
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
-button_shoot_on
-  rotate: false
-  xy: 1639, 1333
-  size: 80, 80
-  orig: 80, 80
-  offset: 0, 0
-  index: -1
 OrangeBulletExplo
   rotate: false
-  xy: 1359, 1299
+  xy: 1944, 1983
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: 1
 BlueBulletExplo
   rotate: false
-  xy: 1423, 1300
+  xy: 1944, 1920
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: 1
 rocket5
   rotate: false
-  xy: 1486, 1296
+  xy: 1206, 368
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket6
   rotate: false
-  xy: 1715, 1732
+  xy: 1944, 1853
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket1
   rotate: false
-  xy: 1715, 1666
+  xy: 1206, 302
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket2
   rotate: false
-  xy: 1715, 1600
+  xy: 2008, 1981
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket3
   rotate: false
-  xy: 1189, 665
+  xy: 2007, 1915
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket4
   rotate: false
-  xy: 1189, 599
+  xy: 1330, 1247
   size: 34, 64
   orig: 34, 64
   offset: 0, 0

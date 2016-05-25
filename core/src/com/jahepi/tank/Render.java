@@ -13,8 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Disposable;
@@ -44,6 +46,7 @@ public class Render implements Disposable, ControllerListener {
 	private Label disconnectLabel;
 	private Label waitingLabel;
 	private Button rematchBtn;
+	private TextButton speedBtn;
 	private boolean isShooting;
 	private boolean resetFlag;
 	private Assets assets;
@@ -166,13 +169,20 @@ public class Render implements Disposable, ControllerListener {
 			startBtn.setX(right - startBtn.getWidth());
 			exitBtn.setX(left);
 		}
-		
-		TextureRegionDrawable shootButtonTexture = new TextureRegionDrawable(assets.getShootButton());
-		TextureRegionDrawable shootButtonOn = new TextureRegionDrawable(assets.getShootButtonOn());
-		ImageButton shootImageBtn = new ImageButton(shootButtonTexture, shootButtonOn);
-		shootImageBtn.setX(Config.UI_WIDTH - shootImageBtn.getWidth());
-		stage.addActor(shootImageBtn);
-		shootImageBtn.addListener(new ClickListener() {
+
+		float marginRight = 10;
+		float marginBottom = 10;
+		TextureRegionDrawable shootButtonTexture = new TextureRegionDrawable(assets.getButton1());
+		TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+		buttonStyle.up = shootButtonTexture;
+		buttonStyle.font = assets.getUIFontSmall();
+		TextButton shootBtn = new TextButton(Language.getInstance().get("shoot_btn"), buttonStyle);
+		shootBtn.getLabel().setAlignment(Align.center);
+		shootBtn.setSize(100, 100);
+		shootBtn.setX(Config.UI_WIDTH - shootBtn.getWidth() - marginRight);
+		shootBtn.setY(marginBottom);
+		stage.addActor(shootBtn);
+		shootBtn.addListener(new ClickListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				isShooting = true;
@@ -181,6 +191,24 @@ public class Render implements Disposable, ControllerListener {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 				isShooting = false;
+			}
+		});
+
+		TextureRegionDrawable speedButtonTexture = new TextureRegionDrawable(assets.getButton2());
+		TextButton.TextButtonStyle speedButtonStyle = new TextButton.TextButtonStyle();
+		speedButtonStyle.up = speedButtonTexture;
+		speedButtonStyle.font = assets.getUIFontSmall();
+		speedBtn = new TextButton(Language.getInstance().get("speed_btn"), speedButtonStyle);
+		speedBtn.getLabel().setAlignment(Align.center);
+		speedBtn.setSize(100, 100);
+		speedBtn.setX(shootBtn.getX() - speedBtn.getWidth() - marginRight);
+		speedBtn.setY(marginBottom);
+		stage.addActor(speedBtn);
+		speedBtn.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				controller.speedUp();
+				return true;
 			}
 		});
 
@@ -264,6 +292,14 @@ public class Render implements Disposable, ControllerListener {
 		batch.end();
 
 		waitingLabel.setVisible(!controller.isStarted());
+		Tank tank = controller.getTank();
+		if (tank.getSpeedUpReloadPercentage() < 100) {
+			speedBtn.setText("" + tank.getSpeedUpReloadPercentage());
+			speedBtn.getLabel().setFontScale(2.5f);
+		}	else {
+			speedBtn.setText(Language.getInstance().get("speed_btn"));
+			speedBtn.getLabel().setFontScale(1.0f);
+		}
 		
 		stage.draw();
 		
@@ -430,7 +466,6 @@ public class Render implements Disposable, ControllerListener {
 		if (joystick.isActive()) {
 			controller.joystickRotate(joystick.getDegrees());
 			controller.right(joystick.getDistancePercentage());
-			controller.speedUp();
 		}
 	}
 
