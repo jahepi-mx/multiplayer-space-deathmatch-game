@@ -49,4 +49,14 @@
     <item name="win_label">YOU WIN!!</item>
     <item name="lost_label">YOU LOST!!</item>
     <item name="default_nickname">Me</item>
+    <item name="credits_testing">Testing</item>
+    <item name="credits_testing_text">Giz Martínez
+        Eduardo Blanco
+        Raúl Rentería</item>
+    <item name="credits_skull">Skull Sprite Asset</item>
+    <item name="credits_skull_text">Thanks to Goodlyay from Deviantart
+        for providing this.
+        http://goodlyay.deviantart.com</item>
+    <item name="credits_coding">Matrix Coding</item>
+    <item name="credits_coding_text">Jahepi</item>
 </language>

@@ -49,4 +49,14 @@
     <item name="win_label">HAZ GANADO!!</item>
     <item name="lost_label">HAZ PERDIDO!!</item>
     <item name="default_nickname">Yo</item>
+    <item name="credits_testing">Pruebas</item>
+    <item name="credits_testing_text">Giz Martínez
+        Eduardo Blanco
+        Raúl Rentería</item>
+    <item name="credits_skull">Recurso Sprite de Calavera</item>
+    <item name="credits_skull_text">Gracias a Goodlyay de Deviantart
+        por proveerlo.
+        http://goodlyay.deviantart.com</item>
+    <item name="credits_coding">Codificación</item>
+    <item name="credits_coding_text">Jahepi</item>
 </language>

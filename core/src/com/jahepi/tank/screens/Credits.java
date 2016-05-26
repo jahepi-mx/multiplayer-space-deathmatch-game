@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -31,8 +35,8 @@ public class Credits implements Screen {
 
     private float focalLength = 300;
     private Vector3 camera;
-    private float xOffset = Config.UI_WIDTH * 0.3f;
-    private float yOffset = Config.UI_HEIGHT * 0.5f;
+    private float xOffset = Config.UI_WIDTH * 0.2f;
+    private float yOffset = Config.UI_HEIGHT * 0.8f;
     private Array<CreditText> texts;
     private Vector3 front;
     private float frontX;
@@ -47,26 +51,44 @@ public class Credits implements Screen {
         camera = new Vector3(0, 0, 0);
         texts = new Array<CreditText>();
 
+        CreditText text0 = new CreditText();
+        text0.position.add(0, 100, 0);
+        text0.text = Language.getInstance().get("credits_testing");
+        text0.font = assets.getUIFontOpponent();
+
         CreditText text1 = new CreditText();
-        text1.position.add(0, 100, 0);
-        text1.text = "Test 1";
+        text1.position.add(0, 50, 0);
+        text1.text = Language.getInstance().get("credits_testing_text");
+        text1.font = assets.getUIFont();
 
         CreditText text2 = new CreditText();
-        text2.position.add(200, 50, 50);
-        text2.text = "Test 2";
+        text2.position.add(0, 90, 400);
+        text2.text = Language.getInstance().get("credits_skull");
+        text2.font = assets.getUIFontOpponent();
 
         CreditText text3 = new CreditText();
-        text3.position.add(200, 0, 100);
-        text3.text = "Test 3";
+        text3.position.add(0, 40, 400);
+        text3.text = Language.getInstance().get("credits_skull_text");
+        text3.font = assets.getUIFont();
 
         CreditText text4 = new CreditText();
-        text4.position.add(0, 150, 150);
-        text4.text = "Test 4";
+        text4.position.add(0, 110, 700);
+        text4.text = Language.getInstance().get("credits_coding");
+        text4.font = assets.getUIFontOpponent();
 
-        texts.add(text1);
-        texts.add(text2);
-        texts.add(text3);
+        CreditText text5 = new CreditText();
+        text5.position.add(0, 60, 700);
+        text5.text = Language.getInstance().get("credits_coding_text");
+        text5.font = assets.getUIFont();
+
+        texts.add(text5);
         texts.add(text4);
+        texts.add(text3);
+        texts.add(text2);
+        texts.add(text1);
+        texts.add(text0);
+
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -79,9 +101,26 @@ public class Credits implements Screen {
         titleLabel.setAlignment(Align.center);
         titleLabel.setWrap(true);
 
+        Label.LabelStyle style = new Label.LabelStyle();
+        style.font = assets.getUIFontTitle();
+        Label backLabel = new Label(Language.getInstance().get("back_btn"), style);
+        Button backButton = new Button(assets.getSkin());
+        backButton.add(backLabel);
+        backLabel.setColor(Color.RED);
+
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                tankField.changeScreen(TankField.SCREEN_TYPE.MAIN);
+            }
+        });
+
         Table table = new Table();
+        table.setHeight(Config.UI_HEIGHT);
         table.align(Align.top);
         table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(20.0f);
+        table.row().expandY();
+        table.add(backButton).align(Align.bottom).pad(10.0f);
         table.setFillParent(true);
         table.getColor().a = 0;
         table.addAction(Actions.fadeIn(0.5f));
@@ -94,7 +133,7 @@ public class Credits implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (camera.z > 400) {
+        if (camera.z > 730) {
             flag = true;
         }
 
@@ -113,7 +152,6 @@ public class Credits implements Screen {
             camera.x += frontX;
             frontY = (front.y - camera.y) * 0.05f;
             camera.y += frontY;
-            //camera.y = (camera.y - front.y) * 0.3f;
         }
 
         batch.begin();
@@ -121,21 +159,21 @@ public class Credits implements Screen {
         batch.draw(assets.getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
         front = null;
         for (CreditText text : texts) {
-            if (text.position.z >= (camera.z - 200)) {
-                if (front == null) {
-                    front = text.position;
-                }
+            if (text.position.z >= (camera.z - 150)) {
+                front = text.position;
                 float ratio = getFocalRatio(text.position);
                 float x = xOffset + ((text.position.x - camera.x) * ratio);
                 float y = yOffset + ((text.position.y - camera.y) * ratio);
-                assets.getUIFont().getData().setScale(ratio);
+                text.font.getData().setScale(ratio);
                 Color color = assets.getUIFont().getColor();
-                assets.getUIFont().setColor(color.r, color.g, color.b, ratio);
-                assets.getUIFont().draw(batch, text.text, x, y);
+                text.font.setColor(color.r, color.g, color.b, ratio);
+                text.font.draw(batch, text.text, x, y);
             }
         }
         batch.end();
 
+        assets.getUIFont().getData().setScale(1);
+        assets.getUIFontOpponent().getData().setScale(1);
         stage.act(delta);
         stage.draw();
     }
@@ -173,5 +211,6 @@ public class Credits implements Screen {
     static class CreditText {
         private Vector3 position = new Vector3();
         private String text;
+        private BitmapFont font;
     }
 }
