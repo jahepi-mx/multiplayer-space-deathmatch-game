@@ -19,6 +19,7 @@ import com.jahepi.tank.multiplayer.ServerFinder;
 import com.jahepi.tank.multiplayer.ServerFinder.ServerFinderListener;
 import com.jahepi.tank.multiplayer.dto.GameState;
 import com.jahepi.tank.screens.Configuration;
+import com.jahepi.tank.screens.Credits;
 import com.jahepi.tank.screens.GameOptions;
 import com.jahepi.tank.screens.GamePlay;
 import com.jahepi.tank.screens.Main;
@@ -44,9 +45,6 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		MAIN, GAMEOPTIONS, CREDITS, CONFIG, GAME
 	}
 
-	public TankField() {
-	}
-
 	public TankField(AdListener adListener) {
 		this.adListener = adListener;
 	}
@@ -68,24 +66,22 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		if (type == SCREEN_TYPE.MAIN) {
 			currentScreen = new Main(this);
 			setScreen(currentScreen);
-			if (adListener != null) {
-				adListener.show(true);
-			}
+			adListener.show(false);
 		} else if (type == SCREEN_TYPE.GAMEOPTIONS) {
 			currentScreen = new GameOptions(this);
 			setScreen(currentScreen);
-			if (adListener != null) {
-				adListener.show(false);
-			}
+			adListener.show(false);
 		} else if (type == SCREEN_TYPE.GAME) {
 			currentScreen = new GamePlay(this);
 			setScreen(currentScreen);
 		} else if (type == SCREEN_TYPE.CONFIG) {
 			currentScreen = new Configuration(this);
 			setScreen(currentScreen);
-			if (adListener != null) {
-				adListener.show(false);
-			}
+			adListener.show(false);
+		} else if (type == SCREEN_TYPE.CREDITS) {
+			currentScreen = new Credits(this);
+			setScreen(currentScreen);
+			adListener.show(false);
 		}
 	}
 

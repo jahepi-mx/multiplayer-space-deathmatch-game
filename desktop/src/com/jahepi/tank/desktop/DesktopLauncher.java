@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.jahepi.tank.Config;
 import com.jahepi.tank.TankField;
+import com.jahepi.tank.ads.AdListener;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -11,6 +12,11 @@ public class DesktopLauncher {
 		config.width = Config.UI_WIDTH;
 		config.height = Config.UI_HEIGHT;
 		config.foregroundFPS = 60;
-		new LwjglApplication(new TankField(), config);
+		new LwjglApplication(new TankField(new AdListener() {
+			@Override
+			public void show(boolean active) {
+
+			}
+		}), config);
 	}
 }

@@ -108,6 +108,13 @@ public class Main implements Screen {
 			}
 		});
 
+		creditsBtn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				tankField.changeScreen(SCREEN_TYPE.CREDITS);
+			}
+		});
+
 		exitBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {

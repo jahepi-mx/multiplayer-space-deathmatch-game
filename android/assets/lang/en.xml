@@ -21,6 +21,7 @@
     <item name="game_title">MULTIPLAYER SPACE DEATHMATCH %s</item>
     <item name="game_options_title">GAME OPTIONS</item>
     <item name="config_title">CONFIGURATION</item>
+    <item name="credits_title">CREDITS</item>
     <item name="port_label">Default Port</item>
     <item name="port_desc_label">Port used for establishing the server and client connection</item>
     <item name="ms_label">Milliseconds</item>

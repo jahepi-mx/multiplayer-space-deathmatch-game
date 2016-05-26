@@ -6,6 +6,7 @@
     <item name="play_btn">JUGAR</item>
     <item name="config_btn">CONFIGURACIÓN</item>
     <item name="credits_btn">CRÉDITOS</item>
+    <item name="credits_title">CRÉDITOS</item>
     <item name="ip_btn">REVISA IP DEL DISPOSITIVO</item>
     <item name="back_btn">REGRESAR</item>
     <item name="exit_btn">SALIR DEL JUEGO</item>
