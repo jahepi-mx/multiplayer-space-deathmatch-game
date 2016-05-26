@@ -2,6 +2,7 @@ package com.jahepi.tank.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -121,9 +122,9 @@ public class Main implements Screen {
 		table.row();
 		table.add(configBtn).pad(10.0f).uniform();
 		table.row();
-		table.add(creditsBtn).pad(10.0f).uniform();
-		table.row();
 		table.add(ipBtn).pad(10.0f).uniform();
+		table.row();
+		table.add(creditsBtn).pad(10.0f).uniform();
 		table.row();
 		table.add(exitBtn).pad(10.0f).uniform();
 		table.setFillParent(true);
@@ -140,6 +141,8 @@ public class Main implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		Color color = batch.getColor();
+		batch.setColor(color.r, color.g, color.b, 1.0f);
 		batch.setShader(null);
 		batch.draw(assets.getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
 		batch.end();

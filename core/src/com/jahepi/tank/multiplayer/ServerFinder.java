@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.NetworkInterface;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.Enumeration;
 
 import com.badlogic.gdx.utils.Array;
 
@@ -22,23 +19,11 @@ public class ServerFinder {
 
 	public void search(final int port, final int ms)  {
 		if (!active) {
-			final Array<InetAddress> addresses = new Array<InetAddress>();
 			Runnable runnable = new Runnable() {
 				public void run() {
 					active = true;
 					try {
-						Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-						for (NetworkInterface ni : Collections.list(interfaces)) {
-							for (InetAddress address : Collections.list(ni.getInetAddresses())) {
-								if (address instanceof Inet4Address) {
-									byte[] ip = address.getAddress();
-									if (ip[0] == 127) { // Omit localhost address
-										continue;
-									}
-									addresses.add(address);
-								}
-							}
-						}
+						Array<Inet4Address> addresses = NetworkUtils.getMyIps();
 						outer: for (InetAddress address : addresses) {
 							byte[] ip = address.getAddress();						
 							for (int i = 1; i < 255; i++) {

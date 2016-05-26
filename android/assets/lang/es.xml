@@ -2,12 +2,16 @@
 <language>
     <item name="start_server_btn">INICIAR SERVIDOR</item>
     <item name="search_server_btn">BUSCAR SERVIDOR</item>
+    <item name="ip_server_btn">CONECTAR</item>
     <item name="play_btn">JUGAR</item>
     <item name="config_btn">CONFIGURACIÓN</item>
     <item name="credits_btn">CRÉDITOS</item>
-    <item name="ip_btn">CUÁL ES MI IP?</item>
+    <item name="ip_btn">REVISA IP DEL DISPOSITIVO</item>
     <item name="back_btn">REGRESAR</item>
     <item name="exit_btn">SALIR DEL JUEGO</item>
+    <item name="close_btn">Cerrar</item>
+    <item name="ip_error">Ip no disponible.</item>
+    <item name="ip_success">Ip(s) disponible(s) en el dispositivo:</item>
     <item name="english_btn">Ingles</item>
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>
@@ -28,6 +32,7 @@
     <item name="stop_search_btn">Detener Búsqueda ...</item>
     <item name="server_desc_label">Inicia esta opción para arrancar el servidor y tener control de la partida.</item>
     <item name="search_server_desc_label">Inicia esta opción para buscar un servidor en la red local.</item>
+    <item name="ip_server_desc_label">Si sabes la IP del servidor, escríbela aquí.</item>
     <item name="error_network">No se encontró un servidor de juego</item>
     <item name="error_disconnect">Desconectado del servidor</item>
     <item name="waiting_label">Esperando jugadores para iniciar partida ...</item>

@@ -1,6 +1,7 @@
 package com.jahepi.tank;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import com.badlogic.gdx.Game;
@@ -151,7 +152,21 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	public boolean isSearchServerActive() {
 		return serverFinder.isActive();
 	}
-	
+
+	public boolean connect(InetSocketAddress socketAddress) {
+		try {
+			Socket socket = new Socket();
+			socket.connect(socketAddress, 1000);
+			if (startClient(socket)) {
+				changeScreen(SCREEN_TYPE.GAME);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 	public void runServer(int port, String name) {
 		this.name = name;
 		if (startServer(port)) {

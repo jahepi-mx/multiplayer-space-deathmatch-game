@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -23,6 +24,10 @@ import com.jahepi.tank.Language;
 import com.jahepi.tank.TankField;
 import com.jahepi.tank.TankField.SCREEN_TYPE;
 
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
+
 public class GameOptions implements Screen {
 
 	private static final String TAG = "GameOptions";
@@ -30,8 +35,9 @@ public class GameOptions implements Screen {
 	private TankField tankField;
 	private Stage stage;
 	private SpriteBatch batch;
-	private Label startServerLabel, searchServerLabel, backLabel, titleLabel, searchLabel, errorLabel;
-	private Button serverBtn, searchServerBtn, backBtn;
+	private Label startServerLabel, searchServerLabel, ipServerLabel, backLabel, titleLabel, searchLabel, errorLabel;
+	private Button serverBtn, searchServerBtn, ipServerBtn, backBtn;
+	private TextField ipTextField;
 	private Assets assets;
 	
 	public GameOptions(TankField tankField) {
@@ -64,17 +70,28 @@ public class GameOptions implements Screen {
 		
 		Label serverDescLabel = new Label(Language.getInstance().get("server_desc_label"), style1);
 		Label searchServerDescLabel = new Label(Language.getInstance().get("search_server_desc_label"), style1);
+		Label ipServerDescLabel = new Label(Language.getInstance().get("ip_server_desc_label"), style1);
 		serverDescLabel.setWrap(true);
 		serverDescLabel.setAlignment(Align.center);
 		searchServerDescLabel.setWrap(true);
 		serverDescLabel.setColor(Color.YELLOW);
 		searchServerDescLabel.setColor(Color.WHITE);
 		searchServerDescLabel.setAlignment(Align.center);
-		
+		ipServerDescLabel.setWrap(true);
+		ipServerDescLabel.setAlignment(Align.center);
+		ipServerDescLabel.setColor(Color.CYAN);
+
 		searchServerLabel = new Label(Language.getInstance().get("search_server_btn"), style1);
 		searchServerBtn = new Button(skin);
 		searchServerBtn.add(searchServerLabel);
 		searchServerBtn.setColor(Color.YELLOW);
+
+		ipServerLabel = new Label(Language.getInstance().get("ip_server_btn"), style1);
+		ipServerBtn = new Button(skin);
+		ipServerBtn.add(ipServerLabel);
+		ipServerBtn.setColor(Color.CYAN);
+
+		ipTextField = new TextField("", skin);
 		
 		LabelStyle style = new LabelStyle();
 		style.font = assets.getUIFont();
@@ -104,7 +121,7 @@ public class GameOptions implements Screen {
 					tankField.searchServer(assets.getPort(), assets.getMs(), assets.getNickname());
 					searchServerLabel.setText(Language.getInstance().get("stop_search_btn"));
 				}
-			}	
+			}
 		});
 		
 		serverBtn.addListener(new ClickListener() {
@@ -115,32 +132,55 @@ public class GameOptions implements Screen {
 					tankField.stopSearchServer();
 				}
 				tankField.runServer(assets.getPort(), assets.getNickname());
-			}	
+			}
+		});
+
+		ipServerBtn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				String ip = ipTextField.getText();
+				InetAddress tempAddress = null;
+				try {
+					tempAddress = InetAddress.getByName(ip);
+					InetSocketAddress socketAddress = new InetSocketAddress(tempAddress, assets.getPort());
+					if (!tankField.connect(socketAddress)) {
+						errorLabel.setText(Language.getInstance().get("error_network"));
+					}
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+					errorLabel.setText(Language.getInstance().get("error_network"));
+				}
+			}
 		});
 		
 		backBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				tankField.changeScreen(SCREEN_TYPE.MAIN);
-			}		
+			}
 		});
 		
 		Table table = new Table();
-		table.add(titleLabel).pad(5.0f);
+		table.add(titleLabel).pad(3.0f).colspan(2);
 		table.row();
-		table.add(searchLabel).pad(5.0f).uniform();
+		table.add(searchLabel).pad(3.0f).colspan(2);
 		table.row();
-		table.add(errorLabel).pad(5.0f).uniform();
+		table.add(errorLabel).pad(3.0f).colspan(2);
 		table.row();
-		table.add(serverDescLabel).width(Config.UI_WIDTH * 0.8f).pad(5.0f);
+		table.add(serverDescLabel).width(Config.UI_WIDTH * 0.95f).pad(3.0f).colspan(2);
 		table.row();
-		table.add(serverBtn).pad(5.0f).uniform();
+		table.add(serverBtn).pad(3.0f).colspan(2);
 		table.row();
-		table.add(searchServerDescLabel).width(Config.UI_WIDTH * 0.8f).pad(5.0f);
+		table.add(searchServerDescLabel).width(Config.UI_WIDTH * 0.95f).pad(3.0f).colspan(2);
 		table.row();
-		table.add(searchServerBtn).pad(5.0f).uniform();
+		table.add(searchServerBtn).pad(3.0f).colspan(2);
 		table.row();
-		table.add(backBtn).pad(30.0f).uniform();
+		table.add(ipServerDescLabel).width(Config.UI_WIDTH * 0.95f).pad(3.0f).colspan(2);
+		table.row();
+		table.add(ipTextField).pad(3.0f).align(Align.right);
+		table.add(ipServerBtn).pad(3.0f).align(Align.left);
+		table.row();
+		table.add(backBtn).pad(10.0f).colspan(2);
 		table.setFillParent(true);
 		table.getColor().a = 0;
 		table.addAction(Actions.fadeIn(0.5f));
