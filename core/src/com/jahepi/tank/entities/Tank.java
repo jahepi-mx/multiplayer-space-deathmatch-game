@@ -256,20 +256,22 @@ public class Tank extends GameEntity {
 
 	public void checkLevelCollision(float deltatime, Level level) {
 		if (level != null) {
-			boolean collide = false;
 			for (Tile tile : level.getTileMap()) {
 				if (tile != null) {
 					tile.update(deltatime);
 				}
 				if (tile != null && tile.collide(rectangle)) {
-					collide = true;
+					float x = ((tile.getX() * tile.getWidth()) + (tile.getWidth() / 2)) - (getX() + (size.x / 2));
+					float y = ((tile.getY() * tile.getHeight()) + (tile.getHeight() / 2)) - (getY() + (size.y / 2));
+					float dist = (float) Math.sqrt((x * x) + (y * y));
+					float radius = (size.x / 2) + (tile.getWidth() / 2);
+					Gdx.app.log(TAG, "Radius: " + radius + " Dist:" + dist);
+					if (dist < radius) {
+						float alpha = radius - dist;
+						position.x = position.x + (-alpha * MathUtils.cosDeg(rotation));
+						position.y = position.y + (-alpha * MathUtils.sinDeg(rotation));
+					}
 				}
-			}
-			if (!collide) {
-				lastPosition.set(position.x, position.y);
-			} else {
-				position.x = lastPosition.x;
-				position.y = lastPosition.y;
 			}
 		}
 	}
