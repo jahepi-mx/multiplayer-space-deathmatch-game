@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
  * Created by javier.hernandez on 27/05/2016.
@@ -16,9 +17,10 @@ public class Tile extends GameEntity {
         this.background = background;
         size.set(width, height);
         position.set(x, y);
-        rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
+        rectangle.setVertices(new float[]{0, 0, size.x, 0, size.x, size.y, 0, size.y});
         rectangle.setPosition(position.x * size.x, position.y * size.y);
         rectangle.setOrigin(size.x / 2, size.y / 2);
+        this.rotationSpeed = MathUtils.random(20, 60);
     }
 
     @Override
@@ -34,6 +36,6 @@ public class Tile extends GameEntity {
 
     @Override
     public void update(float deltatime) {
-
+        this.rotation += rotationSpeed * deltatime;
     }
 }

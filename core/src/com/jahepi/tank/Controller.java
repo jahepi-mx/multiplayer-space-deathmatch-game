@@ -218,6 +218,7 @@ public class Controller {
 			}
 	
 			tank.update(deltatime);
+			tank.checkLevelCollision(deltatime, level);
 			
 			if (started) {
 				for (OpponentTank opponent : opponentTanks) {
@@ -300,8 +301,8 @@ public class Controller {
 		tank.right(percentage);
 	}
 	
-	public void shoot() {
-		tank.shoot();
+	public void shoot(float deltatime) {
+		tank.shoot(deltatime);
 	}
 	
 	public void onReleaseShoot() {

@@ -30,7 +30,7 @@ public class Tank extends GameEntity {
 	public static final float MEGA_SHOOT_TIME = 2.0f;
 	public static final float MEGA_SHOOT_ANIMATION_TIME = 0.5f;
 	public static final float SPEED_UP_TIME = 5.0f;
-	public static final int LIFE = 100;
+	public static final int LIFE = 1;
 	public enum TEXTURE_TYPE {
 		SHIP1, SHIP2, SHIP3, SHIP4, SHIP5
 	}
@@ -64,6 +64,7 @@ public class Tank extends GameEntity {
 	protected float time;
 	protected Assets assets;
 	protected float targetRotation;
+	protected Vector2 lastPosition;
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
@@ -100,6 +101,7 @@ public class Tank extends GameEntity {
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		laser = new Laser();
 		setRandomPosition();
+		lastPosition = new Vector2(0, 0);
 		Gdx.app.log(TAG, "Created");
 	}
 	
@@ -212,9 +214,9 @@ public class Tank extends GameEntity {
         }
 	}
 	
-	public void shoot() {
+	public void shoot(float deltatime) {
 		if (!isDead()) {
-			megaShootTime += Gdx.graphics.getDeltaTime();
+			megaShootTime += deltatime;
 			laser.shoot();
 			if (!shooting) {
 				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
@@ -249,6 +251,26 @@ public class Tank extends GameEntity {
 		speed = this.velocity * percentage;
 		if (isDead()) {
 			speed = 0;
+		}
+	}
+
+	public void checkLevelCollision(float deltatime, Level level) {
+		if (level != null) {
+			boolean collide = false;
+			for (Tile tile : level.getTileMap()) {
+				if (tile != null) {
+					tile.update(deltatime);
+				}
+				if (tile != null && tile.collide(rectangle)) {
+					collide = true;
+				}
+			}
+			if (!collide) {
+				lastPosition.set(position.x, position.y);
+			} else {
+				position.x = lastPosition.x;
+				position.y = lastPosition.y;
+			}
 		}
 	}
 	
@@ -361,7 +383,7 @@ public class Tank extends GameEntity {
 					missile.setHit(true);
 					tank.setLife(tank.getLife() - missile.getDamage());
 				}
-				if (level != null && !missile.isHit()) {
+				if (level != null && missile != null && !missile.isHit()) {
 					for (Tile tile : level.getTileMap()) {
 						if (tile != null && tile.collide(missile.getRectangle())) {
 							missile.setHit(true);
@@ -386,7 +408,7 @@ public class Tank extends GameEntity {
 	public void setRectangleSize(float width, float height) {
 		rectangle.setOrigin(width / 2, height / 2);
 		rectangle.setScale(width / defaultSize, height / defaultSize);
-		rectangle.setVertices(new float[] {0, 0, width, 0, width, height, 0, height});
+		rectangle.setVertices(new float[]{0, 0, width, 0, width, height, 0, height});
 	}
 
 	public void reset() {

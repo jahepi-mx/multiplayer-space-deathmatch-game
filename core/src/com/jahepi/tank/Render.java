@@ -354,7 +354,7 @@ public class Render implements Disposable, ControllerListener {
 		float deltatime = Gdx.graphics.getDeltaTime();
 		
 		if (isShooting) {
-			controller.shoot();
+			controller.shoot(deltatime);
 		} else {
 			controller.onReleaseShoot();
 		}
