@@ -6,6 +6,7 @@ public class GameState {
 
 	// Id of the main player sending the data through sockets
 	private String id;
+	private int levelIndex;
 	private Array<TankState> tankStates;
 	private boolean isPlaying, isStarted;
 	private boolean win;
@@ -71,5 +72,13 @@ public class GameState {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public int getLevelIndex() {
+		return levelIndex;
+	}
+
+	public void setLevelIndex(int levelIndex) {
+		this.levelIndex = levelIndex;
 	}
 }

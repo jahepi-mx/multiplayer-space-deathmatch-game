@@ -1,6 +1,5 @@
 package com.jahepi.tank;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
@@ -9,6 +8,8 @@ import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Tank;
 import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
+import com.jahepi.tank.levels.Level;
+import com.jahepi.tank.levels.LevelFactory;
 import com.jahepi.tank.multiplayer.dto.GameState;
 import com.jahepi.tank.multiplayer.dto.PowerUpState;
 import com.jahepi.tank.multiplayer.dto.TankState;
@@ -32,6 +33,8 @@ public class Controller {
 	private float powerUpTime;
 	private float powerUpInterval;
 	private CameraHelper cameraHelper;
+	private LevelFactory levelFactory;
+	private Level level;
 	
 	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer, String name) {
 		winner = "";
@@ -47,6 +50,10 @@ public class Controller {
 		gameStatus = GAME_STATUS.PLAYING;
 		powerUpInterval = MathUtils.random(5.0f, 15.0f);
 		cameraHelper = new CameraHelper(Config.CAMERA_WIDTH, Config.CAMERA_HEIGHT, (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2), (Config.HEIGHT / 2) - (Config.CAMERA_HEIGHT / 2));
+		levelFactory = new LevelFactory();
+		if (isServer) {
+			level = levelFactory.getRandomLevel();
+		}
 	}
 	
 	public void setTankId(String connectionId) {
@@ -89,6 +96,7 @@ public class Controller {
 	public void updateGameState(GameState gameState) {
 		createOpponentInstances(gameState);
 		if (!isServer) {
+			level = levelFactory.getLevel(gameState.getLevelIndex());
 			started = gameState.isStarted();
 			if (!gameState.isPlaying()) {
 				gameStatus = GAME_STATUS.GAMEOVER;
@@ -274,6 +282,7 @@ public class Controller {
 		gameState.setId(tank.getId());
 		gameState.addTankState(tank.getState());
 		if (isServer) {
+			gameState.setLevelIndex(levelFactory.getSelectedLevel());
 			for (OpponentTank opponent : opponentTanks) {
 				if (opponent != null) {
 					gameState.addTankState(opponent.getState());
@@ -346,6 +355,10 @@ public class Controller {
 		tank.setTargetRotation(degrees);
 	}
 
+	public Level getLevel() {
+		return level;
+	}
+
 	public void reset() {
 		powerUps.clear();
 		gameStatus = GAME_STATUS.PLAYING;
@@ -354,6 +367,9 @@ public class Controller {
 			if (opponent != null) {
 				opponent.reset();
 			}
+		}
+		if (isServer) {
+			level = levelFactory.getRandomLevel();
 		}
 		win = false;
 	}
