@@ -223,14 +223,14 @@ public class Controller {
 				for (OpponentTank opponent : opponentTanks) {
 					if (opponent != null) {
 						// Check if main ship collide with missiles of the opponents
-						opponent.isHit(tank);
-						tank.isHit(opponent);
+						opponent.isHit(tank, level);
+						tank.isHit(opponent, level);
 						// Check if each opponent´s missile collide against the rest of opponents
 						ArrayIterator<OpponentTank> iterator = new ArrayIterator<OpponentTank>(opponentTanks);
 						while (iterator.hasNext()) {
 							OpponentTank innerOpponent = iterator.next();
 							if (innerOpponent != null && opponent != innerOpponent) {
-								opponent.isHit(innerOpponent);
+								opponent.isHit(innerOpponent, level);
 							}
 						}
 						opponent.update(deltatime);

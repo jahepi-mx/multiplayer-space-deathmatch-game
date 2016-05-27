@@ -18,6 +18,7 @@ import com.jahepi.tank.Util;
 import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 import com.jahepi.tank.entities.PowerUp.TYPE;
 import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
+import com.jahepi.tank.levels.Level;
 import com.jahepi.tank.multiplayer.dto.MissileState;
 import com.jahepi.tank.multiplayer.dto.TankState;
 
@@ -353,12 +354,19 @@ public class Tank extends GameEntity {
 		this.wins++;
 	}
 	
-	public void isHit(Tank tank) {
+	public void isHit(Tank tank, Level level) {
 		if (!isDead()) {
 			for (Missile missile : missiles) {
 				if (missile != null && missile.collide(tank.getRectangle()) && !missile.isHit()) {
 					missile.setHit(true);
 					tank.setLife(tank.getLife() - missile.getDamage());
+				}
+				if (level != null && !missile.isHit()) {
+					for (Tile tile : level.getTileMap()) {
+						if (tile != null && tile.collide(missile.getRectangle())) {
+							missile.setHit(true);
+						}
+					}
 				}
 			}
 			if (laser.isHit(tank)) {

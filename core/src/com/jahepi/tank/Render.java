@@ -27,6 +27,7 @@ import com.jahepi.tank.TankField.SCREEN_TYPE;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Tank;
+import com.jahepi.tank.entities.Tile;
 import com.jahepi.tank.input.Joystick;
 import com.jahepi.tank.levels.Level;
 import com.jahepi.tank.multiplayer.dto.GameState;
@@ -282,6 +283,9 @@ public class Render implements Disposable, ControllerListener {
 		Level level = controller.getLevel();
 		if (level != null) {
 			batch.draw(level.getBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
+			for (Tile tile : level.getTileMap()) {
+				tile.render(batch);
+			}
 		}
 
 		controller.getTank().render(batch);
@@ -373,6 +377,11 @@ public class Render implements Disposable, ControllerListener {
 			for (PowerUp powerUp : controller.getPowerUps()) {
 				if (powerUp != null) {
 					powerUp.debugRender(shapeRenderer);
+				}
+			}
+			if (level != null) {
+				for (Tile tile : level.getTileMap()) {
+					tile.debugRender(shapeRenderer);
 				}
 			}
 			shapeRenderer.end();

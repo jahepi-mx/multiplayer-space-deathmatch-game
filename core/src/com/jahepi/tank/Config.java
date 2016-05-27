@@ -23,7 +23,7 @@ public class Config {
 	public static final float UI_WIDTH_RATIO = UI_CAMERA_WIDTH / WIDTH;
 	public static final float UI_HEIGHT_RATIO = UI_CAMERA_HEIGHT / HEIGHT;
 
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 
 	private Config() {
 		// TODO Auto-generated constructor stub

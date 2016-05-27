@@ -14,18 +14,42 @@ public class LevelFactory {
     private int selectedLevel;
 
     public LevelFactory() {
-        levels = new Array<Level>();
-        Level level = new Level(20, 10);
-        level.setWidth(21.33f * 4);
-        level.setHeight(16 * 4);
-        level.setBackground(Assets.getInstance().getMainBackground());
-        level.setTileSize(100);
 
-        Level level2 = new Level(20, 10);
-        level2.setWidth(21.33f * 6);
-        level2.setHeight(16 * 6);
+        levels = new Array<Level>();
+
+        byte map1[] = new byte[] {
+            1, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+            0, 1, 0, 0, 0, 0, 0, 0, 1, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        };
+
+        Level level = new Level(10, 10);
+        level.setBackground(Assets.getInstance().getMainBackground());
+        level.setMap(map1);
+
+        byte map2[] = new byte[] {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        };
+
+        Level level2 = new Level(10, 10);
         level2.setBackground(Assets.getInstance().getBackground());
-        level2.setTileSize(100);
+        level2.setMap(map2);
 
         levels.add(level);
         levels.add(level2);

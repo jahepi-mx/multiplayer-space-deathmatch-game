@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -36,6 +37,7 @@ public class Assets implements Disposable {
 	private ShaderProgram monochromeShader;
 	private Skin skin;
 	private Preferences preferences;
+	private TextureRegion asteroid;
 	
 	private Assets() {
 		manager = new AssetManager();
@@ -135,6 +137,8 @@ public class Assets implements Disposable {
 	    
 	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
 	    monochromeShader.setUniformf("u_amount", 1.0f);
+
+		asteroid = new TextureRegion(new Texture("images/asteroid_01.png"));
 	}
 	
 	public static Assets getInstance() {
@@ -405,6 +409,10 @@ public class Assets implements Disposable {
 	
 	public String getLanguage() {
 		return preferences.getString("language");
+	}
+
+	public TextureRegion getAsteroid() {
+		return asteroid;
 	}
 
 	@Override
