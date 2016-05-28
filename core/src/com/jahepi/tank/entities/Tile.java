@@ -16,16 +16,16 @@ public class Tile extends GameEntity {
     public Tile(float width, float height, int x, int y, TextureRegion background) {
         this.background = background;
         size.set(width, height);
-        position.set(x, y);
+        position.set(x  * size.x, y * size.y);
         rectangle.setVertices(new float[]{0, 0, size.x, 0, size.x, size.y, 0, size.y});
-        rectangle.setPosition(position.x * size.x, position.y * size.y);
+        rectangle.setPosition(position.x, position.y);
         rectangle.setOrigin(size.x / 2, size.y / 2);
         this.rotationSpeed = MathUtils.random(20, 60);
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(background, position.x * size.x, position.y * size.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
+        batch.draw(background, position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, rotation, true);
     }
 
     @Override
@@ -38,4 +38,6 @@ public class Tile extends GameEntity {
     public void update(float deltatime) {
         this.rotation += rotationSpeed * deltatime;
     }
+
+
 }

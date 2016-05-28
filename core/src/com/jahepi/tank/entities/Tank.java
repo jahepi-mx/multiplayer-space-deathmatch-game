@@ -30,7 +30,7 @@ public class Tank extends GameEntity {
 	public static final float MEGA_SHOOT_TIME = 2.0f;
 	public static final float MEGA_SHOOT_ANIMATION_TIME = 0.5f;
 	public static final float SPEED_UP_TIME = 5.0f;
-	public static final int LIFE = 1;
+	public static final int LIFE = 100;
 	public enum TEXTURE_TYPE {
 		SHIP1, SHIP2, SHIP3, SHIP4, SHIP5
 	}
@@ -259,17 +259,16 @@ public class Tank extends GameEntity {
 			for (Tile tile : level.getTileMap()) {
 				if (tile != null) {
 					tile.update(deltatime);
-				}
-				if (tile != null && tile.collide(rectangle)) {
-					float x = ((tile.getX() * tile.getWidth()) + (tile.getWidth() / 2)) - (getX() + (size.x / 2));
-					float y = ((tile.getY() * tile.getHeight()) + (tile.getHeight() / 2)) - (getY() + (size.y / 2));
-					float dist = (float) Math.sqrt((x * x) + (y * y));
-					float radius = (size.x / 2) + (tile.getWidth() / 2);
-					Gdx.app.log(TAG, "Radius: " + radius + " Dist:" + dist);
-					if (dist < radius) {
-						float alpha = radius - dist;
-						position.x = position.x + (-alpha * MathUtils.cosDeg(rotation));
-						position.y = position.y + (-alpha * MathUtils.sinDeg(rotation));
+					if (tile.collide(rectangle)) {
+						float x = (tile.getX() + (tile.getWidth() / 2)) - (getX() + (size.x / 2));
+						float y = (tile.getY() + (tile.getHeight() / 2)) - (getY() + (size.y / 2));
+						float dist = (float) Math.sqrt((x * x) + (y * y));
+						float radius = (size.x / 2) + (tile.getWidth() / 2);
+						if (dist < radius) {
+							float alpha = radius - dist;
+							position.x = position.x + (-alpha * MathUtils.cosDeg(rotation));
+							position.y = position.y + (-alpha * MathUtils.sinDeg(rotation));
+						}
 					}
 				}
 			}

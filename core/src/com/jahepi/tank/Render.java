@@ -435,6 +435,17 @@ public class Render implements Disposable, ControllerListener {
 				renderer.rect(x + xPowerUp, y + yPowerUp, size, size);
 			}
 		}
+		if (controller.getLevel() != null) {
+			renderer.setColor(Color.BROWN);
+			for (Tile tile : controller.getLevel().getTileMap()) {
+				if (tile != null) {
+					float xTile = tile.getX() * Config.MAP_SCALE_FACTOR;
+					float yTile = tile.getY() * Config.MAP_SCALE_FACTOR;
+					float size = tile.getWidth() * Config.MAP_SCALE_FACTOR;
+					renderer.rect(x + xTile, y + yTile, size, size);
+				}
+			}
+		}
 		shapeRenderer.end();
 	}
 

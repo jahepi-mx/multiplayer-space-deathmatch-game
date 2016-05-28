@@ -25,7 +25,7 @@ public class Level {
         this.cols = cols;
         this.rows = rows;
         tileWidth = Config.WIDTH / this.cols;
-        tileHeight = Config.HEIGHT / this.rows;
+        tileHeight = tileWidth; //Config.HEIGHT / this.rows;
         tileMap = new Array<Tile>();
     }
 
