@@ -151,6 +151,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 
 	public boolean connect(InetSocketAddress socketAddress) {
 		try {
+			this.name = assets.getNickname();
 			Socket socket = new Socket();
 			socket.connect(socketAddress, 1000);
 			if (startClient(socket)) {
