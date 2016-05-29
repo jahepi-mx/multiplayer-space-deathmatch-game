@@ -5,10 +5,10 @@ public class Config {
 	public static final String VERSION = "v1.3";
 	public static final String ADMOB_KEY = "ca-app-pub-3227769552322799/6244007069";
 
-	public static final float WIDTH = 21.33f * 3.0f;
-	public static final float HEIGHT = 16 * 3;
-	public static final float CAMERA_WIDTH = WIDTH / 3;
-	public static final float CAMERA_HEIGHT = HEIGHT / 3;
+	public static final float WIDTH = 21.33f * 4.0f;
+	public static final float HEIGHT = 16 * 4;
+	public static final float CAMERA_WIDTH = WIDTH / 3.5f;
+	public static final float CAMERA_HEIGHT = HEIGHT / 3.5f;
 	public static final float MAP_SCALE_FACTOR = 0.2f;
 	public static final float CAMERA_CENTER_DISTANCE = 18.0f;
 

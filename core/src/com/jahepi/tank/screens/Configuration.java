@@ -70,9 +70,14 @@ public class Configuration implements Screen {
 		musicLabel = new Label(Language.getInstance().get("music_label"), labelStyle);
 		final Slider musicSlider = new Slider(0, 1, 0.1f, false, skin);
 		musicSlider.setValue(assets.getMusicVolume());
-		
+
+		Label.LabelStyle langStyle = new Label.LabelStyle();
+		langStyle.font = assets.getUIFontSmall();
 		englishCheckbox = new CheckBox(Language.getInstance().get("english_btn"), skin);
+		englishCheckbox.getLabel().setStyle(langStyle);
 		spanishCheckbox = new CheckBox(Language.getInstance().get("spanish_btn"), skin);
+		spanishCheckbox.getLabel().setStyle(langStyle);
+
 		new ButtonGroup<CheckBox>(englishCheckbox, spanishCheckbox);
 		
 		if (assets.getLanguage().equals(Language.ENGLISH)) {
@@ -106,7 +111,7 @@ public class Configuration implements Screen {
 		backButton = new Button(skin);
 		backButton.add(backLabel);
 		backLabel.setColor(Color.RED);
-		
+
 		englishCheckbox.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {

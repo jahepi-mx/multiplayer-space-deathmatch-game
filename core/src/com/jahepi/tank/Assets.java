@@ -339,9 +339,8 @@ public class Assets implements Disposable {
 		return atlas.findRegion("asteroid", i);
 	}
 
-	public TextureRegion getRandomBackground() {
-		int i = MathUtils.random(1, 7);
-		return atlas.findRegion("background", i);
+	public TextureRegion getBackground(int index) {
+		return atlas.findRegion("background", index);
 	}
 
 	public ShaderProgram getMonochromeShader() {
