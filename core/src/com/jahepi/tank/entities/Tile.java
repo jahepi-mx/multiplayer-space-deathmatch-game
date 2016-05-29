@@ -20,7 +20,7 @@ public class Tile extends GameEntity {
         rectangle.setVertices(new float[]{0, 0, size.x, 0, size.x, size.y, 0, size.y});
         rectangle.setPosition(position.x, position.y);
         rectangle.setOrigin(size.x / 2, size.y / 2);
-        this.rotationSpeed = MathUtils.random(20, 60);
+        this.rotationSpeed = MathUtils.random(10, 30);
     }
 
     @Override

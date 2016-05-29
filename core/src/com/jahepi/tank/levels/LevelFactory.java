@@ -3,7 +3,6 @@ package com.jahepi.tank.levels;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.jahepi.tank.Assets;
-import com.jahepi.tank.Config;
 
 /**
  * Created by jahepi on 26/05/16.
@@ -36,7 +35,7 @@ public class LevelFactory {
         };
 
         Level level = new Level(20, 15);
-        level.setBackground(Assets.getInstance().getMainBackground());
+        level.setBackground(Assets.getInstance().getRandomBackground());
         level.setMap(map1);
 
         byte map2[] = new byte[] {
@@ -52,7 +51,7 @@ public class LevelFactory {
         };
 
         Level level2 = new Level(12, 9);
-        level2.setBackground(Assets.getInstance().getBackground());
+        level2.setBackground(Assets.getInstance().getRandomBackground());
         level2.setMap(map2);
 
         levels.add(level);

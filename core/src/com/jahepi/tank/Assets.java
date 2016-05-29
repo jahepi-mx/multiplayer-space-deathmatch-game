@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -15,6 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -37,7 +37,6 @@ public class Assets implements Disposable {
 	private ShaderProgram monochromeShader;
 	private Skin skin;
 	private Preferences preferences;
-	private TextureRegion asteroid;
 	
 	private Assets() {
 		manager = new AssetManager();
@@ -137,8 +136,6 @@ public class Assets implements Disposable {
 	    
 	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
 	    monochromeShader.setUniformf("u_amount", 1.0f);
-
-		asteroid = new TextureRegion(new Texture("images/asteroid_01.png"));
 	}
 	
 	public static Assets getInstance() {
@@ -148,12 +145,8 @@ public class Assets implements Disposable {
 		return self;
 	}
 
-	public TextureRegion getBackground() {
-		return atlas.findRegion("background_game");
-	}
-
 	public TextureRegion getMainBackground() {
-		return atlas.findRegion("background_main");
+		return atlas.findRegion("background", 6);
 	}
 
 	public TextureRegion getShip1() {
@@ -341,6 +334,16 @@ public class Assets implements Disposable {
 		return atlas.findRegion("life2");
 	}
 
+	public TextureRegion getAsteroid() {
+		int i = MathUtils.random(1, 5);
+		return atlas.findRegion("asteroid", i);
+	}
+
+	public TextureRegion getRandomBackground() {
+		int i = MathUtils.random(1, 7);
+		return atlas.findRegion("background", i);
+	}
+
 	public ShaderProgram getMonochromeShader() {
 		return monochromeShader;
 	}
@@ -409,10 +412,6 @@ public class Assets implements Disposable {
 	
 	public String getLanguage() {
 		return preferences.getString("language");
-	}
-
-	public TextureRegion getAsteroid() {
-		return asteroid;
 	}
 
 	@Override
