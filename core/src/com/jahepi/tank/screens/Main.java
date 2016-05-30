@@ -118,6 +118,8 @@ public class Main implements Screen {
 		exitBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				stage.dispose();
+				Assets.getInstance().dispose();
 				Gdx.app.exit();
 			}
 		});

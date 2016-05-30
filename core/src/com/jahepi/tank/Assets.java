@@ -434,5 +434,6 @@ public class Assets implements Disposable {
 		UIFontExtraSmall.dispose();
 		UIFontOpponent.dispose();
 		skin.dispose();
+		manager.dispose();
 	}
 }
