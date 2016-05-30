@@ -119,7 +119,7 @@ public class Main implements Screen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				stage.dispose();
-				Assets.getInstance().dispose();
+				tankField.dispose();
 				Gdx.app.exit();
 			}
 		});

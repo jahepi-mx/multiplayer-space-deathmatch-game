@@ -51,14 +51,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	@Override
 	public void create() {
-		assets = Assets.getInstance();
-		Language.getInstance().load(assets.getLanguage());
-		batch = new SpriteBatch();
-		json = new Json();
-		debugRender = new ShapeRenderer();
-		debugRender.setAutoShapeType(true);
-		changeScreen(SCREEN_TYPE.MAIN);
-		serverFinder = new ServerFinder(this);
+		init();
 	}
 	
 	public void changeScreen(SCREEN_TYPE type) {
@@ -279,5 +272,33 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public void resume() {
+		super.resume();
+		init();
+	}
+
+	@Override
+	public void dispose() {
+		super.dispose();
+		batch.dispose();
+		debugRender.dispose();
+		assets.dispose();
+		batch = null;
+	}
+
+	public void init() {
+		if (batch == null) {
+			assets = Assets.getInstance();
+			Language.getInstance().load(assets.getLanguage());
+			batch = new SpriteBatch();
+			json = new Json();
+			debugRender = new ShapeRenderer();
+			debugRender.setAutoShapeType(true);
+			changeScreen(SCREEN_TYPE.MAIN);
+			serverFinder = new ServerFinder(this);
+		}
 	}
 }
