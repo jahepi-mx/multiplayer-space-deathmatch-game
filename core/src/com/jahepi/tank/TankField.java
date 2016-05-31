@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.jahepi.tank.Controller.GameChangeStateListener;
 import com.jahepi.tank.ads.AdListener;
@@ -17,6 +18,7 @@ import com.jahepi.tank.multiplayer.Server;
 import com.jahepi.tank.multiplayer.Server.ServerListener;
 import com.jahepi.tank.multiplayer.ServerFinder;
 import com.jahepi.tank.multiplayer.ServerFinder.ServerFinderListener;
+import com.jahepi.tank.multiplayer.ServerFinderExecutor;
 import com.jahepi.tank.multiplayer.dto.GameState;
 import com.jahepi.tank.screens.Configuration;
 import com.jahepi.tank.screens.Credits;
@@ -24,7 +26,7 @@ import com.jahepi.tank.screens.GameOptions;
 import com.jahepi.tank.screens.GamePlay;
 import com.jahepi.tank.screens.Main;
 
-public class TankField extends Game implements ServerListener, ServerFinderListener, GameChangeStateListener {
+public class TankField extends Game implements ServerListener, ServerFinderListener, ServerFinderExecutor.ServerFinderExecutorListener, GameChangeStateListener {
 	
 	private final static String TAG = "TankField";
 	
@@ -37,6 +39,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private boolean newConnection;
 	private String connectionId;
 	private ServerFinder serverFinder;
+	private ServerFinderExecutor serverFinderExecutor;
 	private String name;
 	private Assets assets;
 	private AdListener adListener;
@@ -131,22 +134,25 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	public void searchServer(int port, int ms, String name) {
 		this.name = name;
-		serverFinder.search(port, ms);
+		//serverFinder.search(port, ms);
+		serverFinderExecutor.search(port, ms);
 	}
 	
 	public void stopSearchServer() {
-		serverFinder.setActive(false);
+		//serverFinder.setActive(false);
+		serverFinderExecutor.setActive(false);
 	}
 	
 	public boolean isSearchServerActive() {
-		return serverFinder.isActive();
+		//return serverFinder.isActive();
+		return  serverFinderExecutor.isActive();
 	}
 
 	public boolean connect(InetSocketAddress socketAddress) {
 		try {
 			this.name = assets.getNickname();
 			Socket socket = new Socket();
-			socket.connect(socketAddress, 1000);
+			socket.connect(socketAddress, 3000);
 			if (startClient(socket)) {
 				changeScreen(SCREEN_TYPE.GAME);
 			}
@@ -282,7 +288,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 
 	@Override
 	public void dispose() {
-		super.dispose();
+		//super.dispose();
 		batch.dispose();
 		debugRender.dispose();
 		assets.dispose();
@@ -299,6 +305,30 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			debugRender.setAutoShapeType(true);
 			changeScreen(SCREEN_TYPE.MAIN);
 			serverFinder = new ServerFinder(this);
+			serverFinderExecutor = new ServerFinderExecutor(this);
 		}
+	}
+
+	@Override
+	public void onServerFoundExecutor(final Array<InetSocketAddress> addresses) {
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run() {
+				for (InetSocketAddress address : addresses) {
+					Gdx.app.log(TAG, "" + address);
+					connect(address);
+				}
+			}
+		});
+	}
+
+	@Override
+	public void onServerStatusExecutor(String status) {
+		this.onServerStatus(status);
+	}
+
+	@Override
+	public void onServerNotFoundExecutor(int port) {
+		this.onServerNotFound(port);
 	}
 }

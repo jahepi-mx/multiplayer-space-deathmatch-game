@@ -1,0 +1,115 @@
+package com.jahepi.tank.multiplayer;
+
+import com.badlogic.gdx.utils.Array;
+
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Created by javier.hernandez on 30/05/2016.
+ */
+public class ServerFinderExecutor {
+
+    private ExecutorService executor;
+    private boolean active;
+    private Array<Future<InetSocketAddress>> futures;
+    private ServerFinderExecutorListener listener;
+
+    public ServerFinderExecutor(ServerFinderExecutorListener listener) {
+        this.listener = listener;
+    }
+
+    public void search(final int port, final int ms) {
+        if (!active) {
+            executor = Executors.newFixedThreadPool(25);
+            futures = new Array<Future<InetSocketAddress>>();
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    active = true;
+                    try {
+                        Array<Inet4Address> addresses = NetworkUtils.getMyIps();
+                        for (InetAddress address : addresses) {
+                            byte[] ip = address.getAddress();
+                            for (int i = 1; i < 255; i++) {
+                                ip[3] = (byte) i;
+                                InetAddress inetAddress = InetAddress.getByAddress(ip);
+                                futures.add(postIsOpen(inetAddress, port, ms));
+                            }
+                        }
+                        executor.shutdown();
+                        executor.awaitTermination(120, TimeUnit.SECONDS);
+                        Array<InetSocketAddress> socketAddresses = new Array<InetSocketAddress>();
+                        for (Future<InetSocketAddress> future : futures) {
+                            InetSocketAddress address = future.get();
+                            if (address != null) {
+                                socketAddresses.add(address);
+                            }
+                        }
+                        listener.onServerFoundExecutor(socketAddresses);
+                        active = false;
+                        return;
+                    } catch (Exception exp) {
+                        exp.printStackTrace();
+                    }
+                    active = false;
+                    listener.onServerNotFoundExecutor(port);
+                }
+            };
+
+            Thread thread = new Thread(runnable);
+            thread.start();
+        }
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+        if (!active) {
+            executor.shutdownNow();
+        }
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    private Future<InetSocketAddress> postIsOpen(final InetAddress address, final int port, final int ms) {
+        return executor.submit(new Callable<InetSocketAddress>() {
+            @Override
+            public InetSocketAddress call() throws Exception {
+                InetSocketAddress inetSocketAddress = new InetSocketAddress(address, port);
+                Socket socketConnection = null;
+                try {
+                    listener.onServerStatusExecutor(address.toString());
+                    socketConnection = new Socket();
+                    socketConnection.connect(inetSocketAddress, ms);
+                } catch (Exception exp) {
+                    exp.printStackTrace();
+                    return null;
+                }
+                if (socketConnection != null) {
+                    try {
+                        socketConnection.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                return inetSocketAddress;
+            }
+        });
+    }
+
+    public interface ServerFinderExecutorListener {
+        public void onServerFoundExecutor(Array<InetSocketAddress> addresses);
+        public void onServerStatusExecutor(String status);
+        public void onServerNotFoundExecutor(int port);
+    }
+}
