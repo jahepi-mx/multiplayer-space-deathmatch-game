@@ -21,6 +21,7 @@ import java.net.InetSocketAddress;
 public class ServerListDialog extends Dialog {
 
     private Assets assets;
+    private Label errorLabel;
     private float ratio = 0.7f;
     private ServerListDialogListener listener;
 
@@ -44,6 +45,8 @@ public class ServerListDialog extends Dialog {
         getTitleTable().clearChildren();
         Label titleLabel = new Label(Language.getInstance().get("search_server_title"), titleStyle);
         getTitleTable().add(titleLabel).pad(10);
+
+        errorLabel = new Label("", titleStyle);
 
         Label closeLabel = new Label(Language.getInstance().get("close_btn"), titleStyle);
         Button closeBtn = new Button(assets.getSkin());
@@ -74,11 +77,13 @@ public class ServerListDialog extends Dialog {
 
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = assets.getUIFont();
-        Label infoLabel = new Label("", style);
+        Label infoLabel = new Label(Language.getInstance().get("server_list_info"), style);
         infoLabel.setWrap(true);
         infoLabel.setAlignment(Align.center);
 
         getContentTable().add(infoLabel).width(Config.UI_WIDTH / 2).pad(10);
+        getContentTable().row();
+        getContentTable().add(errorLabel);
         getContentTable().row();
 
         for (final InetSocketAddress server : servers) {
@@ -96,6 +101,10 @@ public class ServerListDialog extends Dialog {
         }
         super.show(stage, Actions.fadeIn(0.5f));
         return this;
+    }
+
+    public void setErrorLabel(String error) {
+        this.errorLabel.setText(error);
     }
 
     public interface ServerListDialogListener {

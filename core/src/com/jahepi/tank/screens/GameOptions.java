@@ -194,6 +194,7 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 	}
 
 	public void showDialog(Array<InetSocketAddress> addresses) {
+		searchServerLabel.setText(Language.getInstance().get("search_server_btn"));
 		serverListDialog.show(addresses, stage);
 	}
 
@@ -253,7 +254,9 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 	@Override
 	public void onSelectServer(InetSocketAddress address) {
 		if (!tankField.connect(address)) {
-			errorLabel.setText(Language.getInstance().get("error_network"));
+			if (serverListDialog.isVisible()) {
+				serverListDialog.setErrorLabel(Language.getInstance().get("error_network"));
+			}
 		}
 	}
 }

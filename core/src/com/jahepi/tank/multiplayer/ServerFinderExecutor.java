@@ -53,7 +53,11 @@ public class ServerFinderExecutor {
                                 socketAddresses.add(address);
                             }
                         }
-                        listener.onServerFoundExecutor(socketAddresses);
+                        if (socketAddresses.size > 0) {
+                            listener.onServerFoundExecutor(socketAddresses);
+                        } else {
+                            listener.onServerNotFoundExecutor(port);
+                        }
                         active = false;
                         return;
                     } catch (Exception exp) {

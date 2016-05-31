@@ -298,7 +298,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			debugRender = new ShapeRenderer();
 			debugRender.setAutoShapeType(true);
 			changeScreen(SCREEN_TYPE.MAIN);
-			serverFinder = new ServerFinder(this);
+			//serverFinder = new ServerFinder(this);
 			serverFinderExecutor = new ServerFinderExecutor(this);
 		}
 	}

@@ -22,6 +22,7 @@
     <item name="game_title">MULTIJUGADOR ESPACIAL A MUERTE %s</item>
     <item name="search_server_title">Listado de Servidores</item>
     <item name="server_item_btn">Conectar a %s</item>
+    <item name="server_list_info">Servidores encontrados en la red</item>
     <item name="game_options_title">OPCIONES DEL JUEGO</item>
     <item name="config_title">CONFIGURACIÓN</item>
     <item name="port_label">Puerto por defecto</item>

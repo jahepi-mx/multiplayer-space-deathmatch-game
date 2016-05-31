@@ -21,6 +21,7 @@
     <item name="game_title">MULTIPLAYER SPACE DEATHMATCH %s</item>
     <item name="search_server_title">Server List</item>
     <item name="server_item_btn">Connect to %s</item>
+    <item name="server_list_info">Servers found on the network</item>
     <item name="game_options_title">GAME OPTIONS</item>
     <item name="config_title">CONFIGURATION</item>
     <item name="credits_title">CREDITS</item>
