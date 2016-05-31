@@ -59,7 +59,7 @@ public class Assets implements Disposable {
 			preferences.putString("name", "xxxx");
 		}
 		if (!preferences.contains("ms")) {
-			preferences.putInteger("ms", 200);
+			preferences.putInteger("ms", 1000);
 		}
 		if (!preferences.contains("language")) {
 			preferences.putString("language", Language.ENGLISH);

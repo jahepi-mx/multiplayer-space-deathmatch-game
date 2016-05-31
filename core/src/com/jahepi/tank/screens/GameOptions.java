@@ -17,18 +17,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jahepi.tank.Assets;
 import com.jahepi.tank.Config;
 import com.jahepi.tank.Language;
 import com.jahepi.tank.TankField;
 import com.jahepi.tank.TankField.SCREEN_TYPE;
+import com.jahepi.tank.dialogs.ServerListDialog;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
-public class GameOptions implements Screen {
+public class GameOptions implements Screen, ServerListDialog.ServerListDialogListener {
 
 	private static final String TAG = "GameOptions";
 	
@@ -39,6 +41,7 @@ public class GameOptions implements Screen {
 	private Button serverBtn, searchServerBtn, ipServerBtn, backBtn;
 	private TextField ipTextField;
 	private Assets assets;
+	private ServerListDialog serverListDialog;
 	
 	public GameOptions(TankField tankField) {
 		this.tankField = tankField;
@@ -47,6 +50,7 @@ public class GameOptions implements Screen {
 		stage = new Stage(viewport, this.batch);
 		Gdx.input.setInputProcessor(stage);
 		assets = Assets.getInstance();
+		serverListDialog = new ServerListDialog(this);
 	}
 
 	@Override
@@ -188,7 +192,11 @@ public class GameOptions implements Screen {
 		
 		stage.addActor(table);
 	}
-	
+
+	public void showDialog(Array<InetSocketAddress> addresses) {
+		serverListDialog.show(addresses, stage);
+	}
+
 	public void showConnectionError() {
 		errorLabel.setText(Language.getInstance().get("error_network"));
 		searchServerLabel.setText(Language.getInstance().get("search_server_btn"));
@@ -207,6 +215,8 @@ public class GameOptions implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		Color color = batch.getColor();
+		batch.setColor(color.r, color.g, color.b, 1.0f);
 		batch.setShader(null);
 		batch.draw(assets.getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
 		batch.end();
@@ -231,12 +241,19 @@ public class GameOptions implements Screen {
 
 	@Override
 	public void hide() {
-		tankField.stopServerSearch();
+		tankField.stopSearchServer();
 	}
 
 	@Override
 	public void dispose() {
 		stage.clear();
 		stage = null;
+	}
+
+	@Override
+	public void onSelectServer(InetSocketAddress address) {
+		if (!tankField.connect(address)) {
+			errorLabel.setText(Language.getInstance().get("error_network"));
+		}
 	}
 }

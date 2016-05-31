@@ -214,12 +214,6 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			}
 		});
 	}
-	
-	public void stopServerSearch() {
-		if (serverFinder.isActive()) {
-			serverFinder.setActive(false);
-		}
-	}
 
 	private boolean startServer(int port) {
 		try {
@@ -314,9 +308,8 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run() {
-				for (InetSocketAddress address : addresses) {
-					Gdx.app.log(TAG, "" + address);
-					connect(address);
+				if (currentScreen instanceof GameOptions) {
+					((GameOptions) currentScreen).showDialog(addresses);
 				}
 			}
 		});

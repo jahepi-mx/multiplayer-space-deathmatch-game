@@ -70,8 +70,7 @@ public class ServerFinderExecutor {
     }
 
     public void setActive(boolean active) {
-        this.active = active;
-        if (!active) {
+        if (!active && executor != null) {
             executor.shutdownNow();
         }
     }
