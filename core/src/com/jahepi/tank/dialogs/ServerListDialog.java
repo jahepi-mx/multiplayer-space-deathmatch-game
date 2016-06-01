@@ -1,5 +1,6 @@
 package com.jahepi.tank.dialogs;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -47,6 +48,7 @@ public class ServerListDialog extends Dialog {
         getTitleTable().add(titleLabel).pad(10);
 
         errorLabel = new Label("", titleStyle);
+        errorLabel.setColor(Color.RED);
 
         Label closeLabel = new Label(Language.getInstance().get("close_btn"), titleStyle);
         Button closeBtn = new Button(assets.getSkin());
@@ -74,6 +76,7 @@ public class ServerListDialog extends Dialog {
     public Dialog show(Array<InetSocketAddress> servers, Stage stage) {
         setVisible(true);
         getContentTable().clear();
+        errorLabel.setText("");
 
         Label.LabelStyle style = new Label.LabelStyle();
         style.font = assets.getUIFont();
@@ -81,7 +84,7 @@ public class ServerListDialog extends Dialog {
         infoLabel.setWrap(true);
         infoLabel.setAlignment(Align.center);
 
-        getContentTable().add(infoLabel).width(Config.UI_WIDTH / 2).pad(10);
+        getContentTable().add(infoLabel).width(Config.UI_WIDTH).pad(5);
         getContentTable().row();
         getContentTable().add(errorLabel);
         getContentTable().row();
@@ -90,6 +93,7 @@ public class ServerListDialog extends Dialog {
             getContentTable().row();
             Label serverLabel = new Label(String.format(Language.getInstance().get("server_item_btn"), server.getAddress().toString()), style);
             Button serverBtn = new Button(assets.getSkin());
+            serverBtn.setColor(Color.CYAN);
             serverBtn.add(serverLabel);
             serverBtn.addListener(new ClickListener() {
                 @Override
