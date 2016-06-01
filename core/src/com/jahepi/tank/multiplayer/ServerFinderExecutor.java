@@ -19,7 +19,6 @@ public class ServerFinderExecutor {
 
     private ExecutorService executor;
     private boolean active;
-    private Array<Future<InetSocketAddress>> futures;
     private ServerFinderExecutorListener listener;
 
     public ServerFinderExecutor(ServerFinderExecutorListener listener) {
@@ -27,13 +26,12 @@ public class ServerFinderExecutor {
     }
 
     public void search(final int port, final int ms) {
-        if (!active) {
+        if (!isActive()) {
             executor = Executors.newFixedThreadPool(25);
-            futures = new Array<Future<InetSocketAddress>>();
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    active = true;
+                    Array<Future<InetSocketAddress>> futures = new Array<Future<InetSocketAddress>>();
                     try {
                         Array<Inet4Address> addresses = NetworkUtils.getMyIps();
                         for (InetAddress address : addresses) {
@@ -58,13 +56,9 @@ public class ServerFinderExecutor {
                         } else {
                             listener.onServerNotFoundExecutor(port);
                         }
-                        active = false;
-                        return;
                     } catch (Exception exp) {
                         exp.printStackTrace();
                     }
-                    active = false;
-                    listener.onServerNotFoundExecutor(port);
                 }
             };
 
@@ -73,14 +67,17 @@ public class ServerFinderExecutor {
         }
     }
 
-    public void setActive(boolean active) {
-        if (!active && executor != null) {
+    public void deactive() {
+        if (executor != null) {
             executor.shutdownNow();
         }
     }
 
     public boolean isActive() {
-        return active;
+        if (executor != null) {
+            return !executor.isTerminated();
+        }
+        return false;
     }
 
     private Future<InetSocketAddress> postIsOpen(final InetAddress address, final int port, final int ms) {

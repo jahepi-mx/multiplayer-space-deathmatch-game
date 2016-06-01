@@ -140,7 +140,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	public void stopSearchServer() {
 		//serverFinder.setActive(false);
-		serverFinderExecutor.setActive(false);
+		serverFinderExecutor.deactive();
 	}
 	
 	public boolean isSearchServerActive() {
