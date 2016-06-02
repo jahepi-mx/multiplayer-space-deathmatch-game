@@ -266,8 +266,18 @@ public class Tank extends GameEntity {
 						float radius = (size.x / 2) + (tile.getWidth() / 2);
 						if (dist < radius) {
 							float alpha = radius - dist;
-							position.x = position.x + (-alpha * MathUtils.cosDeg(rotation));
-							position.y = position.y + (-alpha * MathUtils.sinDeg(rotation));
+							float cosDeg = MathUtils.cosDeg(rotation);
+							float sinDeg = MathUtils.sinDeg(rotation);
+							if ((x < 0 && cosDeg < 0) || (x > 0 && cosDeg > 0)) {
+								position.x = position.x + (-alpha * cosDeg);
+							} else {
+								position.x = position.x + (alpha * cosDeg);
+							}
+							if ((y < 0 && sinDeg < 0) || (y > 0 && sinDeg > 0)) {
+								position.y = position.y + (-alpha * sinDeg);
+							} else {
+								position.y = position.y + (alpha * sinDeg);
+							}
 						}
 					}
 				}
