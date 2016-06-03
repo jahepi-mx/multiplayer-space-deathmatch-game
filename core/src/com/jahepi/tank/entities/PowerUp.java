@@ -59,7 +59,7 @@ public class PowerUp extends GameEntity {
 		} else {
 			texture = assets.getEneryItem();
 		}
-		startEffect = new ParticleEffect(assets.getEffect1());
+		startEffect = assets.getParticleEffect();
 		startEffect.setPosition(position.x, position.y);
 		startEffect.start();
 		this.rotationSpeed = 40;
@@ -85,7 +85,7 @@ public class PowerUp extends GameEntity {
 		} else {
 			texture = assets.getEneryItem();
 		}
-		startEffect = new ParticleEffect(assets.getEffect1());
+		startEffect = assets.getParticleEffect();
 		startEffect.setPosition(position.x, position.y);
 		startEffect.start();
 		this.rotationSpeed = 40;
@@ -116,14 +116,14 @@ public class PowerUp extends GameEntity {
 		if (startEffect != null) {
 			startEffect.update(deltatime);
 			if (startEffect.isComplete()) {
-				startEffect.dispose();
+				assets.freeParticleEffect(startEffect);
 				startEffect = null;
 			}
 		}
 		if (endEffect != null) {
 			endEffect.update(deltatime);
 			if (endEffect.isComplete()) {
-				endEffect.dispose();
+				assets.freeParticleEffect(endEffect);
 				endEffect = null;
 				dead = true;
 			}
@@ -137,7 +137,7 @@ public class PowerUp extends GameEntity {
 	public void setActive(boolean active) {
 		if (!active) {
 			assets.playAudioItem();
-			endEffect = new ParticleEffect(assets.getEffect1());
+			endEffect = assets.getParticleEffect();
 			endEffect.setPosition(position.x, position.y);
 			endEffect.start();
 		}

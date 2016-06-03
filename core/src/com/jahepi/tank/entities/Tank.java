@@ -52,7 +52,7 @@ public class Tank extends GameEntity {
 	protected float defaultSize = 2.0f;
 	protected int missileDamage = 1;
 	protected TEXTURE_MISSILE_TYPE missileTextureType;
-	protected float missileEffectScale = 1.0f;
+	protected float missileEffectScale = Config.MIN_EXPLOSION_SIZE;
 	protected float missileSpeed = 11.0f;
 	protected TEXTURE_TYPE textureType;
 	protected BitmapFont font;
@@ -206,8 +206,7 @@ public class Tank extends GameEntity {
         if (megaShootEnable) {
             megaShootEnable = false;
             Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
-            Missile missile = new Missile(position.x, position.y, rotation, 4.0f, 4.0f, 3.0f, TEXTURE_MISSILE_TYPE.MISSILE7, missileSpeed, 5, true);
-            missile.setEffect(effect);
+            Missile missile = new Missile(position.x, position.y, rotation, 4.0f, 4.0f, Config.MAX_EXPLOSION_SIZE, TEXTURE_MISSILE_TYPE.MISSILE7, missileSpeed, 5, true);
             missile.setSound(sound);
             missile.playSound();
             missiles.add(missile);
@@ -221,7 +220,6 @@ public class Tank extends GameEntity {
 			if (!shooting) {
 				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
 				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, missileDamage, true);
-				missile.setEffect(effect);
 				missile.setSound(sound);
 				missile.playSound();
 				missiles.add(missile);
@@ -482,7 +480,6 @@ public class Tank extends GameEntity {
 		}
 		for (MissileState missileState : tankState.getMissiles()) {
 			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false);
-			missile.setEffect(effect);
 			missile.setSound(sound);
 			missile.playSound();
 			if (isSend) {

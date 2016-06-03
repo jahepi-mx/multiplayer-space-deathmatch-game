@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEffectPool;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -26,6 +27,7 @@ public class Assets implements Disposable {
 	private TextureAtlas atlas;
 	private ParticleEffect effect1;
 	private ParticleEffect effect2;
+	private ParticleEffect effect3;
 	private Sound audio1;
 	private Sound audio2;
 	private Sound audioItem;
@@ -37,6 +39,8 @@ public class Assets implements Disposable {
 	private ShaderProgram monochromeShader;
 	private Skin skin;
 	private Preferences preferences;
+	private ParticleEffectPool effectPool;
+	private ParticleEffectPool effectBigPool;
 	
 	private Assets() {
 		manager = new AssetManager();
@@ -68,10 +72,16 @@ public class Assets implements Disposable {
 		
 		effect1 = new ParticleEffect();
 		effect1.load(Gdx.files.internal("particles/effect1.pfx"), Gdx.files.internal("images"));
-		effect1.scaleEffect(0.05f);
+		effect1.scaleEffect(Config.MIN_EXPLOSION_SIZE);
+
 		effect2 = new ParticleEffect();
 		effect2.load(Gdx.files.internal("particles/effect2.pfx"), Gdx.files.internal("images"));
-		effect2.scaleEffect(0.05f);
+		effect2.scaleEffect(Config.MIN_EXPLOSION_SIZE);
+
+		effect3 = new ParticleEffect();
+		effect3.load(Gdx.files.internal("particles/effect2.pfx"), Gdx.files.internal("images"));
+		effect3.scaleEffect(Config.MAX_EXPLOSION_SIZE);
+
 		audio1 = Gdx.audio.newSound(Gdx.files.internal("audio/laser1.mp3"));
 		audio2 = Gdx.audio.newSound(Gdx.files.internal("audio/laser2.mp3"));
 		audioItem = Gdx.audio.newSound(Gdx.files.internal("audio/powerup.mp3"));
@@ -136,6 +146,9 @@ public class Assets implements Disposable {
 	    
 	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
 	    monochromeShader.setUniformf("u_amount", 1.0f);
+
+		effectPool = new ParticleEffectPool(effect2, 10, 20);
+		effectBigPool = new ParticleEffectPool(effect3, 10, 20);
 	}
 	
 	public static Assets getInstance() {
@@ -411,6 +424,22 @@ public class Assets implements Disposable {
 	
 	public String getLanguage() {
 		return preferences.getString("language");
+	}
+
+	public ParticleEffect getParticleEffect() {
+		return effectPool.obtain();
+	}
+
+	public void freeParticleEffect(ParticleEffect effect) {
+		effectPool.free((ParticleEffectPool.PooledEffect) effect);
+	}
+
+	public ParticleEffect getBigParticleEffect() {
+		return effectBigPool.obtain();
+	}
+
+	public void freeBigParticleEffect(ParticleEffect effect) {
+		effectBigPool.free((ParticleEffectPool.PooledEffect) effect);
 	}
 
 	@Override

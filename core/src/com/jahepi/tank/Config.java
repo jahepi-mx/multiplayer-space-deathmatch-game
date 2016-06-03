@@ -23,6 +23,10 @@ public class Config {
 	public static final float UI_WIDTH_RATIO = UI_CAMERA_WIDTH / WIDTH;
 	public static final float UI_HEIGHT_RATIO = UI_CAMERA_HEIGHT / HEIGHT;
 
+	public static final float MIN_EXPLOSION_SIZE = 0.05f;
+	public static final float MAX_EXPLOSION_SIZE = 0.15f;
+
+
 	public static final boolean DEBUG = false;
 
 	private Config() {

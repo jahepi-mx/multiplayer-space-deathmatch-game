@@ -78,11 +78,6 @@ public class Missile extends GameEntity {
 			sound.setVolume(id, assets.getEffectsVolume());
 		}
 	}
-
-	public void setEffect(ParticleEffect masterEffect) {
-		effect = new ParticleEffect(masterEffect);
-		effect.scaleEffect(effectScale);
-	}
 	
 	public void debugRender(ShapeRenderer renderer) {
 		renderer.setColor(Color.WHITE);
@@ -110,7 +105,11 @@ public class Missile extends GameEntity {
 				effect.update(deltatime);
 				if (effect.isComplete()) {
 					dead = true;
-					effect.dispose();
+					if (effectScale > Config.MIN_EXPLOSION_SIZE) {
+						assets.freeBigParticleEffect(effect);
+					} else {
+						assets.freeParticleEffect(effect);
+					}
 					effect = null;
 				}
 			}
@@ -153,6 +152,7 @@ public class Missile extends GameEntity {
 
 	public void setHit(boolean hit) {
 		assets.playDestroySound();
+		effect = effectScale > Config.MIN_EXPLOSION_SIZE ? assets.getBigParticleEffect() : assets.getParticleEffect();
 		effect.setPosition(position.x, position.y);
 		effect.start();
 		this.hit = hit;

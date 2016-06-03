@@ -1,6 +1,7 @@
 package com.jahepi.tank.entities.powerups;
 
 import com.badlogic.gdx.math.Vector2;
+import com.jahepi.tank.Config;
 import com.jahepi.tank.entities.Tank;
 
 public class PowerUpBigMissile extends PowerUpStateStrategy {
@@ -15,9 +16,9 @@ public class PowerUpBigMissile extends PowerUpStateStrategy {
 		Tank tank = (Tank) entity;
 		Vector2 size = tank.getMissileSize();
 		tank.setMissileSize(size.x * 2.0f,size.y * 2.0f);
-		tank.setMissileEffectScale(3.0f);
+		tank.setMissileEffectScale(Config.MAX_EXPLOSION_SIZE);
 		tank.setMissileDamage(2);
-		tank.setMissileSpeed(13.0f);
+		tank.setMissileSpeed(18.0f);
 	}
 
 	@Override
@@ -30,8 +31,8 @@ public class PowerUpBigMissile extends PowerUpStateStrategy {
 		Tank tank = (Tank) entity;
 		Vector2 size = tank.getMissileSize();
 		tank.setMissileSize(size.x / 2.0f,size.y / 2.0f);
-		tank.setMissileEffectScale(1.0f);
+		tank.setMissileEffectScale(Config.MIN_EXPLOSION_SIZE);
 		tank.setMissileDamage(1);
-		tank.setMissileSpeed(7.0f);
+		tank.setMissileSpeed(11.0f);
 	}
 }
