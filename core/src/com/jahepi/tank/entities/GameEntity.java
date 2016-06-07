@@ -40,6 +40,10 @@ public abstract class GameEntity {
 	public float distance(float x, float y) {
 		return position.dst(x, y);
 	}
+
+	public float distance2(float x, float y) {
+		return position.dst2(x, y);
+	}
 	
 	public Polygon getRectangle() {
 		return rectangle;

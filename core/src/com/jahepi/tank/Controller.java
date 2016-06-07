@@ -182,11 +182,11 @@ public class Controller {
 		cameraHelper.setX(tank.getX() + (tank.getWidth() / 2));
 		cameraHelper.setY(tank.getY() + (tank.getHeight() / 2));
 		OpponentTank tempOpponent = null;
-		float tempDist = Config.WIDTH;
+		float tempDist = Config.WIDTH_HEIGHT_DST;
 		
 		for (OpponentTank opponent : opponentTanks) {
 			if (opponent != null) {
-				float dist = tank.distance(opponent.getX(), opponent.getY());
+				float dist = tank.distance2(opponent.getX(), opponent.getY());
 				if (dist < tempDist) {
 					tempDist = dist;
 					tempOpponent = opponent;

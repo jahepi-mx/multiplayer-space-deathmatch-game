@@ -7,6 +7,7 @@ public class Config {
 
 	public static final float WIDTH = 21.33f * 4.0f;
 	public static final float HEIGHT = 16 * 4;
+	public static final float WIDTH_HEIGHT_DST = (WIDTH * WIDTH) + (HEIGHT * HEIGHT);
 	public static final float CAMERA_WIDTH = WIDTH / 3.5f;
 	public static final float CAMERA_HEIGHT = HEIGHT / 3.5f;
 	public static final float MAP_SCALE_FACTOR = 0.2f;
