@@ -17,6 +17,11 @@ public class DesktopLauncher {
 			public void show(boolean active) {
 
 			}
+
+			@Override
+			public void showInterstitial() {
+
+			}
 		}), config);
 	}
 }

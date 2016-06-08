@@ -4,6 +4,8 @@ public class Config {
 
 	public static final String VERSION = "v1.3";
 	public static final String ADMOB_KEY = "ca-app-pub-3227769552322799/6244007069";
+	public static final String ADMOB_INTERSTITIAL_KEY = "ca-app-pub-3227769552322799/1942964667";
+	public static final String ADMOB_TEST_ADS_KEY = "91225038BBD19AC2FC79B5F07EB41AF8";
 
 	public static final float WIDTH = 21.33f * 4.0f;
 	public static final float HEIGHT = 16 * 4;
@@ -29,6 +31,7 @@ public class Config {
 
 
 	public static final boolean DEBUG = false;
+	public static final boolean ENABLE_ADDS = true;
 
 	private Config() {
 		// TODO Auto-generated constructor stub

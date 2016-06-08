@@ -5,4 +5,5 @@ package com.jahepi.tank.ads;
  */
 public interface AdListener {
     public void show(boolean active);
+    public void showInterstitial();
 }

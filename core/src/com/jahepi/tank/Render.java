@@ -47,7 +47,7 @@ public class Render implements Disposable, ControllerListener {
 	private Label endLabel;
 	private Label disconnectLabel;
 	private Label waitingLabel;
-	private Button rematchBtn;
+	private Button rematchBtn, startBtn;
 	private TextButton speedBtn;
 	private boolean isShooting;
 	private boolean resetFlag;
@@ -120,6 +120,7 @@ public class Render implements Disposable, ControllerListener {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				if (tankField.isServer()) {
+					startBtn.setDisabled(false);
 					waitingLabel.setVisible(true);
 					rematchBtn.setVisible(false);
 					endLabel.setVisible(false);
@@ -149,7 +150,7 @@ public class Render implements Disposable, ControllerListener {
 		
 		if (controller.isServer()) {
 			Label startLabel = new Label(Language.getInstance().get("start_game_btn"), labelStyle);
-			Button startBtn = new Button(skin);
+			startBtn = new Button(skin);
 			startBtn.add(startLabel);
 			startBtn.setHeight(startLabel.getHeight());
 			startBtn.setWidth(startLabel.getWidth() + 10.0f);
@@ -161,8 +162,11 @@ public class Render implements Disposable, ControllerListener {
 			startBtn.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					controller.setStarted(true);
-					waitingLabel.setVisible(false);
+					if (!startBtn.isDisabled()) {
+						startBtn.setDisabled(true);
+						controller.setStarted(true);
+						waitingLabel.setVisible(false);
+					}
 				}	
 			});
 			float padding = 10.0f;
@@ -474,6 +478,7 @@ public class Render implements Disposable, ControllerListener {
 	}
 
 	private void showRematchOptions() {
+		tankField.showInterstitial();
 		endLabel.setVisible(true);
 		endLabel.setFontScale(3);
 		endLabel.pack();

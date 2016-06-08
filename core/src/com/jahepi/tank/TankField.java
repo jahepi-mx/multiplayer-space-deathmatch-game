@@ -62,7 +62,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		if (type == SCREEN_TYPE.MAIN) {
 			currentScreen = new Main(this);
 			setScreen(currentScreen);
-			adListener.show(false);
+			adListener.show(true);
 		} else if (type == SCREEN_TYPE.GAMEOPTIONS) {
 			currentScreen = new GameOptions(this);
 			setScreen(currentScreen);
@@ -79,6 +79,10 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			setScreen(currentScreen);
 			adListener.show(false);
 		}
+	}
+
+	public void showInterstitial() {
+		adListener.showInterstitial();
 	}
 
 	public boolean isNewConnection() {
