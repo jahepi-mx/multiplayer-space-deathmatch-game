@@ -385,24 +385,31 @@ public class Tank extends GameEntity {
 		this.wins++;
 	}
 	
-	public void isHit(Tank tank, Level level) {
+	public void isHit(Tank tank) {
 		if (!isDead()) {
 			for (Missile missile : missiles) {
 				if (missile != null && missile.collide(tank.getRectangle()) && !missile.isHit()) {
 					missile.setHit(true);
 					tank.setLife(tank.getLife() - missile.getDamage());
 				}
-				if (level != null && missile != null && !missile.isHit()) {
+			}
+			if (laser.isHit(tank)) {
+				tank.startEffect();
+				tank.setLife(tank.getLife() - laser.getDamage());
+			}
+		}
+	}
+
+	public void isHitLevel(Level level) {
+		if (level != null) {
+			for (Missile missile : missiles) {
+				if (missile != null && !missile.isHit()) {
 					for (Tile tile : level.getTileMap()) {
 						if (tile != null && tile.collide(missile.getRectangle())) {
 							missile.setHit(true);
 						}
 					}
 				}
-			}
-			if (laser.isHit(tank)) {
-				tank.startEffect();
-				tank.setLife(tank.getLife() - laser.getDamage());
 			}
 		}
 	}

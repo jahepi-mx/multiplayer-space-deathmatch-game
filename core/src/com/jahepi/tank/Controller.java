@@ -150,7 +150,7 @@ public class Controller {
 	}
 	
 	private void checkIfFinish() {
-		if (isPlaying() && isServer && started) {
+		if (isPlaying() && isServer && started && opponentTanks.size >= 1) {
 			setAliveTanks();
 			if (temporalHolder.size == 1) {
 				Tank tank = temporalHolder.get(0);
@@ -218,20 +218,22 @@ public class Controller {
 			}
 	
 			tank.update(deltatime);
+			tank.isHitLevel(level);
 			tank.checkLevelCollision(deltatime, level);
 			
 			if (started) {
 				for (OpponentTank opponent : opponentTanks) {
 					if (opponent != null) {
 						// Check if main ship collide with missiles of the opponents
-						opponent.isHit(tank, level);
-						tank.isHit(opponent, level);
+						opponent.isHit(tank);
+						opponent.isHitLevel(level);
+						tank.isHit(opponent);
 						// Check if each opponent´s missile collide against the rest of opponents
 						ArrayIterator<OpponentTank> iterator = new ArrayIterator<OpponentTank>(opponentTanks);
 						while (iterator.hasNext()) {
 							OpponentTank innerOpponent = iterator.next();
 							if (innerOpponent != null && opponent != innerOpponent) {
-								opponent.isHit(innerOpponent, level);
+								opponent.isHit(innerOpponent);
 							}
 						}
 						opponent.update(deltatime);
@@ -241,6 +243,7 @@ public class Controller {
 				// Just update opponents position if the match has not started
 				for (OpponentTank opponent : opponentTanks) {
 					if (opponent != null) {
+						opponent.isHitLevel(level);
 						opponent.update(deltatime);
 					}
 				}
