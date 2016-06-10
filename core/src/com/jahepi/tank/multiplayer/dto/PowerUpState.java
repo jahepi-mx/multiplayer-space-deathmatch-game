@@ -6,10 +6,10 @@ public class PowerUpState {
 
 	private float x;
 	private float y;
+	private int i;
 	private PowerUp.TYPE t;
 	
 	public PowerUpState() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public float getX() {
@@ -34,5 +34,13 @@ public class PowerUpState {
 
 	public void setType(PowerUp.TYPE type) {
 		this.t = type;
+	}
+
+	public int getIndex() {
+		return i;
+	}
+
+	public void setIndex(int index) {
+		this.i = index;
 	}
 }

@@ -17,7 +17,7 @@ public class Missile extends GameEntity {
 
 	private static final String TAG = "Missile";
 	public static enum TEXTURE_MISSILE_TYPE {
-		MISSILE1, MISSILE2, MISSILE3, MISSILE4, MISSILE5, MISSILE6, MISSILE7
+		M1, M2, M3, M4, M5, M6, M7
 	}
 	
 	private boolean send;
@@ -49,17 +49,17 @@ public class Missile extends GameEntity {
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		rectangle.setRotation(rotation);
 		this.effectScale = effectScale;
-		if (textureType == TEXTURE_MISSILE_TYPE.MISSILE1) {
+		if (textureType == TEXTURE_MISSILE_TYPE.M1) {
 			texture = assets.getRocket1();
-		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE2) {
+		} else if (textureType == TEXTURE_MISSILE_TYPE.M2) {
 			texture = assets.getRocket2();
-		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE3) {
+		} else if (textureType == TEXTURE_MISSILE_TYPE.M3) {
 			texture = assets.getRocket3();
-		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE4) {
+		} else if (textureType == TEXTURE_MISSILE_TYPE.M4) {
 			texture = assets.getRocket4();
-		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE5) {
+		} else if (textureType == TEXTURE_MISSILE_TYPE.M5) {
 			texture = assets.getRocket5();
-		} else if (textureType == TEXTURE_MISSILE_TYPE.MISSILE6) {
+		} else if (textureType == TEXTURE_MISSILE_TYPE.M6) {
 			texture = assets.getRocket6();
 		} else {
 			texture = assets.getRocket7();

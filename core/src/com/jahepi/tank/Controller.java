@@ -30,6 +30,7 @@ public class Controller {
 	private GameChangeStateListener gameChangeStateListener;
 	private GAME_STATUS gameStatus;
 	private Array<PowerUp> powerUps;
+	private Array<Integer> powerUpsIndexes;
 	private float powerUpTime;
 	private float powerUpInterval;
 	private float fightTime;
@@ -47,6 +48,7 @@ public class Controller {
 		this.controllerListener = controllerListener;
 		this.gameChangeStateListener = gameChangeStateListener;
 		this.powerUps = new Array<PowerUp>();
+		this.powerUpsIndexes = new Array<Integer>();
 		this.isServer = isServer;
 		gameStatus = GAME_STATUS.PLAYING;
 		powerUpInterval = MathUtils.random(5.0f, 15.0f);
@@ -113,7 +115,10 @@ public class Controller {
 				controllerListener.onPlaying();
 			}
 			for (PowerUpState powerUpState : gameState.getPowerUps()) {
-				powerUps.add(new PowerUp(powerUpState.getX(), powerUpState.getY(), powerUpState.getType()));
+				if (!powerUpsIndexes.contains(powerUpState.getIndex(), false)) {
+					powerUpsIndexes.add(powerUpState.getIndex());
+					powerUps.add(new PowerUp(powerUpState.getIndex(), powerUpState.getX(), powerUpState.getY(), powerUpState.getType()));
+				}
 			}
 		}
 		for (OpponentTank opponent : opponentTanks) {
@@ -274,10 +279,10 @@ public class Controller {
 					}
 				}
 				
-				if (!powerUp.isSend()) {
-					gameState.getPowerUps().add(powerUp.getState());
-					powerUp.setSend(true);
-				}
+				//if (!powerUp.isSend()) {
+				gameState.getPowerUps().add(powerUp.getState());
+				//powerUp.setSend(true);
+				//}
 				
 				if (powerUp.isDead()) {
 					powerUps.removeValue(powerUp, true);
@@ -378,6 +383,7 @@ public class Controller {
 
 	public void reset() {
 		powerUps.clear();
+		powerUpsIndexes.clear();
 		gameStatus = GAME_STATUS.PLAYING;
 		tank.reset();
 		for (OpponentTank opponent : opponentTanks) {

@@ -18,13 +18,15 @@ import com.jahepi.tank.multiplayer.dto.PowerUpState;
 
 public class PowerUp extends GameEntity {
 
-	public static enum TYPE {
-		NONE, 
-		LASER, 
-		MISSILES, 
-		MINI,
-		HEALTH,
-		FREEZE,
+	public static int POWERUP_INDEX = 0;
+
+	public enum TYPE {
+		N, // None
+		L, // Laser
+		S, // Shot
+		M, // Mini
+		H, // Heal
+		F, // Froze
 	}
 	
 	private boolean active;
@@ -35,8 +37,10 @@ public class PowerUp extends GameEntity {
 	private boolean send;
 	private TYPE type;
 	private Assets assets;
+	private int index;
 	
 	public PowerUp() {
+		index = POWERUP_INDEX++;
 		size.set(2.0f, 2.0f);
 		assets = Assets.getInstance();
 		float randX = MathUtils.random(size.x, Config.WIDTH - size.x);
@@ -48,13 +52,13 @@ public class PowerUp extends GameEntity {
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		int rand = MathUtils.random(1, TYPE.values().length - 1);
 		type = TYPE.values()[rand];
-		if (type == TYPE.MISSILES) {
+		if (type == TYPE.S) {
 			texture = assets.getNukeItem();
-		} else if (type == TYPE.MINI) {
+		} else if (type == TYPE.M) {
 			texture = assets.getShieldItem();
-		} else if (type == TYPE.HEALTH) {
+		} else if (type == TYPE.H) {
 			texture = assets.getHealthItem();
-		} else if (type == TYPE.FREEZE) {
+		} else if (type == TYPE.F) {
 			texture = assets.getFreezeItem();
 		} else {
 			texture = assets.getEneryItem();
@@ -65,7 +69,8 @@ public class PowerUp extends GameEntity {
 		this.rotationSpeed = 40;
 	}
 	
-	public PowerUp(float x, float y, TYPE type) {
+	public PowerUp(int index, float x, float y, TYPE type) {
+		this.index = index;
 		size.set(2.0f, 2.0f);
 		assets = Assets.getInstance();
 		position.set(x, y);
@@ -74,13 +79,13 @@ public class PowerUp extends GameEntity {
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		this.type = type;
-		if (type == TYPE.MISSILES) {
+		if (type == TYPE.S) {
 			texture = assets.getNukeItem();
-		} else if (type == TYPE.MINI) {
+		} else if (type == TYPE.M) {
 			texture = assets.getShieldItem();
-		} else if (type == TYPE.HEALTH) {
+		} else if (type == TYPE.H) {
 			texture = assets.getHealthItem();
-		} else if (type == TYPE.FREEZE) {
+		} else if (type == TYPE.F) {
 			texture = assets.getFreezeItem();
 		} else {
 			texture = assets.getEneryItem();
@@ -162,19 +167,19 @@ public class PowerUp extends GameEntity {
 	
 	public static PowerUpStateStrategy getPowerUpStrategy(TYPE type) {
 		PowerUpStateStrategy strategy = null;
-		if (type == TYPE.MISSILES) {
+		if (type == TYPE.S) {
 			strategy = new PowerUpBigMissile();
 			strategy.setType(type);
-		} else if (type == TYPE.LASER) {
+		} else if (type == TYPE.L) {
 			strategy = new PowerUpLaser();
 			strategy.setType(type);
-		} else if (type == TYPE.MINI) {
+		} else if (type == TYPE.M) {
 			strategy = new PowerUpMini();
 			strategy.setType(type);
-		} else if (type == TYPE.HEALTH) {
+		} else if (type == TYPE.H) {
 			strategy = new PowerUpLife();
 			strategy.setType(type);
-		} else if (type == TYPE.FREEZE) {
+		} else if (type == TYPE.F) {
 			strategy = new PowerUpFreeze();
 			strategy.setType(type);
 		}
@@ -186,6 +191,7 @@ public class PowerUp extends GameEntity {
 		powerUpState.setX(position.x);
 		powerUpState.setY(position.y);
 		powerUpState.setType(type);
+		powerUpState.setIndex(index);
 		return powerUpState;
 	}
 }

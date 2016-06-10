@@ -206,7 +206,7 @@ public class Tank extends GameEntity {
         if (megaShootEnable) {
             megaShootEnable = false;
             Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
-            Missile missile = new Missile(position.x, position.y, rotation, 4.0f, 4.0f, Config.MAX_EXPLOSION_SIZE, TEXTURE_MISSILE_TYPE.MISSILE7, missileSpeed, 5, true);
+            Missile missile = new Missile(position.x, position.y, rotation, 4.0f, 4.0f, Config.MAX_EXPLOSION_SIZE, TEXTURE_MISSILE_TYPE.M7, missileSpeed, 5, true);
             missile.setSound(sound);
             missile.playSound();
             missiles.add(missile);
