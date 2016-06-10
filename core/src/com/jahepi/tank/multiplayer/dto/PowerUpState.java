@@ -6,7 +6,7 @@ public class PowerUpState {
 
 	private float x;
 	private float y;
-	private PowerUp.TYPE type;
+	private PowerUp.TYPE t;
 	
 	public PowerUpState() {
 		// TODO Auto-generated constructor stub
@@ -29,10 +29,10 @@ public class PowerUpState {
 	}
 
 	public PowerUp.TYPE getType() {
-		return type;
+		return t;
 	}
 
 	public void setType(PowerUp.TYPE type) {
-		this.type = type;
+		this.t = type;
 	}
 }

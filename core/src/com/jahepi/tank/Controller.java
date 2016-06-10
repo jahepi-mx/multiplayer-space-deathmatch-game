@@ -32,6 +32,7 @@ public class Controller {
 	private Array<PowerUp> powerUps;
 	private float powerUpTime;
 	private float powerUpInterval;
+	private float fightTime;
 	private CameraHelper cameraHelper;
 	private LevelFactory levelFactory;
 	private Level level;
@@ -170,7 +171,11 @@ public class Controller {
 	}
 	
 	public void update(float deltatime) {
-		
+
+		if (!started) {
+			fightTime = 0;
+		}
+
 		for (OpponentTank opponent : opponentTanks) {
 			if (opponent != null && opponent.isReadyRemove()) {
 				opponentTanks.removeValue(opponent, true);
@@ -222,6 +227,7 @@ public class Controller {
 			tank.checkLevelCollision(deltatime, level);
 			
 			if (started) {
+				fightTime += deltatime;
 				for (OpponentTank opponent : opponentTanks) {
 					if (opponent != null) {
 						// Check if main ship collide with missiles of the opponents
@@ -361,6 +367,13 @@ public class Controller {
 
 	public Level getLevel() {
 		return level;
+	}
+
+	public boolean showFight() {
+		if (started && fightTime <= 1.0f) {
+			return true;
+		}
+		return false;
 	}
 
 	public void reset() {

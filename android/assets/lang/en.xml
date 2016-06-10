@@ -50,6 +50,7 @@
     <item name="opponent_win_label">Wins</item>
     <item name="wins_label">Wins %s</item>
     <item name="win_label">YOU WIN!!</item>
+    <item name="fight_label">FIGHT!!</item>
     <item name="lost_label">YOU LOST!!</item>
     <item name="default_nickname">Me</item>
     <item name="credits_testing">Testing</item>

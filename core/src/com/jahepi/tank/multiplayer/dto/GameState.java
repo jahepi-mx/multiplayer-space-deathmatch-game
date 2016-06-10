@@ -5,80 +5,80 @@ import com.badlogic.gdx.utils.Array;
 public class GameState {
 
 	// Id of the main player sending the data through sockets
-	private String id;
-	private int levelIndex;
-	private Array<TankState> tankStates;
-	private boolean isPlaying, isStarted;
-	private boolean win;
-	private String winner;
-	private Array<PowerUpState> powerUps;
+	private String i;
+	private int l;
+	private Array<TankState> ts;
+	private boolean p, s;
+	private boolean w;
+	private String wr;
+	private Array<PowerUpState> ps;
 	
 	public GameState() {
-		powerUps = new Array<PowerUpState>();
-		tankStates = new Array<TankState>();
+		ps = new Array<PowerUpState>();
+		ts = new Array<TankState>();
 	}
 
 	public boolean isPlaying() {
-		return isPlaying;
+		return p;
 	}
 
 	public void setPlaying(boolean isPlaying) {
-		this.isPlaying = isPlaying;
+		this.p = isPlaying;
 	}
 
 	public boolean isWin() {
-		return win;
+		return w;
 	}
 
 	public void setWin(boolean win) {
-		this.win = win;
+		this.w = win;
 	}
 
 	public Array<PowerUpState> getPowerUps() {
-		return powerUps;
+		return ps;
 	}
 
 	public void setPowerUps(Array<PowerUpState> powerUps) {
-		this.powerUps = powerUps;
+		this.ps = powerUps;
 	}
 
 	public Array<TankState> getTankStates() {
-		return tankStates;
+		return ts;
 	}
 
 	public void addTankState(TankState tankState) {
-		this.tankStates.add(tankState);
+		this.ts.add(tankState);
 	}
 
 	public boolean isStarted() {
-		return isStarted;
+		return s;
 	}
 
 	public void setStarted(boolean isStarted) {
-		this.isStarted = isStarted;
+		this.s = isStarted;
 	}
 
 	public String getWinner() {
-		return winner;
+		return wr;
 	}
 
 	public void setWinner(String winner) {
-		this.winner = winner;
+		this.wr = winner;
 	}
 
 	public String getId() {
-		return id;
+		return i;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.i = id;
 	}
 
 	public int getLevelIndex() {
-		return levelIndex;
+		return l;
 	}
 
 	public void setLevelIndex(int levelIndex) {
-		this.levelIndex = levelIndex;
+		this.l = levelIndex;
 	}
 }

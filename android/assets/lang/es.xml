@@ -50,6 +50,7 @@
     <item name="opponent_win_label">Victorias</item>
     <item name="wins_label">Trofeo %s</item>
     <item name="win_label">HAZ GANADO!!</item>
+    <item name="fight_label">PELEA!!</item>
     <item name="lost_label">HAZ PERDIDO!!</item>
     <item name="default_nickname">Yo</item>
     <item name="credits_testing">Pruebas</item>

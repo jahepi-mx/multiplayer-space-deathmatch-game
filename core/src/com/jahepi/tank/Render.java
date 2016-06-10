@@ -47,6 +47,7 @@ public class Render implements Disposable, ControllerListener {
 	private Label endLabel;
 	private Label disconnectLabel;
 	private Label waitingLabel;
+	private Label fightLabel;
 	private Button rematchBtn, startBtn;
 	private TextButton speedBtn;
 	private boolean isShooting;
@@ -88,8 +89,14 @@ public class Render implements Disposable, ControllerListener {
 		labelStyle.font = assets.getUIFont();
 		LabelStyle labelStyleSmall = new LabelStyle();
 		labelStyleSmall.font = assets.getUIFontSmall();
-		
-		
+		LabelStyle fightLabelStyle = new LabelStyle();
+		fightLabelStyle.font = assets.getUIFontTitle();
+
+		fightLabel = new Label(Language.getInstance().get("fight_label"), fightLabelStyle);
+		fightLabel.setPosition((Config.UI_WIDTH / 2) - (fightLabel.getWidth() / 2), (Config.UI_HEIGHT / 2) + fightLabel.getHeight());
+		fightLabel.setVisible(false);
+		stage.addActor(fightLabel);
+
 		waitingLabel = new Label(controller.isServer() ? Language.getInstance().get("waiting_label") : Language.getInstance().get("waiting_opponent_label"), labelStyle);
 		waitingLabel.setColor(Color.RED);
 		waitingLabel.setPosition((Config.UI_WIDTH / 2) - (waitingLabel.getWidth() / 2), (Config.UI_HEIGHT / 2) + waitingLabel.getHeight());
@@ -304,6 +311,7 @@ public class Render implements Disposable, ControllerListener {
 		}
 		batch.end();
 
+		fightLabel.setVisible(controller.showFight());
 		waitingLabel.setVisible(!controller.isStarted());
 		Tank tank = controller.getTank();
 		if (tank.getSpeedUpReloadPercentage() < 100) {

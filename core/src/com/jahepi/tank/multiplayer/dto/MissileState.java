@@ -4,9 +4,9 @@ import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 
 public class MissileState {
 
-	private float effectScale, width, height, x, y, rotation, speed;
-	private TEXTURE_MISSILE_TYPE textureType;
-	private int damage;
+	private float e, w, h, x, y, r, s;
+	private TEXTURE_MISSILE_TYPE t;
+	private int d;
 	
 	public MissileState() {
 		// TODO Auto-generated constructor stub
@@ -29,58 +29,58 @@ public class MissileState {
 	}
 
 	public float getRotation() {
-		return rotation;
+		return r;
 	}
 
 	public void setRotation(float rotation) {
-		this.rotation = rotation;
+		this.r = rotation;
 	}
 
 	public float getSpeed() {
-		return speed;
+		return s;
 	}
 
 	public void setSpeed(float speed) {
-		this.speed = speed;
+		this.s = speed;
 	}
 
 	public float getWidth() {
-		return width;
+		return w;
 	}
 
 	public void setWidth(float width) {
-		this.width = width;
+		this.w = width;
 	}
 
 	public float getHeight() {
-		return height;
+		return h;
 	}
 
 	public void setHeight(float height) {
-		this.height = height;
+		this.h = height;
 	}
 
     public float getEffectScale() {
-        return effectScale;
+        return e;
     }
 
     public void setEffectScale(float effectScale) {
-        this.effectScale = effectScale;
+        this.e = effectScale;
     }
 
     public TEXTURE_MISSILE_TYPE getTextureType() {
-		return textureType;
+		return t;
 	}
 
 	public void setTextureType(TEXTURE_MISSILE_TYPE textureType) {
-		this.textureType = textureType;
+		this.t = textureType;
 	}
 
 	public int getDamage() {
-		return damage;
+		return d;
 	}
 
 	public void setDamage(int damage) {
-		this.damage = damage;
+		this.d = damage;
 	}
 }

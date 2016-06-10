@@ -7,19 +7,19 @@ import com.jahepi.tank.entities.Tank.TEXTURE_TYPE;
 
 public class TankState {
 
-	private String id, name;
-	private float x, y, rotation, points, velocity;
-	private Array<MissileState> missiles;
-	private Array<PowerUp.TYPE> powerUps;
-	private boolean shooting, removed;
-	private int life, wins;
-	private TEXTURE_TYPE textureType;
-	private TEXTURE_MISSILE_TYPE missileTextureType;
-	private boolean megaShoot, speedUp;
+	private String i, n;
+	private float x, y, r, p, v;
+	private Array<MissileState> ms;
+	private Array<PowerUp.TYPE> ps;
+	private boolean s, rm;
+	private int l, w;
+	private TEXTURE_TYPE t;
+	private TEXTURE_MISSILE_TYPE mt;
+	private boolean m, su;
 	
 	public TankState() {
-		powerUps = new Array<PowerUp.TYPE>();
-		missiles = new Array<MissileState>();
+		ps = new Array<PowerUp.TYPE>();
+		ms = new Array<MissileState>();
 	}
 
 	public float getX() {
@@ -39,130 +39,130 @@ public class TankState {
 	}
 
 	public float getRotation() {
-		return rotation;
+		return r;
 	}
 
 	public void setRotation(float rotation) {
-		this.rotation = rotation;
+		this.r = rotation;
 	}
 
 	public Array<MissileState> getMissiles() {
-		return missiles;
+		return ms;
 	}
 
 	public void setMissiles(Array<MissileState> missiles) {
-		this.missiles = missiles;
+		this.ms = missiles;
 	}
 	
 	public void addMissile(MissileState missileState) {
-		this.missiles.add(missileState);
+		this.ms.add(missileState);
 	}
 	
 	public void addPowerUp(PowerUp.TYPE type) {
-		this.powerUps.add(type);
+		this.ps.add(type);
 	}
 	
 	public Array<PowerUp.TYPE> getPowerUps() {
-		return this.powerUps;
+		return this.ps;
 	}
 
 	public float getPoints() {
-		return points;
+		return p;
 	}
 
 	public void setPoints(float points) {
-		this.points = points;
+		this.p = points;
 	}
 
 	public void setPowerUps(Array<PowerUp.TYPE> powerUps) {
-		this.powerUps = powerUps;
+		this.ps = powerUps;
 	}
 
 	public int getLife() {
-		return life;
+		return l;
 	}
 
 	public void setLife(int life) {
-		this.life = life;
+		this.l = life;
 	}
 
 	public int getWins() {
-		return wins;
+		return w;
 	}
 
 	public void setWins(int wins) {
-		this.wins = wins;
+		this.w = wins;
 	}
 
 	public boolean isShooting() {
-		return shooting;
+		return s;
 	}
 
 	public void setShooting(boolean shooting) {
-		this.shooting = shooting;
+		this.s = shooting;
 	}
 
 	public TEXTURE_TYPE getTextureType() {
-		return textureType;
+		return t;
 	}
 
 	public void setTextureType(TEXTURE_TYPE textureType) {
-		this.textureType = textureType;
+		this.t = textureType;
 	}
 
 	public String getName() {
-		return name;
+		return n;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.n = name;
 	}
 
 	public String getId() {
-		return id;
+		return i;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.i = id;
 	}
 
 	public boolean isRemoved() {
-		return removed;
+		return rm;
 	}
 
 	public void setRemoved(boolean removed) {
-		this.removed = removed;
+		this.rm = removed;
 	}
 
 	public float getVelocity() {
-		return velocity;
+		return v;
 	}
 
 	public void setVelocity(float velocity) {
-		this.velocity = velocity;
+		this.v = velocity;
 	}
 
 	public TEXTURE_MISSILE_TYPE getMissileTextureType() {
-		return missileTextureType;
+		return mt;
 	}
 
 	public void setMissileTextureType(TEXTURE_MISSILE_TYPE missileTextureType) {
-		this.missileTextureType = missileTextureType;
+		this.mt = missileTextureType;
 	}
 
 	public boolean isMegaShoot() {
-		return megaShoot;
+		return m;
 	}
 
 	public void setMegaShoot(boolean megaShoot) {
-		this.megaShoot = megaShoot;
+		this.m = megaShoot;
 	}
 
 	public boolean isSpeedUp() {
-		return speedUp;
+		return su;
 	}
 
 	public void setSpeedUp(boolean speedUp) {
-		this.speedUp = speedUp;
+		this.su = speedUp;
 	}
 }
