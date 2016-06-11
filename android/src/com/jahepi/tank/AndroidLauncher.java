@@ -64,8 +64,10 @@ public class AndroidLauncher extends AndroidApplication implements com.jahepi.ta
 				RelativeLayout.LayoutParams.WRAP_CONTENT
 		);
 
-		relativeLayout.addView(adView, params);
-		adView.loadAd(builder.build());
+		if (Config.ENABLE_ADDS) {
+			relativeLayout.addView(adView, params);
+			adView.loadAd(builder.build());
+		}
 
 		setContentView(relativeLayout);
 	}
