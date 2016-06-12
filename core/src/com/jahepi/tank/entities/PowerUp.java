@@ -40,7 +40,8 @@ public class PowerUp extends GameEntity {
 	private int index;
 	
 	public PowerUp() {
-		index = POWERUP_INDEX++;
+		POWERUP_INDEX++;
+		index = POWERUP_INDEX;
 		size.set(2.0f, 2.0f);
 		assets = Assets.getInstance();
 		float randX = MathUtils.random(size.x, Config.WIDTH - size.x);

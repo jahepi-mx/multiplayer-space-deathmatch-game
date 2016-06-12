@@ -3,6 +3,7 @@ package com.jahepi.tank;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
+import com.badlogic.gdx.utils.IntMap;
 import com.jahepi.tank.entities.Missile;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
@@ -30,7 +31,7 @@ public class Controller {
 	private GameChangeStateListener gameChangeStateListener;
 	private GAME_STATUS gameStatus;
 	private Array<PowerUp> powerUps;
-	private Array<Integer> powerUpsIndexes;
+	private IntMap<Integer> powerUpsIndexes;
 	private float powerUpTime;
 	private float powerUpInterval;
 	private float fightTime;
@@ -48,7 +49,7 @@ public class Controller {
 		this.controllerListener = controllerListener;
 		this.gameChangeStateListener = gameChangeStateListener;
 		this.powerUps = new Array<PowerUp>();
-		this.powerUpsIndexes = new Array<Integer>();
+		this.powerUpsIndexes = new IntMap<Integer>();
 		this.isServer = isServer;
 		gameStatus = GAME_STATUS.PLAYING;
 		powerUpInterval = MathUtils.random(5.0f, 15.0f);
@@ -115,8 +116,9 @@ public class Controller {
 				controllerListener.onPlaying();
 			}
 			for (PowerUpState powerUpState : gameState.getPowerUps()) {
-				if (!powerUpsIndexes.contains(powerUpState.getIndex(), false)) {
-					powerUpsIndexes.add(powerUpState.getIndex());
+				int index = powerUpState.getIndex();
+				if (!powerUpsIndexes.containsKey(index)) {
+					powerUpsIndexes.put(index, index);
 					powerUps.add(new PowerUp(powerUpState.getIndex(), powerUpState.getX(), powerUpState.getY(), powerUpState.getType()));
 				}
 			}
