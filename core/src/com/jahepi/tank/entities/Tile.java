@@ -38,6 +38,4 @@ public class Tile extends GameEntity {
     public void update(float deltatime) {
         this.rotation += rotationSpeed * deltatime;
     }
-
-
 }

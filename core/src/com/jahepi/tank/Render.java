@@ -268,6 +268,11 @@ public class Render implements Disposable, ControllerListener {
 		camera.position.y = controller.getCameraHelper().getY();
 		camera.update();
 
+		float left = camera.position.x - (Config.CAMERA_WIDTH / 2);
+		float right = camera.position.x + (Config.CAMERA_WIDTH / 2);
+		float bottom = camera.position.y - (Config.CAMERA_HEIGHT / 2);
+		float top = camera.position.y + (Config.CAMERA_HEIGHT / 2);
+
 		// Assign id to main player if it is a client socket.
 		if (tankField.isNewConnection()) {
 			disconnectLabel.setVisible(false);
@@ -295,18 +300,22 @@ public class Render implements Disposable, ControllerListener {
 		if (level != null) {
 			batch.draw(level.getBackground(), 0, 0, Config.WIDTH, Config.HEIGHT);
 			for (Tile tile : level.getTileMap()) {
-				tile.render(batch);
+				if (tile.isOnArea(left, right, bottom, top)) {
+					tile.render(batch);
+				}
 			}
 		}
 
+		controller.getTank().renderMissiles(batch, left, right, bottom, top);
 		controller.getTank().render(batch);
 		for (PowerUp powerUp : controller.getPowerUps()) {
-			if (powerUp != null) {
+			if (powerUp != null && powerUp.isOnArea(left, right, bottom, top)) {
 				powerUp.render(batch);
 			}
 		}
 
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
+			opponentTank.renderMissiles(batch, left, right, bottom, top);
 			opponentTank.render(batch);
 		}
 		batch.end();
@@ -350,6 +359,7 @@ public class Render implements Disposable, ControllerListener {
 		float life = ((float) controller.getTankLife() / (float) Tank.LIFE * 100);
 		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", x + marginLeft, y - marginTopLife);
 		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), x + marginLeft, y - marginTopWins);
+		assets.getUIFontSmall().draw(batch, "" + Gdx.graphics.getFramesPerSecond(), x + Config.UI_WIDTH - 25, y - 5);
 		float lineBreak = 160.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
 			float opponentLife = ((float) opponentTank.getLife() / (float) Tank.LIFE * 100);

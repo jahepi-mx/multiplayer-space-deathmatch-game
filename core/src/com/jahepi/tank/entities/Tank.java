@@ -70,7 +70,7 @@ public class Tank extends GameEntity {
 		super();
 		assets = Assets.getInstance();
 		this.name = name;
-		font = assets.getUIFontExtraSmall();
+		font = assets.getUIFontExtraExtraSmall();
 		this.textureType = textureType;
 		if (textureType == TEXTURE_TYPE.SHIP1) {
 			texture = assets.getShip1();
@@ -155,15 +155,18 @@ public class Tank extends GameEntity {
 	public boolean isDead() {
 		return life <= 0;
 	}
-	
-	@Override
-	public void render(SpriteBatch batch) {
-		laser.render(batch);
+
+	public void renderMissiles(SpriteBatch batch, float left, float right, float bottom, float top) {
 		for (Missile missile : missiles) {
-			if (missile != null) {
+			if (missile != null && missile.isOnArea(left, right, bottom, top)) {
 				missile.render(batch);
 			}
 		}
+	}
+
+	@Override
+	public void render(SpriteBatch batch) {
+		laser.render(batch);
 		effect.draw(batch);
 		if (isDead()) {
 			batch.draw(assets.getSkull(), position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, 90.0f, true);

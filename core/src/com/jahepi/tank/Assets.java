@@ -35,7 +35,7 @@ public class Assets implements Disposable {
 	private Sound destroySound;
 	private Music music, action;
 	private FreeTypeFontGenerator fontGenerator;
-	private BitmapFont UIFontMain, UIFont, UIFontSmall, UIFontTitle, UIFontExtraSmall, UIFontOpponent;
+	private BitmapFont UIFontMain, UIFont, UIFontSmall, UIFontTitle, UIFontExtraSmall, UIFontOpponent, UIFontExtraExtraSmall;
 	private ShaderProgram monochromeShader;
 	private Skin skin;
 	private Preferences preferences;
@@ -143,6 +143,13 @@ public class Assets implements Disposable {
 		parameters6.borderWidth = 2;
 		parameters6.borderColor = Color.WHITE;
 		UIFontOpponent = fontGenerator.generateFont(parameters6);
+
+		FreeTypeFontParameter parameters7 = new FreeTypeFontParameter();
+		parameters7.size = 25;
+		parameters7.shadowOffsetX = 1;
+		parameters7.shadowOffsetY = 1;
+		parameters7.color = Color.WHITE;
+		UIFontExtraExtraSmall = fontGenerator.generateFont(parameters7);
 	    
 	    monochromeShader = new ShaderProgram(Gdx.files.internal("shader/monochrome.vs"), Gdx.files.internal("shader/monochrome.fs"));
 	    monochromeShader.setUniformf("u_amount", 1.0f);
@@ -294,7 +301,11 @@ public class Assets implements Disposable {
 	public BitmapFont getUIFontExtraSmall() {
 		return UIFontExtraSmall;
 	}
-	
+
+	public BitmapFont getUIFontExtraExtraSmall() {
+		return UIFontExtraExtraSmall;
+	}
+
 	public BitmapFont getUIFontMain() {
 		return UIFontMain;
 	}
@@ -462,6 +473,7 @@ public class Assets implements Disposable {
 		UIFontMain.dispose();
 		UIFontExtraSmall.dispose();
 		UIFontOpponent.dispose();
+		UIFontExtraExtraSmall.dispose();
 		skin.dispose();
 		manager.dispose();
 	}

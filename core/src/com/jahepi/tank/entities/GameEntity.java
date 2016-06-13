@@ -128,4 +128,9 @@ public abstract class GameEntity {
 	public void setRemoved(boolean removed) {
 		this.removed = removed;
 	}
+
+	public boolean isOnArea(float left, float right, float bottom, float top) {
+		//Gdx.app.log("Camera", left + " " + right + " " + bottom + " " + top);
+		return (position.x + size.x) >= left && position.x <= right && (position.y + size.y) >= bottom && position.y <= top;
+	}
 }
