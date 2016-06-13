@@ -41,6 +41,7 @@ public class Assets implements Disposable {
 	private Preferences preferences;
 	private ParticleEffectPool effectPool;
 	private ParticleEffectPool effectBigPool;
+	private TextureRegion mainBackground, ship1, ship2, ship3, ship4, ship5, skull, rocket1, rocket2, rocket3, rocket4, rocket5, rocket6, rocket7, nuke, energy, shield, health, freeze, controlField, controlStick, button, button2, laser, life1, life2;
 	
 	private Assets() {
 		manager = new AssetManager();
@@ -156,6 +157,34 @@ public class Assets implements Disposable {
 
 		effectPool = new ParticleEffectPool(effect2, 10, 20);
 		effectBigPool = new ParticleEffectPool(effect3, 10, 20);
+
+		mainBackground = atlas.findRegion("background", 6);
+		ship1 = atlas.findRegion("ship1");
+		ship2 = atlas.findRegion("ship2");
+		ship3 = atlas.findRegion("ship3");
+		ship4 = atlas.findRegion("ship4");
+		ship5 = atlas.findRegion("ship5");
+		skull = atlas.findRegion("skull");
+		rocket1 = atlas.findRegion("rocket1");
+		rocket2 = atlas.findRegion("rocket2");
+		rocket3 = atlas.findRegion("rocket3");
+		rocket4 = atlas.findRegion("rocket4");
+		rocket5 = atlas.findRegion("rocket5");
+		rocket6 = atlas.findRegion("rocket6");
+		rocket7 = atlas.findRegion("rocket7");
+		nuke = atlas.findRegion("nuke");
+		energy = atlas.findRegion("energy");
+		shield = atlas.findRegion("shield");
+		health = atlas.findRegion("health");
+		freeze = atlas.findRegion("freeze");
+		controlField = atlas.findRegion("control_field");
+		controlStick = atlas.findRegion("control_stick");
+		button = atlas.findRegion("button");
+		button2 = atlas.findRegion("button2");
+		laser = atlas.findRegion("laser");
+		life1 = atlas.findRegion("life1");
+		life2 = atlas.findRegion("life2");
+
 	}
 	
 	public static Assets getInstance() {
@@ -166,59 +195,59 @@ public class Assets implements Disposable {
 	}
 
 	public TextureRegion getMainBackground() {
-		return atlas.findRegion("background", 6);
+		return mainBackground;
 	}
 
 	public TextureRegion getShip1() {
-		return atlas.findRegion("ship1");
+		return ship1;
 	}
 
 	public TextureRegion getShip2() {
-		return atlas.findRegion("ship2");
+		return ship2;
 	}
 	
 	public TextureRegion getShip3() {
-		return atlas.findRegion("ship3");
+		return ship3;
 	}
 	
 	public TextureRegion getShip4() {
-		return atlas.findRegion("ship4");
+		return ship4;
 	}
 	
 	public TextureRegion getShip5() {
-		return atlas.findRegion("ship5");
+		return ship5;
 	}
 	
 	public TextureRegion getSkull() {
-		return atlas.findRegion("skull");
+		return skull;
 	}
 
 	public TextureRegion getRocket1() {
-		return atlas.findRegion("rocket1");
+		return rocket1;
 	}
 
 	public TextureRegion getRocket2() {
-		return atlas.findRegion("rocket2");
+		return rocket2;
 	}
 	
 	public TextureRegion getRocket3() {
-		return atlas.findRegion("rocket3");
+		return rocket3;
 	}
 	
 	public TextureRegion getRocket4() {
-		return atlas.findRegion("rocket4");
+		return rocket4;
 	}
 	
 	public TextureRegion getRocket5() {
-		return atlas.findRegion("rocket5");
+		return rocket5;
 	}
 	
 	public TextureRegion getRocket6() {
-		return atlas.findRegion("rocket6");
+		return rocket6;
 	}
 
 	public TextureRegion getRocket7() {
-		return atlas.findRegion("rocket7");
+		return rocket7;
 	}
 
 	public ParticleEffect getEffect1() {
@@ -311,51 +340,51 @@ public class Assets implements Disposable {
 	}
 
 	public TextureRegion getNukeItem() {
-		return atlas.findRegion("nuke");
+		return nuke;
 	}
 	
 	public TextureRegion getEneryItem() {
-		return atlas.findRegion("energy");
+		return energy;
 	}
 	
 	public TextureRegion getShieldItem() {
-		return atlas.findRegion("shield");
+		return shield;
 	}
 	
 	public TextureRegion getHealthItem() {
-		return atlas.findRegion("health");
+		return health;
 	}
 	
 	public TextureRegion getFreezeItem() {
-		return atlas.findRegion("freeze");
+		return freeze;
 	}
 
 	public TextureRegion getControlField() {
-		return atlas.findRegion("control_field");
+		return controlField;
 	}
 
 	public TextureRegion getControlStick() {
-		return atlas.findRegion("control_stick");
+		return controlStick;
 	}
 
 	public TextureRegion getButton1() {
-		return atlas.findRegion("button");
+		return button;
 	}
 	
 	public TextureRegion getButton2() {
-		return atlas.findRegion("button2");
+		return button2;
 	}
 	
 	public TextureRegion getLaser() {
-		return atlas.findRegion("laser");
+		return laser;
 	}
 
 	public TextureRegion getLife1() {
-		return atlas.findRegion("life1");
+		return life1;
 	}
 
 	public TextureRegion getLife2() {
-		return atlas.findRegion("life2");
+		return life2;
 	}
 
 	public TextureRegion getAsteroid() {
