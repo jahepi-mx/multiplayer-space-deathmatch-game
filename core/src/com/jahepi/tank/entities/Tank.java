@@ -65,9 +65,13 @@ public class Tank extends GameEntity {
 	protected Assets assets;
 	protected float targetRotation;
 	protected Vector2 lastPosition;
+	protected boolean isNew;
+	protected Array<PowerUp> pendingPowerUps;
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
+		isNew = true;
+		pendingPowerUps = new Array<PowerUp>();
 		assets = Assets.getInstance();
 		this.name = name;
 		font = assets.getUIFontExtraExtraSmall();
@@ -465,6 +469,12 @@ public class Tank extends GameEntity {
 				tankState.addPowerUp(strategy.getType());
 			}
 		}
+		if (pendingPowerUps.size > 0) {
+			for (PowerUp powerUp : pendingPowerUps) {
+				tankState.addPendingPowerUp(powerUp.getState());
+			}
+			pendingPowerUps.clear();
+		}
 		return tankState;
 	}
 
@@ -521,5 +531,21 @@ public class Tank extends GameEntity {
 			return 100;
 		}
 		return (int) (percentage * 100.0f);
+	}
+
+	public boolean isNew() {
+		return isNew;
+	}
+
+	public void setIsNew(boolean isNew) {
+		this.isNew = isNew;
+	}
+
+	public void addPendingPowerUp(PowerUp powerUp) {
+		pendingPowerUps.add(powerUp);
+	}
+
+	public Array<PowerUp> getPendingPowerUps() {
+		return pendingPowerUps;
 	}
 }

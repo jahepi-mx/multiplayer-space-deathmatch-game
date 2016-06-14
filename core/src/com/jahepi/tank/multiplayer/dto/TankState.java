@@ -11,6 +11,7 @@ public class TankState {
 	private float x, y, r, p, v;
 	private Array<MissileState> ms;
 	private Array<PowerUp.TYPE> ps;
+	private Array<PowerUpState> pus;
 	private boolean s, rm;
 	private int l, w;
 	private TEXTURE_TYPE t;
@@ -20,6 +21,7 @@ public class TankState {
 	public TankState() {
 		ps = new Array<PowerUp.TYPE>();
 		ms = new Array<MissileState>();
+		pus = new Array<PowerUpState>();
 	}
 
 	public float getX() {
@@ -164,5 +166,13 @@ public class TankState {
 
 	public void setSpeedUp(boolean speedUp) {
 		this.su = speedUp;
+	}
+
+	public Array<PowerUpState> getPendingPowerUps() {
+		return pus;
+	}
+
+	public void addPendingPowerUp(PowerUpState powerUpState) {
+		this.pus.add(powerUpState);
 	}
 }

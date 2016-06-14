@@ -122,6 +122,9 @@ public class Controller {
 					if (tank.getId().equals(tankState.getId())) {
 						tank.setLife(tankState.getLife());
 						tank.setWins(tankState.getWins());
+						for (PowerUpState powerUpState : tankState.getPendingPowerUps()) {
+							powerUps.add(new PowerUp(powerUpState.getX(), powerUpState.getY(), powerUpState.getType()));
+						}
 					}
 				}
 				if (opponent != null && opponent.getId().equals(tankState.getId())) {
@@ -272,6 +275,11 @@ public class Controller {
 					if (opponent != null && powerUp.isActive() && powerUp.collide(opponent.getRectangle())) {
 						powerUp.setActive(false);
 					}
+					if (isServer && opponent != null && powerUp.isActive()) {
+						if (opponent.isNew()) {
+							opponent.addPendingPowerUp(powerUp);
+						}
+					}
 				}
 				
 				if (!powerUp.isSend()) {
@@ -295,6 +303,7 @@ public class Controller {
 			gameState.setLevelIndex(levelFactory.getSelectedLevel());
 			for (OpponentTank opponent : opponentTanks) {
 				if (opponent != null) {
+					opponent.setIsNew(false);
 					gameState.addTankState(opponent.getState());
 				}
 			}
