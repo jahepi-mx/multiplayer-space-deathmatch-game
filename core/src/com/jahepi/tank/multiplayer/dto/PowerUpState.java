@@ -6,7 +6,6 @@ public class PowerUpState {
 
 	private float x;
 	private float y;
-	private int i;
 	private PowerUp.TYPE t;
 	
 	public PowerUpState() {
@@ -36,11 +35,4 @@ public class PowerUpState {
 		this.t = type;
 	}
 
-	public int getIndex() {
-		return i;
-	}
-
-	public void setIndex(int index) {
-		this.i = index;
-	}
 }

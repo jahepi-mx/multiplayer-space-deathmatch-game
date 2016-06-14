@@ -18,8 +18,6 @@ import com.jahepi.tank.multiplayer.dto.PowerUpState;
 
 public class PowerUp extends GameEntity {
 
-	public static int POWERUP_INDEX = 0;
-
 	public enum TYPE {
 		N, // None
 		L, // Laser
@@ -37,11 +35,8 @@ public class PowerUp extends GameEntity {
 	private boolean send;
 	private TYPE type;
 	private Assets assets;
-	private int index;
 	
 	public PowerUp() {
-		POWERUP_INDEX++;
-		index = POWERUP_INDEX;
 		size.set(2.0f, 2.0f);
 		assets = Assets.getInstance();
 		float randX = MathUtils.random(size.x, Config.WIDTH - size.x);
@@ -70,8 +65,7 @@ public class PowerUp extends GameEntity {
 		this.rotationSpeed = 40;
 	}
 	
-	public PowerUp(int index, float x, float y, TYPE type) {
-		this.index = index;
+	public PowerUp(float x, float y, TYPE type) {
 		size.set(2.0f, 2.0f);
 		assets = Assets.getInstance();
 		position.set(x, y);
@@ -192,7 +186,6 @@ public class PowerUp extends GameEntity {
 		powerUpState.setX(position.x);
 		powerUpState.setY(position.y);
 		powerUpState.setType(type);
-		powerUpState.setIndex(index);
 		return powerUpState;
 	}
 }
