@@ -42,7 +42,9 @@ public class Assets implements Disposable {
 	private ParticleEffectPool effectPool;
 	private ParticleEffectPool effectBigPool;
 	private TextureRegion mainBackground, ship1, ship2, ship3, ship4, ship5, skull, rocket1, rocket2, rocket3, rocket4, rocket5, rocket6, rocket7, nuke, energy, shield, health, freeze, controlField, controlStick, button, button2, laser, life1, life2;
-	
+
+	private String[] nicknames = {"Taco", "Burrito", "Chilakil", "Burgerman", "Ponnio", "Panucho"};
+
 	private Assets() {
 		manager = new AssetManager();
 		manager.load("images/multiplayer.pack", TextureAtlas.class);
@@ -61,7 +63,7 @@ public class Assets implements Disposable {
 			preferences.putInteger("port", 38000);
 		}
 		if (!preferences.contains("name")) {
-			preferences.putString("name", "xxxx");
+			preferences.putString("name", nicknames[MathUtils.random(0, nicknames.length - 1)]);
 		}
 		if (!preferences.contains("ms")) {
 			preferences.putInteger("ms", 1000);

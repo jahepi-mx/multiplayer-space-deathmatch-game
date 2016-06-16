@@ -447,16 +447,6 @@ public class Render implements Disposable, ControllerListener {
 			float rotation = opponentTank.getRotation();
 			renderer.rect(x + xTank, y + yTank, width / 2, height / 2, width, height, 1, 1, rotation);
 		}
-		Array<PowerUp> powerUps = controller.getPowerUps();
-		renderer.setColor(Color.YELLOW);
-		for (PowerUp powerUp : powerUps) {
-			if (powerUp != null) {
-				float xPowerUp = powerUp.getX() * Config.MAP_SCALE_FACTOR;
-				float yPowerUp = powerUp.getY() * Config.MAP_SCALE_FACTOR;
-				float size = powerUp.getWidth() * Config.MAP_SCALE_FACTOR;
-				renderer.rect(x + xPowerUp, y + yPowerUp, size, size);
-			}
-		}
 		if (controller.getLevel() != null) {
 			renderer.setColor(Color.BROWN);
 			for (Tile tile : controller.getLevel().getTileMap()) {
@@ -466,6 +456,16 @@ public class Render implements Disposable, ControllerListener {
 					float size = tile.getWidth() * Config.MAP_SCALE_FACTOR;
 					renderer.rect(x + xTile, y + yTile, size, size);
 				}
+			}
+		}
+		Array<PowerUp> powerUps = controller.getPowerUps();
+		renderer.setColor(Color.YELLOW);
+		for (PowerUp powerUp : powerUps) {
+			if (powerUp != null) {
+				float xPowerUp = powerUp.getX() * Config.MAP_SCALE_FACTOR;
+				float yPowerUp = powerUp.getY() * Config.MAP_SCALE_FACTOR;
+				float size = powerUp.getWidth() * Config.MAP_SCALE_FACTOR;
+				renderer.rect(x + xPowerUp, y + yPowerUp, size, size);
 			}
 		}
 		shapeRenderer.end();
