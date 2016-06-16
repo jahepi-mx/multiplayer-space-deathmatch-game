@@ -286,10 +286,22 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 
 	@Override
 	public void dispose() {
-		//super.dispose();
-		batch.dispose();
-		debugRender.dispose();
-		assets.dispose();
+		super.dispose();
+		try {
+			batch.dispose();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			debugRender.dispose();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			assets.dispose();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		batch = null;
 	}
 

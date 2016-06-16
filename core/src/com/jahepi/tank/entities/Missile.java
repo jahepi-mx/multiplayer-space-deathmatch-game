@@ -16,7 +16,7 @@ import com.jahepi.tank.multiplayer.dto.MissileState;
 public class Missile extends GameEntity {
 
 	private static final String TAG = "Missile";
-	public static enum TEXTURE_MISSILE_TYPE {
+	public enum TEXTURE_MISSILE_TYPE {
 		M1, M2, M3, M4, M5, M6, M7
 	}
 	
@@ -74,8 +74,7 @@ public class Missile extends GameEntity {
 	
 	public void playSound() {
 		if (sound != null) {
-			long id = sound.play();
-			sound.setVolume(id, assets.getEffectsVolume());
+			sound.play(assets.getEffectsVolume());
 		}
 	}
 	
@@ -133,10 +132,10 @@ public class Missile extends GameEntity {
 	}
 
 	public boolean isOutOfBounds() {
-		if (getX() < 0 || getX() > Config.WIDTH) {
+		if (getX() < -size.x || getX() > Config.WIDTH) {
 			return true;
 		}
-		if (getY() < 0 || getY() > Config.HEIGHT) {
+		if (getY() < -size.y || getY() > Config.HEIGHT) {
 			return true;
 		}
 		return false;

@@ -263,28 +263,23 @@ public class Assets implements Disposable {
 	}
 	
 	public void playAudio1() {
-		long id = audio1.play();
-		audio1.setVolume(id, getEffectsVolume());
+		audio1.play(getEffectsVolume());
 	}
 
 	public void playAudio2() {
-		long id = audio2.play();
-		audio2.setVolume(id, getEffectsVolume());
+		audio2.play(getEffectsVolume());
 	}
 	
 	public void playAudioItem() {
-		long id = audioItem.play();
-		audioItem.setVolume(id, getEffectsVolume());
+		audioItem.play(getEffectsVolume());
 	}
 
 	public void playDestroySound() {
-		long id = destroySound.play();
-		destroySound.setVolume(id, getEffectsVolume());
+		destroySound.play(getEffectsVolume());
 	}
 
 	public void playAudioSpeedUp() {
-		long id = audioSpeedUp.play();
-		audioSpeedUp.setVolume(id, getEffectsVolume());
+		audioSpeedUp.play(getEffectsVolume());
 	}
 
 	public Music getMusic() {
