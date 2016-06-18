@@ -15,15 +15,31 @@ public class OpponentTank extends Tank {
 	
 	private boolean readyRemove;
 	private float readyRemoveTime;
+	private Vector2 newPosition;
+	private float newRotation;
 	
 	public OpponentTank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super(name, textureType, missileTextureType, effect, sound);
+		newPosition = new Vector2();
 	}
 	
 	public void update(float deltatime) {
 		
 		time += deltatime;
-		
+
+		float alpha = 0.2f;
+		float dtheta = newRotation - rotation;
+		if (dtheta > 180) {
+			rotation += 360;
+		} else if (dtheta < -180) {
+			rotation -= 360;
+		}
+		position.x += (newPosition.x - position.x) * alpha;
+		position.y += (newPosition.y - position.y) * alpha;
+		rotation += (newRotation - rotation) * alpha;
+		rectangle.setPosition(position.x, position.y);
+		rectangle.setRotation(rotation);
+
 		if (isRemoved()) {
 			readyRemoveTime += deltatime;
 			if (readyRemoveTime >= REMOVE_LIMIT_TIME) {
@@ -77,8 +93,8 @@ public class OpponentTank extends Tank {
 	}
 
 	public void updateState(TankState tankState, boolean isSend) {
-		position.set(tankState.getX(), tankState.getY());
-		rotation = tankState.getRotation();
+		newPosition.set(tankState.getX(), tankState.getY());
+		newRotation = tankState.getRotation();
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setRotation(rotation);
 		shooting = tankState.isShooting();
