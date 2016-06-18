@@ -261,28 +261,27 @@ public class Tank extends GameEntity {
 
 	public void checkLevelCollision(float deltatime, Level level) {
 		if (level != null) {
-			for (Tile tile : level.getTileMap()) {
-				if (tile != null) {
-					tile.update(deltatime);
-					if (tile.collide(rectangle)) {
-						float x = (tile.getX() + (tile.getWidth() / 2)) - (getX() + (size.x / 2));
-						float y = (tile.getY() + (tile.getHeight() / 2)) - (getY() + (size.y / 2));
-						float dist = (float) Math.sqrt((x * x) + (y * y));
-						float radius = (size.x / 2) + (tile.getWidth() / 2);
-						if (dist < radius) {
-							float alpha = radius - dist;
-							float cosDeg = MathUtils.cosDeg(rotation);
-							float sinDeg = MathUtils.sinDeg(rotation);
-							if ((x < 0 && cosDeg < 0) || (x > 0 && cosDeg > 0)) {
-								position.x = position.x + (-alpha * cosDeg);
-							} else {
-								position.x = position.x + (alpha * cosDeg);
-							}
-							if ((y < 0 && sinDeg < 0) || (y > 0 && sinDeg > 0)) {
-								position.y = position.y + (-alpha * sinDeg);
-							} else {
-								position.y = position.y + (alpha * sinDeg);
-							}
+			Tile[] tiles = level.getSurroundedTiles(position.x, position.y);
+			//Array<Tile> tiles = level.getTileMap();
+			for (Tile tile : tiles) {
+				if (tile != null && tile.collide(rectangle)) {
+					float x = (tile.getX() + (tile.getWidth() / 2)) - (getX() + (size.x / 2));
+					float y = (tile.getY() + (tile.getHeight() / 2)) - (getY() + (size.y / 2));
+					float dist = (float) Math.sqrt((x * x) + (y * y));
+					float radius = (size.x / 2) + (tile.getWidth() / 2);
+					if (dist < radius) {
+						float alpha = radius - dist;
+						float cosDeg = MathUtils.cosDeg(rotation);
+						float sinDeg = MathUtils.sinDeg(rotation);
+						if ((x < 0 && cosDeg < 0) || (x > 0 && cosDeg > 0)) {
+							position.x = position.x + (-alpha * cosDeg);
+						} else {
+							position.x = position.x + (alpha * cosDeg);
+						}
+						if ((y < 0 && sinDeg < 0) || (y > 0 && sinDeg > 0)) {
+							position.y = position.y + (-alpha * sinDeg);
+						} else {
+							position.y = position.y + (alpha * sinDeg);
 						}
 					}
 				}
@@ -411,7 +410,9 @@ public class Tank extends GameEntity {
 		if (level != null) {
 			for (Missile missile : missiles) {
 				if (missile != null && !missile.isHit()) {
-					for (Tile tile : level.getTileMap()) {
+					Tile[] tiles = level.getSurroundedTiles(missile.getX(), missile.getY());
+					//Array<Tile> tiles = level.getTileMap();
+					for (Tile tile : tiles) {
 						if (tile != null && tile.collide(missile.getRectangle())) {
 							missile.setHit(true);
 						}
@@ -476,44 +477,6 @@ public class Tank extends GameEntity {
 			pendingPowerUps.clear();
 		}
 		return tankState;
-	}
-
-	public void updateState(TankState tankState, boolean isSend) {
-		position.set(tankState.getX(), tankState.getY());
-		rotation = tankState.getRotation();
-		rectangle.setPosition(position.x, position.y);
-		rectangle.setRotation(rotation);
-		shooting = tankState.isShooting();
-		removed = tankState.isRemoved();
-		velocity = tankState.getVelocity();
-		activeSpeedUp = tankState.isSpeedUp();
-		megaShootEnableAnimation = tankState.isMegaShoot();
-		if (isSend) {
-			life = tankState.getLife();
-			wins = tankState.getWins();
-		}
-
-		if (tankState.isShooting()) {
-			laser.shoot();
-		} else {
-			laser.releaseShoot();
-		}
-		for (MissileState missileState : tankState.getMissiles()) {
-			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false);
-			missile.setSound(sound);
-			missile.playSound();
-			if (isSend) {
-				missile.setSend(true);
-			}
-			missiles.add(missile);
-		}
-		for (TYPE type : tankState.getPowerUps()) {
-			PowerUpStateStrategy strategy = PowerUp.getPowerUpStrategy(type);
-			if (isSend) {
-				strategy.setSend(true);
-			}
-			addPowerUpStrategy(strategy);
-		}
 	}
 	
 	public static TEXTURE_TYPE getRandomTextureType() {

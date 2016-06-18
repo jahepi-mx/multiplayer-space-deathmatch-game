@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by javier.hernandez on 27/05/2016.
@@ -12,8 +13,10 @@ import com.badlogic.gdx.math.MathUtils;
 public class Tile extends GameEntity {
 
     private TextureRegion background;
+    private Vector2 origPosition;
 
     public Tile(float width, float height, int x, int y, TextureRegion background) {
+        origPosition = new Vector2();
         this.background = background;
         size.set(width, height);
         position.set(x  * size.x, y * size.y);
@@ -32,6 +35,14 @@ public class Tile extends GameEntity {
     public void debugRender(ShapeRenderer renderer) {
         renderer.setColor(Color.WHITE);
         renderer.polygon(rectangle.getTransformedVertices());
+    }
+
+    public Vector2 getOrigPosition() {
+        return origPosition;
+    }
+
+    public void setOrigPosition(float x, float y) {
+        this.origPosition.set(x, y);
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.jahepi.tank.Util;
 import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
+import com.jahepi.tank.multiplayer.dto.MissileState;
+import com.jahepi.tank.multiplayer.dto.TankState;
 
 public class OpponentTank extends Tank {
 	
@@ -72,5 +74,43 @@ public class OpponentTank extends Tank {
 
 	public boolean isReadyRemove() {
 		return readyRemove;
+	}
+
+	public void updateState(TankState tankState, boolean isSend) {
+		position.set(tankState.getX(), tankState.getY());
+		rotation = tankState.getRotation();
+		rectangle.setPosition(position.x, position.y);
+		rectangle.setRotation(rotation);
+		shooting = tankState.isShooting();
+		removed = tankState.isRemoved();
+		velocity = tankState.getVelocity();
+		activeSpeedUp = tankState.isSpeedUp();
+		megaShootEnableAnimation = tankState.isMegaShoot();
+		if (isSend) {
+			life = tankState.getLife();
+			wins = tankState.getWins();
+		}
+
+		if (tankState.isShooting()) {
+			laser.shoot();
+		} else {
+			laser.releaseShoot();
+		}
+		for (MissileState missileState : tankState.getMissiles()) {
+			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false);
+			missile.setSound(sound);
+			missile.playSound();
+			if (isSend) {
+				missile.setSend(true);
+			}
+			missiles.add(missile);
+		}
+		for (PowerUp.TYPE type : tankState.getPowerUps()) {
+			PowerUpStateStrategy strategy = PowerUp.getPowerUpStrategy(type);
+			if (isSend) {
+				strategy.setSend(true);
+			}
+			addPowerUpStrategy(strategy);
+		}
 	}
 }

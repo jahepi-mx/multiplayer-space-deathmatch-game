@@ -409,11 +409,11 @@ public class Render implements Disposable, ControllerListener {
 			shapeRenderer.end();
 		}
 
-		drawMap(shapeRenderer);
+		drawMap(shapeRenderer, deltatime);
 		renderJoystick(batch);
 	}
 	
-	public void drawMap(ShapeRenderer renderer) {
+	public void drawMap(ShapeRenderer renderer, float deltatime) {
 		shapeRenderer.setProjectionMatrix(mapCamera.combined);
 		float mapWidth = Config.WIDTH * Config.MAP_SCALE_FACTOR;
 		float mapHeight = Config.HEIGHT * Config.MAP_SCALE_FACTOR;
@@ -455,6 +455,8 @@ public class Render implements Disposable, ControllerListener {
 					float yTile = tile.getY() * Config.MAP_SCALE_FACTOR;
 					float size = tile.getWidth() * Config.MAP_SCALE_FACTOR;
 					renderer.rect(x + xTile, y + yTile, size, size);
+					// This must be updated on the controller but i changed to the render class to save an iteration process
+					tile.update(deltatime);
 				}
 			}
 		}
