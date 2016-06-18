@@ -264,6 +264,9 @@ public class Render implements Disposable, ControllerListener {
 	}
 	
 	public void render() {
+
+		float deltatime = Gdx.graphics.getDeltaTime();
+
 		camera.position.x = controller.getCameraHelper().getX();
 		camera.position.y = controller.getCameraHelper().getY();
 		camera.update();
@@ -302,6 +305,8 @@ public class Render implements Disposable, ControllerListener {
 			for (Tile tile : level.getTileMap()) {
 				if (tile.isOnArea(left, right, bottom, top)) {
 					tile.render(batch);
+					// This must be updated on the controller but i changed to the render class to save an iteration process
+					tile.update(deltatime);
 				}
 			}
 		}
@@ -373,8 +378,6 @@ public class Render implements Disposable, ControllerListener {
 		}
 		batch.end();
 		
-		float deltatime = Gdx.graphics.getDeltaTime();
-		
 		if (isShooting) {
 			controller.shoot(deltatime);
 		} else {
@@ -409,11 +412,11 @@ public class Render implements Disposable, ControllerListener {
 			shapeRenderer.end();
 		}
 
-		drawMap(shapeRenderer, deltatime);
+		drawMap(shapeRenderer);
 		renderJoystick(batch);
 	}
 	
-	public void drawMap(ShapeRenderer renderer, float deltatime) {
+	public void drawMap(ShapeRenderer renderer) {
 		shapeRenderer.setProjectionMatrix(mapCamera.combined);
 		float mapWidth = Config.WIDTH * Config.MAP_SCALE_FACTOR;
 		float mapHeight = Config.HEIGHT * Config.MAP_SCALE_FACTOR;
@@ -455,8 +458,6 @@ public class Render implements Disposable, ControllerListener {
 					float yTile = tile.getY() * Config.MAP_SCALE_FACTOR;
 					float size = tile.getWidth() * Config.MAP_SCALE_FACTOR;
 					renderer.rect(x + xTile, y + yTile, size, size);
-					// This must be updated on the controller but i changed to the render class to save an iteration process
-					tile.update(deltatime);
 				}
 			}
 		}
@@ -509,7 +510,6 @@ public class Render implements Disposable, ControllerListener {
 	}
 
 	public void renderJoystick(SpriteBatch batch) {
-		shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
 		batch.setProjectionMatrix(stage.getCamera().combined);
 		joystick.update();
 		joystick.render(batch);
