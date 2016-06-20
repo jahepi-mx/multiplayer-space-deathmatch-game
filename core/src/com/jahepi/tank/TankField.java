@@ -287,7 +287,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	@Override
 	public void dispose() {
 		//super.dispose();
-		try {
+		/*try {
 			batch.dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -296,13 +296,15 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			debugRender.dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
+		debugRender = null;
+		batch = null;
 		try {
 			assets.dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		batch = null;
+		assets = null;
 	}
 
 	public void init() {
