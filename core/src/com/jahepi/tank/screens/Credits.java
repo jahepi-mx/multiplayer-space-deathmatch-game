@@ -36,7 +36,7 @@ public class Credits implements Screen {
     private float focalLength = 300;
     private Vector3 camera;
     private float xOffset = Config.UI_WIDTH * 0.2f;
-    private float yOffset = Config.UI_HEIGHT * 0.8f;
+    private float yOffset = Config.UI_HEIGHT * 0.7f;
     private Array<CreditText> texts;
     private Vector3 front;
     private float frontX;
@@ -52,12 +52,12 @@ public class Credits implements Screen {
         texts = new Array<CreditText>();
 
         CreditText text0 = new CreditText();
-        text0.position.add(0, 100, 0);
+        text0.position.add(0, 150, 0);
         text0.text = Language.getInstance().get("credits_testing");
         text0.font = assets.getUIFontOpponent();
 
         CreditText text1 = new CreditText();
-        text1.position.add(0, 50, 0);
+        text1.position.add(0, 100, 0);
         text1.text = Language.getInstance().get("credits_testing_text");
         text1.font = assets.getUIFont();
 
@@ -118,7 +118,7 @@ public class Credits implements Screen {
         Table table = new Table();
         table.setHeight(Config.UI_HEIGHT);
         table.align(Align.top);
-        table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(20.0f);
+        table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(70.0f);
         table.row().expandY();
         table.add(backButton).align(Align.bottom).pad(10.0f);
         table.setFillParent(true);

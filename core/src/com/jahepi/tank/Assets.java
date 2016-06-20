@@ -100,7 +100,7 @@ public class Assets implements Disposable {
 		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("font/game.ttf"));
 		
 		FreeTypeFontParameter parameters1 = new FreeTypeFontParameter();
-	    parameters1.size = 60;
+	    parameters1.size = 50;
 	    parameters1.shadowOffsetX = 1;
 	    parameters1.shadowOffsetY = 1;
 	    parameters1.color = Color.WHITE;
@@ -114,7 +114,7 @@ public class Assets implements Disposable {
 	    UIFontSmall = fontGenerator.generateFont(parameters2);
 	    
 	    FreeTypeFontParameter parameters3 = new FreeTypeFontParameter();
-	    parameters3.size = 90;
+	    parameters3.size = 70;
 	    parameters3.shadowOffsetX = 1;
 	    parameters3.shadowOffsetY = 1;
 	    parameters3.color = Color.GREEN;
@@ -130,7 +130,7 @@ public class Assets implements Disposable {
 	    UIFontExtraSmall = fontGenerator.generateFont(parameters4);
 	    
 	    FreeTypeFontParameter parameters5 = new FreeTypeFontParameter();
-	    parameters5.size = 80;
+	    parameters5.size = 60;
 	    parameters5.shadowOffsetX = 1;
 	    parameters5.shadowOffsetY = 1;
 	    parameters5.color = Color.ORANGE;

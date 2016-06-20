@@ -167,9 +167,9 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 		Table table = new Table();
 		table.add(titleLabel).pad(3.0f).colspan(2);
 		table.row();
-		table.add(searchLabel).pad(3.0f).colspan(2);
+		table.add(searchLabel).pad(2.0f).colspan(2);
 		table.row();
-		table.add(errorLabel).pad(3.0f).colspan(2);
+		table.add(errorLabel).pad(2.0f).colspan(2);
 		table.row();
 		table.add(serverDescLabel).width(Config.UI_WIDTH * 0.95f).pad(3.0f).colspan(2);
 		table.row();
