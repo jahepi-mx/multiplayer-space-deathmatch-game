@@ -291,12 +291,12 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			batch.dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		try {
 			debugRender.dispose();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 		debugRender = null;
 		batch = null;
 		try {
