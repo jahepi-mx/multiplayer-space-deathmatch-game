@@ -364,7 +364,9 @@ public class Render implements Disposable, ControllerListener {
 		float life = ((float) controller.getTankLife() / (float) Tank.LIFE * 100);
 		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", x + marginLeft, y - marginTopLife);
 		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), x + marginLeft, y - marginTopWins);
-		assets.getUIFontSmall().draw(batch, "" + Gdx.graphics.getFramesPerSecond(), x + Config.UI_WIDTH - 25, y - 5);
+		if (Config.SHOW_FPS) {
+			assets.getUIFontSmall().draw(batch, "" + Gdx.graphics.getFramesPerSecond(), x + Config.UI_WIDTH - 25, y - 5);
+		}
 		float lineBreak = 160.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
 			float opponentLife = ((float) opponentTank.getLife() / (float) Tank.LIFE * 100);

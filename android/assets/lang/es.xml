@@ -48,19 +48,19 @@
     <item name="nickname_desc_label">Nombre que se mostrará debajo de la nave de batalla</item>
     <item name="opponent_life_label">Jugador</item>
     <item name="opponent_win_label">Victorias</item>
-    <item name="wins_label">Trofeo %s</item>
+    <item name="wins_label">Ganado %s</item>
     <item name="win_label">HAZ GANADO!!</item>
     <item name="fight_label">PELEA!!</item>
     <item name="lost_label">HAZ PERDIDO!!</item>
     <item name="default_nickname">Yo</item>
     <item name="credits_testing">Pruebas</item>
     <item name="credits_testing_text">Giz Martínez
-        Eduardo Blanco
-        Raúl Rentería</item>
+        Mi Familia (Jaime, Juan Carlos y Gloria Mirna)
+        Eduardo Blanco y Raúl Rentería</item>
     <item name="credits_skull">Recurso Sprite de Calavera</item>
     <item name="credits_skull_text">Gracias a Goodlyay de Deviantart
         por proveerlo.
         http://goodlyay.deviantart.com</item>
-    <item name="credits_coding">Programación y Dosis de Cafeína</item>
-    <item name="credits_coding_text">Jahepi</item>
+    <item name="credits_coding">Programación</item>
+    <item name="credits_coding_text">Javier Hernández Pineda (Jahepi)</item>
 </language>

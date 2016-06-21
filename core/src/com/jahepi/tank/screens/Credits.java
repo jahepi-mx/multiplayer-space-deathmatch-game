@@ -35,7 +35,7 @@ public class Credits implements Screen {
 
     private float focalLength = 300;
     private Vector3 camera;
-    private float xOffset = Config.UI_WIDTH * 0.2f;
+    private float xOffset = Config.UI_WIDTH * 0.1f;
     private float yOffset = Config.UI_HEIGHT * 0.7f;
     private Array<CreditText> texts;
     private Vector3 front;
