@@ -26,7 +26,7 @@
     <item name="game_options_title">OPCIONES DEL JUEGO</item>
     <item name="config_title">CONFIGURACIÓN</item>
     <item name="port_label">Puerto por defecto</item>
-    <item name="port_desc_label">Puerto usado para establecer la conexión entre el servidor y clientes</item>
+    <item name="port_desc_label">Puerto para establecer la conexión entre el servidor y clientes</item>
     <item name="ms_label">Milisegundos</item>
     <item name="ms_desc_label">Milisegundos usados para buscar servidores</item>
     <item name="music_label">Volumen Música</item>

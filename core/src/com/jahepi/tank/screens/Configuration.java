@@ -163,6 +163,7 @@ public class Configuration implements Screen {
 		});
 		
 		Table table = new Table();
+		table.padTop(40);
 		table.add(titleLabel).pad(2.0f).colspan(2);
 		table.row();
 		table.add(musicLabel).pad(2.0f).uniform();
@@ -189,7 +190,7 @@ public class Configuration implements Screen {
 		table.add(msLabel).pad(2.0f).uniform();
 		table.add(msTextField).pad(2.0f).uniform();
 		table.row();
-		table.add(backButton).pad(0.5f).colspan(2);
+		table.add(backButton).pad(10.0f).colspan(2);
 		table.setFillParent(true);
 		table.getColor().a = 0;
 		table.addAction(Actions.fadeIn(0.5f));

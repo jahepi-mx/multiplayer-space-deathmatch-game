@@ -32,7 +32,7 @@ public class Config {
 
 	public static final boolean DEBUG = false;
 	public static final boolean SHOW_FPS = true;
-	public static final boolean ENABLE_ADDS = false;
+	public static final boolean ENABLE_ADDS = true;
 
 	private Config() {
 		// TODO Auto-generated constructor stub

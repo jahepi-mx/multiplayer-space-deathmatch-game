@@ -100,21 +100,21 @@ public class Assets implements Disposable {
 		fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("font/game.ttf"));
 		
 		FreeTypeFontParameter parameters1 = new FreeTypeFontParameter();
-	    parameters1.size = 50;
+	    parameters1.size = 55;
 	    parameters1.shadowOffsetX = 1;
 	    parameters1.shadowOffsetY = 1;
 	    parameters1.color = Color.WHITE;
 	    UIFont = fontGenerator.generateFont(parameters1);
 	    
 	    FreeTypeFontParameter parameters2 = new FreeTypeFontParameter();
-	    parameters2.size = 45;
+	    parameters2.size = 50;
 	    parameters2.shadowOffsetX = 1;
 	    parameters2.shadowOffsetY = 1;
 	    parameters2.color = Color.WHITE;
 	    UIFontSmall = fontGenerator.generateFont(parameters2);
 	    
 	    FreeTypeFontParameter parameters3 = new FreeTypeFontParameter();
-	    parameters3.size = 70;
+	    parameters3.size = 80;
 	    parameters3.shadowOffsetX = 1;
 	    parameters3.shadowOffsetY = 1;
 	    parameters3.color = Color.GREEN;
@@ -130,7 +130,7 @@ public class Assets implements Disposable {
 	    UIFontExtraSmall = fontGenerator.generateFont(parameters4);
 	    
 	    FreeTypeFontParameter parameters5 = new FreeTypeFontParameter();
-	    parameters5.size = 60;
+	    parameters5.size = 80;
 	    parameters5.shadowOffsetX = 1;
 	    parameters5.shadowOffsetY = 1;
 	    parameters5.color = Color.ORANGE;
@@ -481,6 +481,7 @@ public class Assets implements Disposable {
 
 	@Override
 	public void dispose() {
+		self = null;
 		monochromeShader.dispose();
 		atlas.dispose();
 		music.dispose();

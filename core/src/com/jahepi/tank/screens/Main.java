@@ -118,14 +118,13 @@ public class Main implements Screen {
 		exitBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				stage.dispose();
-				tankField.dispose();
 				Gdx.app.exit();
 			}
 		});
 		
 		Table table = new Table();
-		table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(20.0f);
+		table.padTop(50);
+		table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(10.0f);
 		table.row();
 		table.add(playBtn).pad(10.0f).uniform();
 		table.row();
