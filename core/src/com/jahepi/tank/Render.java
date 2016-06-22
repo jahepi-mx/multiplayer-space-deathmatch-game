@@ -152,6 +152,7 @@ public class Render implements Disposable, ControllerListener {
 				Gdx.app.log(TAG, "On click ...");
 				tankField.changeScreen(SCREEN_TYPE.GAMEOPTIONS);
 				tankField.closeConnection();
+				tankField.showInterstitial();
 			}	
 		});
 		
