@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language>
-    <item name="start_server_btn">INICIAR SERVIDOR</item>
-    <item name="search_server_btn">BUSCAR SERVIDOR</item>
+    <item name="start_server_btn">INICIAR SERVIDOR LOCAL</item>
+    <item name="search_server_btn">BUSCAR SERVIDOR LOCAL</item>
     <item name="ip_server_btn">CONECTAR</item>
     <item name="play_btn">JUGAR</item>
     <item name="config_btn">CONFIGURACIÓN</item>
@@ -34,12 +34,12 @@
     <item name="language_label">Selecciona el idioma del juego</item>
     <item name="search_label">Buscando ... %s</item>
     <item name="stop_search_btn">Detener Búsqueda ...</item>
-    <item name="server_desc_label">Inicia esta opción para arrancar el servidor y tener control de la partida.</item>
+    <item name="server_desc_label">Inicia esta opción para arrancar el servidor local y tener control de la partida.</item>
     <item name="search_server_desc_label">Inicia esta opción para buscar un servidor en la red local.</item>
     <item name="ip_server_desc_label">Si sabes la IP del servidor, escríbela aquí.</item>
     <item name="error_network">No se encontró un servidor de juego</item>
     <item name="error_disconnect">Desconectado del servidor</item>
-    <item name="waiting_label">Esperando jugadores para iniciar partida ...</item>
+    <item name="waiting_label">Esperando jugadores para iniciar partida,%spresiona el botón iniciar%suna vez que los jugadores se conecten.</item>
     <item name="waiting_opponent_label">Esperando que la batalla inicie...</item>
     <item name="disconnect_opponent_label">Oponente desconectado</item>
     <item name="rematch_label">IR POR LA REVANCHA</item>
@@ -54,13 +54,9 @@
     <item name="lost_label">HAZ PERDIDO!!</item>
     <item name="default_nickname">Yo</item>
     <item name="credits_testing">Pruebas</item>
-    <item name="credits_testing_text">Giz Martínez
-        Mi Familia (Jaime, Juan Carlos y Gloria Mirna)
-        Eduardo Blanco y Raúl Rentería</item>
+    <item name="credits_testing_text">Giz Martínez%sMi Familia (Jaime, Juan Carlos y Gloria Mirna)%sEduardo Blanco y Raúl Rentería</item>
     <item name="credits_skull">Recurso Sprite de Calavera</item>
-    <item name="credits_skull_text">Gracias a Goodlyay de Deviantart
-        por proveerlo.
-        http://goodlyay.deviantart.com</item>
+    <item name="credits_skull_text">Gracias a Goodlyay de Deviantart%spor proveerlo.%shttp://goodlyay.deviantart.com</item>
     <item name="credits_coding">Programación</item>
     <item name="credits_coding_text">Javier Hernández Pineda (Jahepi)</item>
 </language>

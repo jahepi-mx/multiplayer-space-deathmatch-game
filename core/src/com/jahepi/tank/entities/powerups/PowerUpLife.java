@@ -6,7 +6,7 @@ public class PowerUpLife extends PowerUpStateStrategy {
 
 	public PowerUpLife() {
 		super();
-		timeLimit = 1.0f;
+		timeLimit = 0;
 	}
 
 	@Override

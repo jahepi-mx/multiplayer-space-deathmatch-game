@@ -97,9 +97,9 @@ public class Render implements Disposable, ControllerListener {
 		fightLabel.setVisible(false);
 		stage.addActor(fightLabel);
 
-		waitingLabel = new Label(controller.isServer() ? Language.getInstance().get("waiting_label") : Language.getInstance().get("waiting_opponent_label"), labelStyle);
+		waitingLabel = new Label(controller.isServer() ? String.format(Language.getInstance().get("waiting_label"), "\n", "\n") : Language.getInstance().get("waiting_opponent_label"), labelStyle);
 		waitingLabel.setColor(Color.RED);
-		waitingLabel.setPosition((Config.UI_WIDTH / 2) - (waitingLabel.getWidth() / 2), (Config.UI_HEIGHT / 2) + waitingLabel.getHeight());
+		waitingLabel.setPosition((Config.UI_WIDTH / 2) - (waitingLabel.getWidth() / 2), (Config.UI_HEIGHT / 2) - (waitingLabel.getHeight() / 2));
 		stage.addActor(waitingLabel);
 		
 		disconnectLabel = new Label(Language.getInstance().get("disconnect_opponent_label"), labelStyle);
@@ -337,8 +337,6 @@ public class Render implements Disposable, ControllerListener {
 			speedBtn.getLabel().setFontScale(1.0f);
 		}
 		
-		stage.draw();
-		
 		uiCamera.position.x = camera.position.x * Config.UI_WIDTH_RATIO;
 		uiCamera.position.y = camera.position.y * Config.UI_HEIGHT_RATIO;
 		uiCamera.update();
@@ -351,6 +349,8 @@ public class Render implements Disposable, ControllerListener {
 			opponentTank.renderName(batch);
 		}
 		batch.end();
+
+		stage.draw();
 
 		batch.setColor(1, 1, 1, 1);
 		batch.setProjectionMatrix(stage.getCamera().combined);

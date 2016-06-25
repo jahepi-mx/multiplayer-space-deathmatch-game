@@ -52,32 +52,32 @@ public class Credits implements Screen {
         texts = new Array<CreditText>();
 
         CreditText text0 = new CreditText();
-        text0.position.add(0, 150, 0);
+        text0.position.add(0, 150, 100);
         text0.text = Language.getInstance().get("credits_testing");
         text0.font = assets.getUIFontOpponent();
 
         CreditText text1 = new CreditText();
-        text1.position.add(0, 100, 0);
-        text1.text = Language.getInstance().get("credits_testing_text");
+        text1.position.add(0, 100, 100);
+        text1.text = String.format(Language.getInstance().get("credits_testing_text"), "\n", "\n");
         text1.font = assets.getUIFont();
 
         CreditText text2 = new CreditText();
-        text2.position.add(0, -200, 300);
+        text2.position.add(0, -200, 400);
         text2.text = Language.getInstance().get("credits_skull");
         text2.font = assets.getUIFontOpponent();
 
         CreditText text3 = new CreditText();
-        text3.position.add(0, -250, 300);
-        text3.text = Language.getInstance().get("credits_skull_text");
+        text3.position.add(0, -250, 400);
+        text3.text = String.format(Language.getInstance().get("credits_skull_text"), "\n", "\n");
         text3.font = assets.getUIFont();
 
         CreditText text4 = new CreditText();
-        text4.position.add(0, -150, 600);
+        text4.position.add(0, -150, 700);
         text4.text = Language.getInstance().get("credits_coding");
         text4.font = assets.getUIFontOpponent();
 
         CreditText text5 = new CreditText();
-        text5.position.add(0, -200, 600);
+        text5.position.add(0, -200, 700);
         text5.text = Language.getInstance().get("credits_coding_text");
         text5.font = assets.getUIFont();
 

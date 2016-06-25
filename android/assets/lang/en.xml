@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language>
-    <item name="start_server_btn">START SERVER</item>
-    <item name="search_server_btn">SEARCH SERVER</item>
+    <item name="start_server_btn">START LOCAL SERVER</item>
+    <item name="search_server_btn">SEARCH LOCAL SERVER</item>
     <item name="ip_server_btn">CONNECT</item>
     <item name="play_btn">PLAY</item>
     <item name="config_btn">SETTINGS</item>
@@ -34,12 +34,12 @@
     <item name="effects_label">Sound Effects Volume</item>
     <item name="search_label">Searching ... %s</item>
     <item name="stop_search_btn">Stop Searching ...</item>
-    <item name="server_desc_label">Start this option to initialize the server and have control over the match.</item>
+    <item name="server_desc_label">Start this option to initialize the local server and have control over the match.</item>
     <item name="search_server_desc_label">Start this option to search for a game server on the local network.</item>
     <item name="ip_server_desc_label">If you know the server IP, type it here to connect.</item>
     <item name="error_network">Could not find a game server</item>
     <item name="error_disconnect">Disconnected from server</item>
-    <item name="waiting_label">Waiting for players to join</item>
+    <item name="waiting_label">Waiting for players to join,%spress start button once%sthe players are connected.</item>
     <item name="waiting_opponent_label">Waiting for the match to start...</item>
     <item name="disconnect_opponent_label">Opponent disconnected</item>
     <item name="rematch_label">GO FOR A REMATCH</item>
@@ -54,13 +54,9 @@
     <item name="lost_label">YOU LOST!!</item>
     <item name="default_nickname">Me</item>
     <item name="credits_testing">Testing</item>
-    <item name="credits_testing_text">Giz Martínez
-        My Family (Jaime, Juan Carlos & Gloria Mirna)
-        Eduardo Blanco & Raúl Rentería</item>
+    <item name="credits_testing_text">Giz Martínez%sMy Family (Jaime, Juan Carlos & Gloria Mirna)%sEduardo Blanco & Raúl Rentería</item>
     <item name="credits_skull">Skull Sprite Asset</item>
-    <item name="credits_skull_text">Thanks to Goodlyay from Deviantart
-        for providing this asset.
-        http://goodlyay.deviantart.com</item>
+    <item name="credits_skull_text">Thanks to Goodlyay from Deviantart%sfor providing the asset.%shttp://goodlyay.deviantart.com</item>
     <item name="credits_coding">Coding</item>
     <item name="credits_coding_text">Javier Hernández Pineda (Jahepi)</item>
 </language>
