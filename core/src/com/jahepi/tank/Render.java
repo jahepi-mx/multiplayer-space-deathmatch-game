@@ -502,7 +502,7 @@ public class Render implements Disposable, ControllerListener {
 	}
 
 	private void showRematchOptions() {
-		tankField.showInterstitial();
+		//tankField.showInterstitial();
 		endLabel.setVisible(true);
 		endLabel.setFontScale(3);
 		endLabel.pack();
