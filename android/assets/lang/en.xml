@@ -19,6 +19,7 @@
     <item name="speed_btn">SPEED UP!</item>
     <item name="start_game_btn">START</item>
     <item name="game_title">MULTIPLAYER SPACE DEATHMATCH %s</item>
+    <item name="website">For more information visit http://msd.jahepi.net</item>
     <item name="search_server_title">Server List</item>
     <item name="server_item_btn">Connect to %s</item>
     <item name="server_list_info">Servers found on the network</item>

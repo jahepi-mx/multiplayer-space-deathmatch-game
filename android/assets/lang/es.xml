@@ -19,7 +19,8 @@
     <item name="shoot_btn">DISPARA!</item>
     <item name="speed_btn">ACELERA!</item>
     <item name="start_game_btn">INICIAR</item>
-    <item name="game_title">MULTIJUGADOR ESPACIAL A MUERTE %s</item>
+    <item name="game_title">COMBATE ESPACIAL MULTIJUGADOR %s</item>
+    <item name="website">Para más información visita http://msd.jahepi.net</item>
     <item name="search_server_title">Listado de Servidores</item>
     <item name="server_item_btn">Conectar a %s</item>
     <item name="server_list_info">Servidores encontrados en la red</item>

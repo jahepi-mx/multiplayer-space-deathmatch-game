@@ -57,6 +57,12 @@ public class Main implements Screen {
 		Label titleLabel = new Label(String.format(Language.getInstance().get("game_title"), Config.VERSION), titleStyle);
 		titleLabel.setAlignment(Align.center);
 		titleLabel.setWrap(true);
+
+		LabelStyle websiteStyle = new LabelStyle();
+		websiteStyle.font = assets.getUIFontSmall();
+		Label websiteLabel = new Label(Language.getInstance().get("website"), websiteStyle);
+		websiteLabel.setAlignment(Align.center);
+		websiteLabel.setWrap(true);
 		
 		LabelStyle style = new LabelStyle();
 		BitmapFont uiFont = assets.getUIFontMain();
@@ -126,15 +132,17 @@ public class Main implements Screen {
 		table.padTop(50);
 		table.add(titleLabel).width(Config.UI_WIDTH * 0.9f).pad(10.0f);
 		table.row();
-		table.add(playBtn).pad(10.0f).uniform();
+		table.add(playBtn).pad(8.0f).uniform();
 		table.row();
-		table.add(configBtn).pad(10.0f).uniform();
+		table.add(configBtn).pad(8.0f).uniform();
 		table.row();
-		table.add(ipBtn).pad(10.0f).uniform();
+		table.add(ipBtn).pad(8.0f).uniform();
 		table.row();
-		table.add(creditsBtn).pad(10.0f).uniform();
+		table.add(creditsBtn).pad(8.0f).uniform();
 		table.row();
-		table.add(exitBtn).pad(10.0f).uniform();
+		table.add(exitBtn).pad(8.0f).uniform();
+		table.row();
+		table.add(websiteLabel).pad(5.0f).uniform();
 		table.setFillParent(true);
 		table.getColor().a = 0;
 		table.addAction(Actions.fadeIn(0.5f));
