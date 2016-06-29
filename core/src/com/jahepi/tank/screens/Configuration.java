@@ -27,6 +27,7 @@ import com.jahepi.tank.Config;
 import com.jahepi.tank.Language;
 import com.jahepi.tank.TankField;
 import com.jahepi.tank.TankField.SCREEN_TYPE;
+import com.jahepi.tank.dialogs.Option;
 
 public class Configuration implements Screen {
 
@@ -211,6 +212,12 @@ public class Configuration implements Screen {
 		msDescLabel.setText(Language.getInstance().get("ms_desc_label"));
 		msLabel.setText(Language.getInstance().get("ms_label"));
 		backLabel.setText(Language.getInstance().get("back_btn"));
+
+		Option[] maps = tankField.getMaps();
+		maps[0].setValue(Language.getInstance().get("map1_text"));
+		maps[1].setValue(Language.getInstance().get("map2_text"));
+		maps[2].setValue(Language.getInstance().get("map3_text"));
+		maps[3].setValue(Language.getInstance().get("map4_text"));
 	}
 
 	@Override
