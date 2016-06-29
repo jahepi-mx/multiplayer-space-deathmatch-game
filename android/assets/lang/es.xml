@@ -43,7 +43,7 @@
     <item name="waiting_label">Esperando jugadores para iniciar partida,%spresiona el botón iniciar%suna vez que los jugadores se conecten.</item>
     <item name="waiting_opponent_label">Esperando que la batalla inicie...</item>
     <item name="disconnect_opponent_label">Oponente desconectado</item>
-    <item name="rematch_label">IR POR LA REVANCHA</item>
+    <item name="rematch_label">CLIC AQUI PARA NUEVA PARTIDA</item>
     <item name="life_label">Vida: %s</item>
     <item name="nickname_label">Nombre</item>
     <item name="nickname_desc_label">Nombre que se mostrará debajo de la nave de batalla</item>
@@ -60,4 +60,8 @@
     <item name="credits_skull_text">Gracias a Goodlyay de Deviantart%spor proveerlo.%shttp://goodlyay.deviantart.com</item>
     <item name="credits_coding">Programación</item>
     <item name="credits_coding_text">Javier Hernández Pineda (Jahepi)</item>
+    <item name="map1_text">Mapa Andromeda</item>
+    <item name="map2_text">Mapa Centaurus</item>
+    <item name="map3_text">Mapa Pegaso</item>
+    <item name="map4_text">Mapa Sculptor</item>
 </language>

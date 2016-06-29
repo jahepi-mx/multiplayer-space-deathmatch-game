@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -24,6 +25,7 @@ import com.jahepi.tank.Config;
 import com.jahepi.tank.Language;
 import com.jahepi.tank.TankField;
 import com.jahepi.tank.TankField.SCREEN_TYPE;
+import com.jahepi.tank.dialogs.Option;
 import com.jahepi.tank.dialogs.ServerListDialog;
 
 import java.net.InetAddress;
@@ -42,6 +44,7 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 	private TextField ipTextField;
 	private Assets assets;
 	private ServerListDialog serverListDialog;
+	private SelectBox<Option> selectBoxMaps;
 	
 	public GameOptions(TankField tankField) {
 		this.tankField = tankField;
@@ -66,6 +69,10 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 		LabelStyle style1 = new LabelStyle();
 		BitmapFont uiFont = assets.getUIFont();
 		style1.font = uiFont;
+
+		selectBoxMaps = new SelectBox<Option>(skin);
+		selectBoxMaps.setItems(tankField.getMaps());
+		selectBoxMaps.setSelected(tankField.getMaps()[assets.getMap()]);
 		
 		startServerLabel = new Label(Language.getInstance().get("start_server_btn"), style1);
 		serverBtn = new Button(skin);
@@ -135,6 +142,7 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 				if (tankField.isSearchServerActive()) {
 					tankField.stopSearchServer();
 				}
+				assets.setMap(selectBoxMaps.getSelected().getIndex());
 				tankField.runServer(assets.getPort(), assets.getNickname());
 			}
 		});
@@ -174,7 +182,8 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 		table.row();
 		table.add(serverDescLabel).width(Config.UI_WIDTH * 0.95f).pad(3.0f).colspan(2);
 		table.row();
-		table.add(serverBtn).pad(3.0f).colspan(2);
+		table.add(selectBoxMaps).pad(3.0f).align(Align.right);
+		table.add(serverBtn).pad(3.0f).align(Align.left);
 		table.row();
 		table.add(searchServerDescLabel).width(Config.UI_WIDTH * 0.95f).pad(3.0f).colspan(2);
 		table.row();

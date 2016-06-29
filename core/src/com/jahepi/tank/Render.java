@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -24,6 +25,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jahepi.tank.Controller.ControllerListener;
 import com.jahepi.tank.Controller.GameChangeStateListener;
 import com.jahepi.tank.TankField.SCREEN_TYPE;
+import com.jahepi.tank.dialogs.Option;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Tank;
@@ -54,6 +56,7 @@ public class Render implements Disposable, ControllerListener {
 	private boolean resetFlag;
 	private Assets assets;
 	private Joystick joystick;
+	private SelectBox<Option> selectBoxMaps;
 	
 	public Render(TankField tankFieldParam, GameChangeStateListener gameStateChangeListener) {
 		this.tankField = tankFieldParam;
@@ -65,7 +68,8 @@ public class Render implements Disposable, ControllerListener {
 		joystick.setXOffset(10);
 		
 		controller = new Controller(gameStateChangeListener, this, tankField.isServer(), tankField.getName());
-		
+		controller.setLevel(assets.getMap());
+
 		camera = new OrthographicCamera(controller.getCameraHelper().getWidth(), controller.getCameraHelper().getHeight());
 		camera.position.x = controller.getCameraHelper().getX();
 		camera.position.y = controller.getCameraHelper().getY();
@@ -84,6 +88,15 @@ public class Render implements Disposable, ControllerListener {
 		stage = new Stage(viewport, this.batch);
 		
 		Skin skin = new Skin(Gdx.files.internal("uiskin.json"));
+
+		selectBoxMaps = new SelectBox<Option>(skin);
+		selectBoxMaps.setItems(tankField.getMaps());
+		selectBoxMaps.setSelected(tankField.getMaps()[assets.getMap()]);
+		selectBoxMaps.pack();
+		selectBoxMaps.setX((Config.UI_WIDTH / 2) - (selectBoxMaps.getWidth() / 2));
+		selectBoxMaps.setY((Config.UI_HEIGHT / 2) - selectBoxMaps.getHeight());
+		selectBoxMaps.setVisible(false);
+		stage.addActor(selectBoxMaps);
 		
 		LabelStyle labelStyle = new LabelStyle();
 		labelStyle.font = assets.getUIFont();
@@ -118,7 +131,7 @@ public class Render implements Disposable, ControllerListener {
 		rematchBtn.setHeight(rematchLabel.getHeight());
 		rematchBtn.setWidth(rematchLabel.getWidth() + 10.0f);
 		rematchBtn.setX((Config.UI_WIDTH / 2) - (rematchBtn.getWidth() / 2));
-		rematchBtn.setY((Config.UI_HEIGHT / 2) - (rematchBtn.getHeight() / 2));
+		rematchBtn.setY(selectBoxMaps.getY() - rematchBtn.getHeight() - 10.0f);
 		rematchBtn.setColor(Color.BLUE);
 		rematchBtn.setVisible(false);
 		stage.addActor(rematchBtn);
@@ -130,8 +143,12 @@ public class Render implements Disposable, ControllerListener {
 					startBtn.setDisabled(false);
 					waitingLabel.setVisible(true);
 					rematchBtn.setVisible(false);
+					selectBoxMaps.setVisible(false);
+					selectBoxMaps.getScrollPane().setVisible(false);
 					endLabel.setVisible(false);
+					assets.setMap(selectBoxMaps.getSelected().getIndex());
 					controller.reset();
+					controller.setLevel(assets.getMap());
 				}
 			}	
 		});
@@ -282,6 +299,7 @@ public class Render implements Disposable, ControllerListener {
 			disconnectLabel.setVisible(false);
 			tankField.setNewConnection(false);
 			controller.reset();
+			controller.setLevel(assets.getMap());
 			controller.setTankId(tankField.getConnectionId());
 			if (tankField.isServer()) {
 				waitingLabel.setVisible(false);
@@ -327,7 +345,7 @@ public class Render implements Disposable, ControllerListener {
 		batch.end();
 
 		fightLabel.setVisible(controller.showFight());
-		waitingLabel.setVisible(!controller.isStarted());
+		waitingLabel.setVisible(controller.isNotStarted());
 		Tank tank = controller.getTank();
 		if (tank.getSpeedUpReloadPercentage() < 100) {
 			speedBtn.setText("" + tank.getSpeedUpReloadPercentage());
@@ -350,6 +368,9 @@ public class Render implements Disposable, ControllerListener {
 		}
 		batch.end();
 
+		if (selectBoxMaps.isVisible()) {
+			stage.act(deltatime);
+		}
 		stage.draw();
 
 		batch.setColor(1, 1, 1, 1);
@@ -496,6 +517,8 @@ public class Render implements Disposable, ControllerListener {
 		if (!resetFlag) {
 			resetFlag = true;
 			rematchBtn.setVisible(false);
+			selectBoxMaps.setVisible(false);
+			selectBoxMaps.getScrollPane().setVisible(false);
 			endLabel.setVisible(false);
 			controller.reset();
 		}
@@ -509,6 +532,8 @@ public class Render implements Disposable, ControllerListener {
 		endLabel.setPosition((Config.UI_WIDTH / 2) - (endLabel.getWidth() / 2), Config.UI_HEIGHT / 2);
 		if (controller.isServer()) {
 			rematchBtn.setVisible(true);
+			selectBoxMaps.setVisible(true);
+			selectBoxMaps.getScrollPane().setVisible(true);
 		}
 	}
 

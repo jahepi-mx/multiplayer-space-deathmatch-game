@@ -71,6 +71,12 @@ public class Assets implements Disposable {
 		if (!preferences.contains("language")) {
 			preferences.putString("language", Language.ENGLISH);
 		}
+		if (!preferences.contains("player")) {
+			preferences.putInteger("player", 0);
+		}
+		if (!preferences.contains("map")) {
+			preferences.putInteger("map", 2);
+		}
 		preferences.flush();
 		
 		effect1 = new ParticleEffect();
@@ -461,6 +467,24 @@ public class Assets implements Disposable {
 	
 	public String getLanguage() {
 		return preferences.getString("language");
+	}
+
+	public void setMap(int index) {
+		preferences.putInteger("map", index);
+		preferences.flush();
+	}
+
+	public int getMap() {
+		return preferences.getInteger("map");
+	}
+
+	public void setPlayer(int index) {
+		preferences.putInteger("player", index);
+		preferences.flush();
+	}
+
+	public int getPlayer() {
+		return preferences.getInteger("player");
 	}
 
 	public ParticleEffect getParticleEffect() {

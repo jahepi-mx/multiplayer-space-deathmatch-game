@@ -43,7 +43,7 @@
     <item name="waiting_label">Waiting for players to join,%spress start button once%sthe players are connected.</item>
     <item name="waiting_opponent_label">Waiting for the match to start...</item>
     <item name="disconnect_opponent_label">Opponent disconnected</item>
-    <item name="rematch_label">GO FOR A REMATCH</item>
+    <item name="rematch_label">CLICK HERE FOR A REMATCH</item>
     <item name="life_label">Life: %s</item>
     <item name="nickname_label">Nickname</item>
     <item name="nickname_desc_label">Name that it is displayed below the ship</item>
@@ -60,4 +60,8 @@
     <item name="credits_skull_text">Thanks to Goodlyay from Deviantart%sfor providing the asset.%shttp://goodlyay.deviantart.com</item>
     <item name="credits_coding">Coding</item>
     <item name="credits_coding_text">Javier Hernández Pineda (Jahepi)</item>
+    <item name="map1_text">Andromeda Map</item>
+    <item name="map2_text">Centaurus Map</item>
+    <item name="map3_text">Pegaso Map</item>
+    <item name="map4_text">Sculptor Map</item>
 </language>

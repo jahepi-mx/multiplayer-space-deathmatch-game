@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.jahepi.tank.Controller.GameChangeStateListener;
 import com.jahepi.tank.ads.AdListener;
+import com.jahepi.tank.dialogs.Option;
 import com.jahepi.tank.multiplayer.Client;
 import com.jahepi.tank.multiplayer.Server;
 import com.jahepi.tank.multiplayer.Server.ServerListener;
@@ -43,6 +44,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private String name;
 	private Assets assets;
 	private AdListener adListener;
+	private Option[] maps;
 	
 	public enum SCREEN_TYPE {
 		MAIN, GAMEOPTIONS, CREDITS, CONFIG, GAME
@@ -305,6 +307,11 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			changeScreen(SCREEN_TYPE.MAIN);
 			//serverFinder = new ServerFinder(this);
 			serverFinderExecutor = new ServerFinderExecutor(this);
+			Option map1 = new Option(0, Language.getInstance().get("map1_text"));
+			Option map2 = new Option(1, Language.getInstance().get("map2_text"));
+			Option map3 = new Option(2, Language.getInstance().get("map3_text"));
+			Option map4 = new Option(3, Language.getInstance().get("map4_text"));
+			maps = new Option[] {map1, map2, map3, map4};
 		}
 	}
 
@@ -328,5 +335,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	@Override
 	public void onServerNotFoundExecutor(int port) {
 		this.onServerNotFound(port);
+	}
+
+	public Option[] getMaps() {
+		return maps;
 	}
 }

@@ -52,9 +52,6 @@ public class Controller {
 		powerUpInterval = MathUtils.random(5.0f, 15.0f);
 		cameraHelper = new CameraHelper(Config.CAMERA_WIDTH, Config.CAMERA_HEIGHT, (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2), (Config.HEIGHT / 2) - (Config.CAMERA_HEIGHT / 2));
 		levelFactory = new LevelFactory();
-		if (isServer) {
-			level = levelFactory.getRandomLevel();
-		}
 	}
 	
 	public void setTankId(String connectionId) {
@@ -354,8 +351,8 @@ public class Controller {
 		this.started = started;
 	}
 
-	public boolean isStarted() {
-		return started;
+	public boolean isNotStarted() {
+		return !started && !win;
 	}
 
 	public Array<OpponentTank> getOpponentTanks() {
@@ -394,10 +391,13 @@ public class Controller {
 				opponent.reset();
 			}
 		}
-		if (isServer) {
-			level = levelFactory.getRandomLevel();
-		}
 		win = false;
+	}
+
+	public void setLevel(int index) {
+		if (isServer) {
+			level = levelFactory.getLevel(index);
+		}
 	}
 	
 	public interface ControllerListener {
