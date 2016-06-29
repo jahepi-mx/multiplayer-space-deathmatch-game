@@ -29,6 +29,7 @@
     <item name="port_label">Puerto por defecto</item>
     <item name="port_desc_label">Puerto para establecer la conexión entre el servidor y clientes</item>
     <item name="ms_label">Milisegundos</item>
+    <item name="ship_label">Seleccionar Nave</item>
     <item name="ms_desc_label">Milisegundos usados para buscar servidores</item>
     <item name="music_label">Volumen Música</item>
     <item name="effects_label">Volumen Efectos de Sonido</item>
@@ -46,7 +47,7 @@
     <item name="rematch_label">CLIC AQUI PARA NUEVA PARTIDA</item>
     <item name="life_label">Vida: %s</item>
     <item name="nickname_label">Nombre</item>
-    <item name="nickname_desc_label">Nombre que se mostrará debajo de la nave de batalla</item>
+    <item name="nickname_desc_label">Asigna el nombre y tipo de nave de combate</item>
     <item name="opponent_life_label">Jugador</item>
     <item name="opponent_win_label">Victorias</item>
     <item name="wins_label">Ganado %s</item>

@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldFilter.DigitsOnlyFilter;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jahepi.tank.Assets;
 import com.jahepi.tank.Config;
@@ -28,6 +29,7 @@ import com.jahepi.tank.Language;
 import com.jahepi.tank.TankField;
 import com.jahepi.tank.TankField.SCREEN_TYPE;
 import com.jahepi.tank.dialogs.Option;
+import com.jahepi.tank.dialogs.ShipDialog;
 
 public class Configuration implements Screen {
 
@@ -36,11 +38,12 @@ public class Configuration implements Screen {
 	private Stage stage;
 	private TankField tankField;
 	private SpriteBatch batch;
-	private Label titleLabel,soundEffectLabel, musicLabel, nicknameLabel, nicknameDescLabel, portLabel, portDescLabel, msLabel, msDescLabel, backLabel;
+	private Label titleLabel,soundEffectLabel, musicLabel, nicknameLabel, nicknameDescLabel, portLabel, portDescLabel, msLabel, msDescLabel, backLabel, shipLabel;
 	private CheckBox englishCheckbox, spanishCheckbox;
 	private TextField nicknameTextField, portTextField, msTextField;
-	private Button backButton;
+	private Button backButton, shipButton;
 	private Assets assets;
+	private ShipDialog shipDialog;
 	
 	public Configuration(TankField tankField) {
 		this.tankField = tankField;
@@ -49,6 +52,7 @@ public class Configuration implements Screen {
 		stage = new Stage(viewport, batch);
 		Gdx.input.setInputProcessor(stage);
 		assets = Assets.getInstance();
+		shipDialog = new ShipDialog();
 	}
 
 	@Override
@@ -113,6 +117,12 @@ public class Configuration implements Screen {
 		backButton.add(backLabel);
 		backLabel.setColor(Color.RED);
 
+		shipLabel = new Label(Language.getInstance().get("ship_label"), labelStyle);
+		shipButton = new Button(skin);
+		shipButton.add(shipLabel);
+		shipButton.setColor(Color.CYAN);
+
+
 		englishCheckbox.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -121,7 +131,7 @@ public class Configuration implements Screen {
 					Language.getInstance().load(Language.ENGLISH);
 					updateTexts();
 				}
-			}	
+			}
 		});
 		
 		spanishCheckbox.addListener(new ChangeListener() {
@@ -132,7 +142,7 @@ public class Configuration implements Screen {
 					Language.getInstance().load(Language.SPANISH);
 					updateTexts();
 				}
-			}	
+			}
 		});
 		
 		musicSlider.addListener(new ChangeListener() {
@@ -160,38 +170,46 @@ public class Configuration implements Screen {
 				assets.setPort(Integer.parseInt(portTextField.getText()));
 				assets.setMs(Integer.parseInt(msTextField.getText()));
 				tankField.changeScreen(SCREEN_TYPE.MAIN);
-			}		
+			}
+		});
+
+		shipButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				shipDialog.show(stage);
+			}
 		});
 		
 		Table table = new Table();
 		table.padTop(40);
-		table.add(titleLabel).pad(2.0f).colspan(2);
+		table.add(titleLabel).pad(2.0f).colspan(3);
 		table.row();
-		table.add(musicLabel).pad(2.0f).uniform();
-		table.add(musicSlider).pad(2.0f).uniform();
+		table.add(musicLabel).pad(2.0f).colspan(2).align(Align.center);
+		table.add(musicSlider).pad(2.0f).align(Align.left);
 		table.row();
-		table.add(soundEffectLabel).pad(2.0f).uniform();
-		table.add(soundEffectsSlider).pad(2.0f).uniform();
+		table.add(soundEffectLabel).pad(2.0f).colspan(2).align(Align.center);
+		table.add(soundEffectsSlider).pad(2.0f).align(Align.left);
 		table.row();
-		table.add(englishCheckbox).pad(0.5f).uniform();
-		table.add(spanishCheckbox).pad(0.5f).uniform();
+		table.add(englishCheckbox).pad(0.5f).colspan(2).align(Align.center);
+		table.add(spanishCheckbox).pad(0.5f).align(Align.left);
 		table.row();
-		table.add(nicknameDescLabel).pad(2.0f).colspan(2);
+		table.add(nicknameDescLabel).pad(2.0f).colspan(3);
 		table.row();
 		table.add(nicknameLabel).pad(2.0f).uniform();
 		table.add(nicknameTextField).pad(2.0f).uniform();
+		table.add(shipButton).pad(2.0f).uniform();
 		table.row();
-		table.add(portDescLabel).pad(2.0f).colspan(2);
+		table.add(portDescLabel).pad(2.0f).colspan(3);
 		table.row();
-		table.add(portLabel).pad(2.0f).uniform();
-		table.add(portTextField).pad(2.0f).uniform();
+		table.add(portLabel).pad(2.0f).colspan(2).align(Align.center);
+		table.add(portTextField).pad(2.0f).align(Align.left);
 		table.row();
-		table.add(msDescLabel).pad(2.0f).colspan(2);
+		table.add(msDescLabel).pad(2.0f).colspan(3);
 		table.row();
-		table.add(msLabel).pad(2.0f).uniform();
-		table.add(msTextField).pad(2.0f).uniform();
+		table.add(msLabel).pad(2.0f).colspan(2).align(Align.center);
+		table.add(msTextField).pad(2.0f).align(Align.left);
 		table.row();
-		table.add(backButton).pad(10.0f).colspan(2);
+		table.add(backButton).pad(10.0f).colspan(3);
 		table.setFillParent(true);
 		table.getColor().a = 0;
 		table.addAction(Actions.fadeIn(0.5f));
@@ -212,6 +230,7 @@ public class Configuration implements Screen {
 		msDescLabel.setText(Language.getInstance().get("ms_desc_label"));
 		msLabel.setText(Language.getInstance().get("ms_label"));
 		backLabel.setText(Language.getInstance().get("back_btn"));
+		shipLabel.setText(Language.getInstance().get("ship_label"));
 
 		Option[] maps = tankField.getMaps();
 		maps[0].setValue(Language.getInstance().get("map1_text"));
@@ -225,6 +244,8 @@ public class Configuration implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
+		Color color = batch.getColor();
+		batch.setColor(color.r, color.g, color.b, 1.0f);
 		batch.setShader(null);
 		batch.draw(assets.getMainBackground(), 0, 0, Config.UI_WIDTH, Config.UI_HEIGHT);
 		batch.end();
