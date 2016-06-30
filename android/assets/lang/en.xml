@@ -54,6 +54,8 @@
     <item name="win_label">YOU WIN!!</item>
     <item name="fight_label">FIGHT!!</item>
     <item name="lost_label">YOU LOST!!</item>
+    <item name="ship_title">Spaceship Selection</item>
+    <item name="select_ship_text">Select spaceship:</item>
     <item name="default_nickname">Me</item>
     <item name="credits_testing">Testing</item>
     <item name="credits_testing_text">Giz Martínez%sMy Family (Jaime, Juan Carlos & Gloria Mirna)%sEduardo Blanco & Raúl Rentería</item>
@@ -65,4 +67,9 @@
     <item name="map2_text">Centaurus Map</item>
     <item name="map3_text">Pegaso Map</item>
     <item name="map4_text">Sculptor Map</item>
+    <item name="ship1_text">Ship 1</item>
+    <item name="ship2_text">Ship 2</item>
+    <item name="ship3_text">Ship 3</item>
+    <item name="ship4_text">Ship 4</item>
+    <item name="ship5_text">Ship 5</item>
 </language>

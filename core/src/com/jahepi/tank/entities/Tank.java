@@ -479,9 +479,9 @@ public class Tank extends GameEntity {
 		return tankState;
 	}
 	
-	public static TEXTURE_TYPE getRandomTextureType() {
-		int rand = MathUtils.random(0, TEXTURE_TYPE.values().length - 1);
-		return TEXTURE_TYPE.values()[rand];
+	public static TEXTURE_TYPE getTextureType(int index) {
+		//int rand = MathUtils.random(0, TEXTURE_TYPE.values().length - 1);
+		return TEXTURE_TYPE.values()[index];
 	}
 
 	public void setTargetRotation(float targetRotation) {

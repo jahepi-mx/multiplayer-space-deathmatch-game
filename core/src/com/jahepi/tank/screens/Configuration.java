@@ -231,6 +231,7 @@ public class Configuration implements Screen {
 		msLabel.setText(Language.getInstance().get("ms_label"));
 		backLabel.setText(Language.getInstance().get("back_btn"));
 		shipLabel.setText(Language.getInstance().get("ship_label"));
+		shipDialog.updateTexts();
 
 		Option[] maps = tankField.getMaps();
 		maps[0].setValue(Language.getInstance().get("map1_text"));

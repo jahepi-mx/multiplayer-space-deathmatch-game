@@ -72,7 +72,7 @@ public class Assets implements Disposable {
 			preferences.putString("language", Language.ENGLISH);
 		}
 		if (!preferences.contains("player")) {
-			preferences.putInteger("player", 0);
+			preferences.putInteger("player", MathUtils.random(0, 4));
 		}
 		if (!preferences.contains("map")) {
 			preferences.putInteger("map", 2);

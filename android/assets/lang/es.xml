@@ -54,6 +54,8 @@
     <item name="win_label">HAS GANADO!!</item>
     <item name="fight_label">PELEA!!</item>
     <item name="lost_label">HAS PERDIDO!!</item>
+    <item name="ship_title">Selección de Nave</item>
+    <item name="select_ship_text">Selecciona una nave:</item>
     <item name="default_nickname">Yo</item>
     <item name="credits_testing">Pruebas</item>
     <item name="credits_testing_text">Giz Martínez%sMi Familia (Jaime, Juan Carlos y Gloria Mirna)%sEduardo Blanco y Raúl Rentería</item>
@@ -65,4 +67,9 @@
     <item name="map2_text">Mapa Centaurus</item>
     <item name="map3_text">Mapa Pegaso</item>
     <item name="map4_text">Mapa Sculptor</item>
+    <item name="ship1_text">Nave 1</item>
+    <item name="ship2_text">Nave 2</item>
+    <item name="ship3_text">Nave 3</item>
+    <item name="ship4_text">Nave 4</item>
+    <item name="ship5_text">Nave 5</item>
 </language>

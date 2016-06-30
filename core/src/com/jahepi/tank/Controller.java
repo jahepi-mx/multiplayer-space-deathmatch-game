@@ -42,7 +42,7 @@ public class Controller {
 		temporalHolder = new Array<Tank>();
 		Assets assets = Assets.getInstance();
 		opponentTanks = new Array<OpponentTank>();
-		tank = new Tank(name, Tank.getRandomTextureType(), Missile.getRandomTextureType(), assets.getEffect2(), assets.getAudio1());
+		tank = new Tank(name, Tank.getTextureType(assets.getPlayer()), Missile.getRandomTextureType(), assets.getEffect2(), assets.getAudio1());
 		tank.setMissileSize(1.0f, 0.5f);
 		this.controllerListener = controllerListener;
 		this.gameChangeStateListener = gameChangeStateListener;
