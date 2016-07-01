@@ -3,6 +3,7 @@ package com.jahepi.tank.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -171,7 +172,10 @@ public class Tank extends GameEntity {
 	@Override
 	public void render(SpriteBatch batch) {
 		laser.render(batch);
-		effect.draw(batch);
+		if (!effect.isComplete()) {
+			effect.draw(batch);
+			batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		}
 		if (isDead()) {
 			batch.draw(assets.getSkull(), position.x, position.y, size.x / 2, size.y / 2, size.x, size.y, 1.0f, 1.0f, 90.0f, true);
 		} else {
