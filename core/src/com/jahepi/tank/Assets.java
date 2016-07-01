@@ -84,11 +84,11 @@ public class Assets implements Disposable {
 		effect1.scaleEffect(Config.MIN_EXPLOSION_SIZE);
 
 		effect2 = new ParticleEffect();
-		effect2.load(Gdx.files.internal("particles/effect2.pfx"), Gdx.files.internal("images"));
+		effect2.load(Gdx.files.internal("particles/effect3.pfx"), Gdx.files.internal("images"));
 		effect2.scaleEffect(Config.MIN_EXPLOSION_SIZE);
 
 		effect3 = new ParticleEffect();
-		effect3.load(Gdx.files.internal("particles/effect2.pfx"), Gdx.files.internal("images"));
+		effect3.load(Gdx.files.internal("particles/effect3.pfx"), Gdx.files.internal("images"));
 		effect3.scaleEffect(Config.MAX_EXPLOSION_SIZE);
 
 		audio1 = Gdx.audio.newSound(Gdx.files.internal("audio/laser1.mp3"));
