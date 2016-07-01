@@ -5,317 +5,324 @@ filter: Nearest,Nearest
 repeat: none
 background
   rotate: false
-  xy: 1, 1235
+  xy: 1, 1237
   size: 1024, 810
   orig: 1024, 810
   offset: 0, 0
   index: 1
 background
   rotate: false
-  xy: 1, 423
+  xy: 1, 425
   size: 1024, 810
   orig: 1024, 810
   offset: 0, 0
   index: 3
 control_field
   rotate: false
-  xy: 1027, 1561
+  xy: 1027, 1563
   size: 484, 484
   orig: 484, 484
   offset: 0, 0
   index: -1
 laser
   rotate: false
-  xy: 1027, 959
+  xy: 1027, 961
   size: 100, 600
   orig: 100, 600
   offset: 0, 0
   index: -1
 rocket7
   rotate: false
-  xy: 1, 141
+  xy: 1, 143
   size: 280, 280
   orig: 280, 280
   offset: 0, 0
   index: -1
 BlueBulletExplo
   rotate: false
-  xy: 1513, 1799
+  xy: 1513, 1801
   size: 228, 246
   orig: 228, 246
   offset: 0, 0
   index: 6
 OrangeBulletExplo
   rotate: false
-  xy: 1129, 1313
+  xy: 1129, 1315
   size: 228, 246
   orig: 228, 246
   offset: 0, 0
   index: 6
 ship5
   rotate: false
-  xy: 283, 193
+  xy: 283, 195
   size: 180, 228
   orig: 180, 228
   offset: 0, 0
   index: -1
-BlueBulletExplo
+energy
   rotate: false
   xy: 1513, 1601
+  size: 200, 198
+  orig: 200, 198
+  offset: 0, 0
+  index: -1
+freeze
+  rotate: false
+  xy: 1743, 1849
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+health
+  rotate: false
+  xy: 1129, 1115
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+nuke
+  rotate: false
+  xy: 465, 225
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+poison
+  rotate: false
+  xy: 666, 225
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 867, 225
+  size: 199, 198
+  orig: 199, 198
+  offset: 0, 0
+  index: -1
+BlueBulletExplo
+  rotate: false
+  xy: 1129, 917
   size: 197, 196
   orig: 197, 196
   offset: 0, 0
   index: 5
 OrangeBulletExplo
   rotate: false
-  xy: 1743, 1849
+  xy: 1359, 1365
   size: 196, 196
   orig: 196, 196
   offset: 0, 0
   index: 5
+ship4
+  rotate: false
+  xy: 1, 3
+  size: 173, 138
+  orig: 173, 138
+  offset: 0, 0
+  index: -1
 life1
   rotate: false
-  xy: 1129, 1129
+  xy: 1557, 1417
   size: 182, 182
   orig: 182, 182
   offset: 0, 0
   index: -1
 life2
   rotate: false
-  xy: 465, 239
+  xy: 1027, 733
   size: 182, 182
   orig: 182, 182
   offset: 0, 0
   index: -1
 button
   rotate: false
-  xy: 649, 242
+  xy: 1027, 552
   size: 178, 179
   orig: 178, 179
   offset: 0, 0
   index: -1
+asteroid
+  rotate: false
+  xy: 1027, 425
+  size: 150, 125
+  orig: 150, 125
+  offset: 0, 0
+  index: 1
 button2
   rotate: false
-  xy: 829, 243
+  xy: 1211, 737
   size: 178, 178
   orig: 178, 178
   offset: 0, 0
   index: -1
+ship1
+  rotate: false
+  xy: 1068, 263
+  size: 140, 160
+  orig: 140, 160
+  offset: 0, 0
+  index: -1
+BlueBulletExplo
+  rotate: false
+  xy: 176, 3
+  size: 138, 138
+  orig: 138, 138
+  offset: 0, 0
+  index: 3
 ship2
   rotate: false
-  xy: 1129, 967
+  xy: 316, 33
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
 ship3
   rotate: false
-  xy: 1359, 1399
+  xy: 478, 63
   size: 160, 160
   orig: 160, 160
   offset: 0, 0
   index: -1
-ship4
-  rotate: false
-  xy: 1, 1
-  size: 173, 138
-  orig: 173, 138
-  offset: 0, 0
-  index: -1
 asteroid
   rotate: false
-  xy: 1521, 1440
+  xy: 640, 64
   size: 150, 159
   orig: 150, 159
   offset: 0, 0
   index: 5
-ship1
-  rotate: false
-  xy: 1027, 797
-  size: 140, 160
-  orig: 140, 160
-  offset: 0, 0
-  index: -1
-skull
-  rotate: false
-  xy: 1027, 635
-  size: 136, 160
-  orig: 136, 160
-  offset: 0, 0
-  index: -1
 asteroid
   rotate: false
-  xy: 1027, 483
+  xy: 792, 73
   size: 150, 150
   orig: 150, 150
   offset: 0, 0
   index: 4
+skull
+  rotate: false
+  xy: 944, 63
+  size: 136, 160
+  orig: 136, 160
+  offset: 0, 0
+  index: -1
 BlueBulletExplo
   rotate: false
-  xy: 1169, 816
+  xy: 1082, 112
   size: 148, 149
   orig: 148, 149
   offset: 0, 0
   index: 4
-BlueBulletExplo
-  rotate: false
-  xy: 176, 1
-  size: 138, 138
-  orig: 138, 138
-  offset: 0, 0
-  index: 3
-OrangeBulletExplo
-  rotate: false
-  xy: 316, 42
-  size: 149, 149
-  orig: 149, 149
-  offset: 0, 0
-  index: 4
 asteroid
   rotate: false
-  xy: 1359, 1272
-  size: 150, 125
-  orig: 150, 125
-  offset: 0, 0
-  index: 1
-asteroid
-  rotate: false
-  xy: 467, 108
+  xy: 1557, 1286
   size: 150, 129
   orig: 150, 129
   offset: 0, 0
   index: 2
-OrangeBulletExplo
-  rotate: false
-  xy: 1313, 1132
-  size: 138, 138
-  orig: 138, 138
-  offset: 0, 0
-  index: 3
 asteroid
   rotate: false
-  xy: 1027, 356
+  xy: 1359, 1238
   size: 150, 125
   orig: 150, 125
   offset: 0, 0
   index: 3
+OrangeBulletExplo
+  rotate: false
+  xy: 1330, 1087
+  size: 149, 149
+  orig: 149, 149
+  offset: 0, 0
+  index: 4
+OrangeBulletExplo
+  rotate: false
+  xy: 1328, 947
+  size: 138, 138
+  orig: 138, 138
+  offset: 0, 0
+  index: 3
 BlueBulletExplo
   rotate: false
-  xy: 1009, 241
+  xy: 1743, 1734
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: 2
-energy
-  rotate: false
-  xy: 1941, 1946
-  size: 100, 99
-  orig: 100, 99
-  offset: 0, 0
-  index: -1
-freeze
-  rotate: false
-  xy: 1941, 1845
-  size: 100, 99
-  orig: 100, 99
-  offset: 0, 0
-  index: -1
 OrangeBulletExplo
   rotate: false
-  xy: 1453, 1157
+  xy: 1715, 1619
   size: 113, 113
   orig: 113, 113
   offset: 0, 0
   index: 2
 control_stick
   rotate: false
-  xy: 1124, 243
+  xy: 1858, 1736
   size: 111, 111
   orig: 111, 111
   offset: 0, 0
   index: -1
-health
-  rotate: false
-  xy: 467, 7
-  size: 100, 99
-  orig: 100, 99
-  offset: 0, 0
-  index: -1
-nuke
-  rotate: false
-  xy: 1743, 1748
-  size: 100, 99
-  orig: 100, 99
-  offset: 0, 0
-  index: -1
-poison
-  rotate: false
-  xy: 1712, 1647
-  size: 100, 99
-  orig: 100, 99
-  offset: 0, 0
-  index: -1
-shield
-  rotate: false
-  xy: 569, 7
-  size: 100, 99
-  orig: 100, 99
-  offset: 0, 0
-  index: -1
 OrangeBulletExplo
   rotate: false
-  xy: 1845, 1785
+  xy: 1944, 1985
   size: 62, 62
   orig: 62, 62
   offset: 0, 0
   index: 1
 BlueBulletExplo
   rotate: false
-  xy: 1712, 1584
+  xy: 640, 1
   size: 61, 61
   orig: 61, 61
   offset: 0, 0
   index: 1
 rocket5
   rotate: false
-  xy: 1673, 1534
+  xy: 1511, 1298
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket6
   rotate: false
-  xy: 1673, 1467
+  xy: 1944, 1918
   size: 37, 65
   orig: 37, 65
   offset: 0, 0
   index: -1
 rocket1
   rotate: false
-  xy: 1712, 1518
+  xy: 1944, 1852
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket2
   rotate: false
-  xy: 1775, 1581
+  xy: 2008, 1983
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket3
   rotate: false
-  xy: 1814, 1682
+  xy: 1709, 1351
   size: 34, 64
   orig: 34, 64
   offset: 0, 0
   index: -1
 rocket4
   rotate: false
-  xy: 619, 173
+  xy: 1709, 1285
   size: 34, 64
   orig: 34, 64
+  offset: 0, 0
+  index: -1
+particle
+  rotate: false
+  xy: 1513, 1567
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 

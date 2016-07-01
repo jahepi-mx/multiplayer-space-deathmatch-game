@@ -25,7 +25,6 @@ public class Assets implements Disposable {
 	
 	private AssetManager manager;
 	private TextureAtlas atlas;
-	private ParticleEffect effect1;
 	private ParticleEffect effect2;
 	private ParticleEffect effect3;
 	private Sound audio1;
@@ -78,17 +77,13 @@ public class Assets implements Disposable {
 			preferences.putInteger("map", 2);
 		}
 		preferences.flush();
-		
-		effect1 = new ParticleEffect();
-		effect1.load(Gdx.files.internal("particles/effect1.pfx"), Gdx.files.internal("images"));
-		effect1.scaleEffect(Config.MIN_EXPLOSION_SIZE);
 
 		effect2 = new ParticleEffect();
-		effect2.load(Gdx.files.internal("particles/effect3.pfx"), Gdx.files.internal("images"));
+		effect2.load(Gdx.files.internal("particles/effect3.pfx"), atlas);
 		effect2.scaleEffect(Config.MIN_EXPLOSION_SIZE);
 
 		effect3 = new ParticleEffect();
-		effect3.load(Gdx.files.internal("particles/effect3.pfx"), Gdx.files.internal("images"));
+		effect3.load(Gdx.files.internal("particles/effect3.pfx"), atlas);
 		effect3.scaleEffect(Config.MAX_EXPLOSION_SIZE);
 
 		audio1 = Gdx.audio.newSound(Gdx.files.internal("audio/laser1.mp3"));
@@ -256,10 +251,6 @@ public class Assets implements Disposable {
 
 	public TextureRegion getRocket7() {
 		return rocket7;
-	}
-
-	public ParticleEffect getEffect1() {
-		return effect1;
 	}
 	
 	public ParticleEffect getEffect2() {
@@ -516,7 +507,6 @@ public class Assets implements Disposable {
 		audioSpeedUp.dispose();
 		destroySound.dispose();
 		fontGenerator.dispose();
-		effect1.dispose();
 		effect2.dispose();
 		UIFont.dispose();
 		UIFontSmall.dispose();
