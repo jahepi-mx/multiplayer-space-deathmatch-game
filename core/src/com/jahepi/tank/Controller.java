@@ -2,7 +2,6 @@ package com.jahepi.tank;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.jahepi.tank.entities.Missile;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
@@ -235,9 +234,8 @@ public class Controller {
 						opponent.isHitLevel(level);
 						tank.isHit(opponent);
 						// Check if each opponent´s missile collide against the rest of opponents
-						ArrayIterator<OpponentTank> iterator = new ArrayIterator<OpponentTank>(opponentTanks);
-						while (iterator.hasNext()) {
-							OpponentTank innerOpponent = iterator.next();
+						for (int e = 0; e < opponentTanks.size; e++) {
+							OpponentTank innerOpponent = opponentTanks.get(e);
 							if (innerOpponent != null && opponent != innerOpponent) {
 								opponent.isHit(innerOpponent);
 							}

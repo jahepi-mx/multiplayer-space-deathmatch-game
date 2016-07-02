@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.jahepi.tank.Controller.ControllerListener;
@@ -418,9 +417,9 @@ public class Render implements Disposable, ControllerListener {
 			shapeRenderer.setProjectionMatrix(camera.combined);
 			shapeRenderer.begin();
 			controller.getTank().debugRender(shapeRenderer);
-			ArrayIterator<OpponentTank> opponents2 = new ArrayIterator<OpponentTank>(controller.getOpponentTanks());
-			while (opponents2.hasNext()) {
-				OpponentTank opponentTank = opponents2.next();
+			Array<OpponentTank> opponents2 = controller.getOpponentTanks();
+			for (int e = 0; e < opponents2.size; e++) {
+				OpponentTank opponentTank = opponents2.get(e);
 				opponentTank.debugRender(shapeRenderer);
 			}
 			for (PowerUp powerUp : controller.getPowerUps()) {
@@ -463,10 +462,10 @@ public class Render implements Disposable, ControllerListener {
 			renderer.rect(x + xTank, y + yTank, width / 2, height / 2, width, height, 1, 1, rotation);
 		}
 		
-		ArrayIterator<OpponentTank> opponents = new ArrayIterator<OpponentTank>(controller.getOpponentTanks());
+		Array<OpponentTank> opponents = controller.getOpponentTanks();
 		renderer.setColor(Color.RED);
-		while (opponents.hasNext()) {
-			OpponentTank opponentTank = opponents.next();
+		for (int e = 0; e < opponents.size; e++) {
+			OpponentTank opponentTank = opponents.get(e);
 			float width = opponentTank.getWidth() * Config.MAP_SCALE_FACTOR;
 			float height = opponentTank.getHeight() * Config.MAP_SCALE_FACTOR;
 			float xTank = opponentTank.getX() * Config.MAP_SCALE_FACTOR;
