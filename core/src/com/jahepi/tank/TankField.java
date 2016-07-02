@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Json;
 import com.jahepi.tank.Controller.GameChangeStateListener;
 import com.jahepi.tank.ads.AdListener;
 import com.jahepi.tank.dialogs.Option;
+import com.jahepi.tank.mem.RunnableManager;
 import com.jahepi.tank.multiplayer.Client;
 import com.jahepi.tank.multiplayer.Server;
 import com.jahepi.tank.multiplayer.Server.ServerListener;
@@ -45,6 +46,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	private Assets assets;
 	private AdListener adListener;
 	private Option[] maps;
+	private RunnableManager runnableManager;
 	
 	public enum SCREEN_TYPE {
 		MAIN, GAMEOPTIONS, CREDITS, CONFIG, GAME
@@ -107,16 +109,13 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	@Override
 	public void onConnectionData(final String data) {
-		Gdx.app.postRunnable(new Runnable() {
-			@Override
-			public void run() {
-				//Gdx.app.log(TAG, Thread.currentThread().getName());
-				if (currentScreen instanceof GamePlay) {
-					GameState gameState = json.fromJson(GameState.class, data);
-					((GamePlay) currentScreen).updateGameState(gameState);
-				}
-			}
-		});
+		//Gdx.app.log(TAG, "Queue size " + runnableManager.getSize());
+		RunnableManager.RunnableTask runnableTask = (RunnableManager.RunnableTask) runnableManager.poll();
+		if (runnableTask != null) {
+			runnableTask.setData(data);
+			runnableTask.setTankField(this);
+			Gdx.app.postRunnable(runnableTask);
+		}
 	}
 	
 	@Override
@@ -302,6 +301,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			client.close();
 			client = null;
 		}
+		runnableManager.dispose();
 	}
 
 	public void init() {
@@ -320,6 +320,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			Option map3 = new Option(2, Language.getInstance().get("map3_text"));
 			Option map4 = new Option(3, Language.getInstance().get("map4_text"));
 			maps = new Option[] {map1, map2, map3, map4};
+			runnableManager = new RunnableManager(10);
 		}
 	}
 
@@ -347,5 +348,13 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 
 	public Option[] getMaps() {
 		return maps;
+	}
+
+	public Screen getCurrentScreen() {
+		return currentScreen;
+	}
+
+	public Json getJson() {
+		return json;
 	}
 }
