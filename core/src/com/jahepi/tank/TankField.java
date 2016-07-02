@@ -294,6 +294,14 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		debugRender = null;
 		batch = null;
 		assets = null;
+		if (server != null) {
+			server.close();
+			server = null;
+		}
+		if (client != null) {
+			client.close();
+			client = null;
+		}
 	}
 
 	public void init() {
