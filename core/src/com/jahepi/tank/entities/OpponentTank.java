@@ -54,6 +54,7 @@ public class OpponentTank extends Tank {
 		for (Missile missile : missiles) {
 			if (missile != null) {
 				if (missile.isOutOfBounds() || missile.isDead()) {
+					missilePool.free(missile);
 					missiles.removeValue(missile, true);
 				}
 				missile.update(deltatime);
@@ -113,7 +114,8 @@ public class OpponentTank extends Tank {
 			laser.releaseShoot();
 		}
 		for (MissileState missileState : tankState.getMissiles()) {
-			Missile missile = new Missile(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false);
+			Missile missile = missilePool.obtain();
+			missile.init(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false);
 			missile.setSound(sound);
 			missile.playSound();
 			if (isSend) {

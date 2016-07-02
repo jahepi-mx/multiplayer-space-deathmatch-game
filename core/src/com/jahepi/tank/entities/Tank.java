@@ -13,14 +13,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.jahepi.tank.Assets;
 import com.jahepi.tank.Config;
 import com.jahepi.tank.Util;
 import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
-import com.jahepi.tank.entities.PowerUp.TYPE;
 import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
 import com.jahepi.tank.levels.Level;
-import com.jahepi.tank.multiplayer.dto.MissileState;
 import com.jahepi.tank.multiplayer.dto.TankState;
 
 public class Tank extends GameEntity {
@@ -68,6 +67,12 @@ public class Tank extends GameEntity {
 	protected Vector2 lastPosition;
 	protected boolean isNew;
 	protected Array<PowerUp> pendingPowerUps;
+	protected final Pool<Missile> missilePool = new Pool<Missile>(20) {
+		@Override
+		protected Missile newObject() {
+			return new Missile();
+		}
+	};
 	
 	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
 		super();
@@ -101,7 +106,7 @@ public class Tank extends GameEntity {
 		this.effect = effect;
 		this.sound = sound;
 		missileSize = new Vector2();
-		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
+		rectangle.setVertices(new float[]{0, 0, size.x, 0, size.x, size.y, 0, size.y});
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setOrigin(size.x / 2, size.y / 2);
 		laser = new Laser();
@@ -217,7 +222,8 @@ public class Tank extends GameEntity {
         if (megaShootEnable) {
             megaShootEnable = false;
             Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
-            Missile missile = new Missile(position.x, position.y, rotation, 4.0f, 4.0f, Config.MAX_EXPLOSION_SIZE, TEXTURE_MISSILE_TYPE.M7, missileSpeed, 5, true);
+			Missile missile = missilePool.obtain();
+            missile.init(position.x, position.y, rotation, 4.0f, 4.0f, Config.MAX_EXPLOSION_SIZE, TEXTURE_MISSILE_TYPE.M7, missileSpeed, 5, true);
             missile.setSound(sound);
             missile.playSound();
             missiles.add(missile);
@@ -230,7 +236,8 @@ public class Tank extends GameEntity {
 			laser.shoot();
 			if (!shooting) {
 				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
-				Missile missile = new Missile(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, missileDamage, true);
+				Missile missile = missilePool.obtain();
+				missile.init(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, missileDamage, true);
 				missile.setSound(sound);
 				missile.playSound();
 				missiles.add(missile);
@@ -342,6 +349,7 @@ public class Tank extends GameEntity {
 		for (Missile missile : missiles) {
 			if (missile != null) {
 				if (missile.isOutOfBounds() || missile.isDead()) {
+					missilePool.free(missile);
 					missiles.removeValue(missile, true);
 				}
 				missile.update(deltatime);

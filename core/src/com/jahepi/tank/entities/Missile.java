@@ -9,12 +9,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Pool;
 import com.jahepi.tank.Assets;
 import com.jahepi.tank.Config;
 import com.jahepi.tank.entities.Tank.TEXTURE_TYPE;
 import com.jahepi.tank.multiplayer.dto.MissileState;
 
-public class Missile extends GameEntity {
+public class Missile extends GameEntity implements Pool.Poolable {
 
 	private static final String TAG = "Missile";
 	public enum TEXTURE_MISSILE_TYPE {
@@ -32,9 +33,12 @@ public class Missile extends GameEntity {
 	private Assets assets;
 	private int damage;
 	private float textureRotation;
-	
-	public Missile(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, int damage, boolean fixPosition) {
+
+	public Missile() {
 		super();
+	}
+	
+	public void init(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, int damage, boolean fixPosition) {
 		assets = Assets.getInstance();
 		this.textureType = textureType;
 		size.set(width, height);
@@ -180,5 +184,20 @@ public class Missile extends GameEntity {
 	public static TEXTURE_MISSILE_TYPE getRandomTextureType() {
 		int rand = MathUtils.random(0, TEXTURE_TYPE.values().length - 2);
 		return TEXTURE_MISSILE_TYPE.values()[rand];
+	}
+
+	@Override
+	public void reset() {
+		send = false;
+		hit = false;
+		dead = false;
+		effect = null;
+		texture = null;
+		effectScale = 0;
+		sound = null;
+		textureType = null;
+		assets = null;
+		damage = 0;
+		textureRotation = 0;
 	}
 }
