@@ -1,8 +1,9 @@
 package com.jahepi.tank.multiplayer.dto;
 
+import com.badlogic.gdx.utils.Pool;
 import com.jahepi.tank.entities.PowerUp;
 
-public class PowerUpState {
+public class PowerUpState implements Pool.Poolable {
 
 	private float x;
 	private float y;
@@ -35,4 +36,10 @@ public class PowerUpState {
 		this.t = type;
 	}
 
+	@Override
+	public void reset() {
+		x = 0;
+		y = 0;
+		t = null;
+	}
 }

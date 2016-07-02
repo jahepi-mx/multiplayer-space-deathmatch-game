@@ -2,6 +2,7 @@ package com.jahepi.tank;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.jahepi.tank.entities.Missile;
 import com.jahepi.tank.entities.OpponentTank;
 import com.jahepi.tank.entities.PowerUp;
@@ -10,6 +11,7 @@ import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
 import com.jahepi.tank.levels.Level;
 import com.jahepi.tank.levels.LevelFactory;
 import com.jahepi.tank.multiplayer.dto.GameState;
+import com.jahepi.tank.multiplayer.dto.MissileState;
 import com.jahepi.tank.multiplayer.dto.PowerUpState;
 import com.jahepi.tank.multiplayer.dto.TankState;
 
@@ -35,6 +37,28 @@ public class Controller {
 	private CameraHelper cameraHelper;
 	private LevelFactory levelFactory;
 	private Level level;
+	private GameState gameState;
+
+	private final Pool<TankState> tankStatePool = new Pool<TankState>(4) {
+		@Override
+		protected TankState newObject() {
+			return new TankState();
+		}
+	};
+
+	private final Pool<MissileState> missileStatePool = new Pool<MissileState>() {
+		@Override
+		protected MissileState newObject() {
+			return new MissileState();
+		}
+	};
+
+	private final Pool<PowerUpState> powerUpStatePool = new Pool<PowerUpState>() {
+		@Override
+		protected PowerUpState newObject() {
+			return new PowerUpState();
+		}
+	};
 	
 	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer, String name) {
 		winner = "";
@@ -51,6 +75,7 @@ public class Controller {
 		powerUpInterval = MathUtils.random(5.0f, 15.0f);
 		cameraHelper = new CameraHelper(Config.CAMERA_WIDTH, Config.CAMERA_HEIGHT, (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2), (Config.HEIGHT / 2) - (Config.CAMERA_HEIGHT / 2));
 		levelFactory = new LevelFactory();
+		gameState = new GameState();
 	}
 	
 	public void setTankId(String connectionId) {
@@ -254,7 +279,7 @@ public class Controller {
 			}
 		}
 		
-		GameState gameState = new GameState();
+		gameState.reset();
 		
 		for (PowerUp powerUp : powerUps) {
 			if (powerUp != null) {
@@ -278,7 +303,7 @@ public class Controller {
 				}
 				
 				if (!powerUp.isSend()) {
-					gameState.getPowerUps().add(powerUp.getState());
+					gameState.getPowerUps().add(powerUp.getState(powerUpStatePool.obtain()));
 					powerUp.setSend(true);
 				}
 				
@@ -293,17 +318,18 @@ public class Controller {
 		gameState.setWinner(winner);
 		gameState.setStarted(started);
 		gameState.setId(tank.getId());
-		gameState.addTankState(tank.getState());
+		gameState.addTankState(tank.getState(tankStatePool.obtain(), missileStatePool, powerUpStatePool));
 		if (isServer) {
 			gameState.setLevelIndex(levelFactory.getSelectedLevel());
 			for (OpponentTank opponent : opponentTanks) {
 				if (opponent != null) {
 					opponent.setIsNew(false);
-					gameState.addTankState(opponent.getState());
+					gameState.addTankState(opponent.getState(tankStatePool.obtain(), missileStatePool, powerUpStatePool));
 				}
 			}
 		}
 		gameChangeStateListener.onGameChangeState(gameState);
+		gameState.free(tankStatePool, missileStatePool, powerUpStatePool);
 	}
 	
 	public void speedUp() {

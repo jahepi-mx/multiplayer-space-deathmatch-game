@@ -1,8 +1,9 @@
 package com.jahepi.tank.multiplayer.dto;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 
-public class GameState {
+public class GameState implements Pool.Poolable {
 
 	// Id of the main player sending the data through sockets
 	private String i;
@@ -80,5 +81,32 @@ public class GameState {
 
 	public void setLevelIndex(int levelIndex) {
 		this.l = levelIndex;
+	}
+
+	@Override
+	public void reset() {
+		i = null;
+		l = 0;
+		ts.clear();
+		p = false;
+		s = false;
+		w = false;
+		wr = null;
+		ps.clear();
+	}
+
+	public void free(Pool<TankState> tankStatePool, Pool<MissileState> missileStatePool, Pool<PowerUpState> powerUpStatePool) {
+		for (PowerUpState powerUpState : ps) {
+			powerUpStatePool.free(powerUpState);
+		}
+		for (TankState tankState : ts) {
+			for (MissileState missileState : tankState.getMissiles()) {
+				missileStatePool.free(missileState);
+			}
+			for (PowerUpState powerUpState : tankState.getPendingPowerUps()) {
+				powerUpStatePool.free(powerUpState);
+			}
+			tankStatePool.free(tankState);
+		}
 	}
 }

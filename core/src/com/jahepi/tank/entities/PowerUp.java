@@ -184,8 +184,7 @@ public class PowerUp extends GameEntity {
 		return strategy;
 	}
 	
-	public PowerUpState getState() {
-		PowerUpState powerUpState = new PowerUpState();
+	public PowerUpState getState(PowerUpState powerUpState) {
 		powerUpState.setX(position.x);
 		powerUpState.setY(position.y);
 		powerUpState.setType(type);

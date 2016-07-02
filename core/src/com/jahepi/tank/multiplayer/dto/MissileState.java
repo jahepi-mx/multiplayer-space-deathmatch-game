@@ -1,8 +1,9 @@
 package com.jahepi.tank.multiplayer.dto;
 
+import com.badlogic.gdx.utils.Pool;
 import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 
-public class MissileState {
+public class MissileState implements Pool.Poolable {
 
 	private float e, w, h, x, y, r, s;
 	private TEXTURE_MISSILE_TYPE t;
@@ -82,5 +83,12 @@ public class MissileState {
 
 	public void setDamage(int damage) {
 		this.d = damage;
+	}
+
+	@Override
+	public void reset() {
+		e = w = h = x = y = r = s = 0;
+		t = null;
+		d = 0;
 	}
 }

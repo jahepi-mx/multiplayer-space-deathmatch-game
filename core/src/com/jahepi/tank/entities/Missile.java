@@ -167,8 +167,7 @@ public class Missile extends GameEntity implements Pool.Poolable {
 		return damage;
 	}
 
-	public MissileState getState() {
-		MissileState missileState = new MissileState();
+	public MissileState getState(MissileState missileState) {
 		missileState.setX(position.x);
 		missileState.setY(position.y);
 		missileState.setWidth(size.x);

@@ -1,11 +1,12 @@
 package com.jahepi.tank.multiplayer.dto;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Pool;
 import com.jahepi.tank.entities.PowerUp;
 import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 import com.jahepi.tank.entities.Tank.TEXTURE_TYPE;
 
-public class TankState {
+public class TankState implements Pool.Poolable {
 
 	private String i, n;
 	private float x, y, r, p, v;
@@ -174,5 +175,22 @@ public class TankState {
 
 	public void addPendingPowerUp(PowerUpState powerUpState) {
 		this.pus.add(powerUpState);
+	}
+
+	@Override
+	public void reset() {
+		i = null;
+		n = null;
+		x = y = r = p = v = 0;
+		ms.clear();
+		ps.clear();
+		pus.clear();
+		s = false;
+		rm = false;
+		m = false;
+		su = false;
+		l = w = 0;
+		t = null;
+		mt = null;
 	}
 }
