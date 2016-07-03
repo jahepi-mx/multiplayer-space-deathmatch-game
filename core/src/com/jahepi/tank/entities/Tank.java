@@ -20,6 +20,7 @@ import com.jahepi.tank.Util;
 import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
 import com.jahepi.tank.levels.Level;
+import com.jahepi.tank.mem.GameStateManager;
 import com.jahepi.tank.multiplayer.dto.MissileState;
 import com.jahepi.tank.multiplayer.dto.PowerUpState;
 import com.jahepi.tank.multiplayer.dto.TankState;
@@ -456,7 +457,8 @@ public class Tank extends GameEntity {
 		setRandomPosition();
 	}
 	
-	public TankState getState(TankState tankState, Pool<MissileState> missileStatePool, Pool<PowerUpState> powerUpStatePool) {
+	public TankState getState(GameStateManager gameStateManager) {
+		TankState tankState = gameStateManager.obtainTankState();
 		tankState.setX(position.x);
 		tankState.setY(position.y);
 		tankState.setRotation(rotation);
@@ -474,7 +476,7 @@ public class Tank extends GameEntity {
 		for (Missile missile : missiles) {
 			if (missile != null && !missile.isSend()) {
 				missile.setSend(true);
-				tankState.addMissile(missile.getState(missileStatePool.obtain()));
+				tankState.addMissile(missile.getState(gameStateManager.obtainMissileState()));
 			}
 		}
 		for (PowerUpStateStrategy strategy: collectedPowerUpStrategies) {
@@ -485,7 +487,7 @@ public class Tank extends GameEntity {
 		}
 		if (pendingPowerUps.size > 0) {
 			for (PowerUp powerUp : pendingPowerUps) {
-				tankState.addPendingPowerUp(powerUp.getState(powerUpStatePool.obtain()));
+				tankState.addPendingPowerUp(powerUp.getState(gameStateManager.obtainPowerUpState()));
 			}
 			pendingPowerUps.clear();
 		}

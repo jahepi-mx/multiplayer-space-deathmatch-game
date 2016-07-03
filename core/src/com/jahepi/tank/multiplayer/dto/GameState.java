@@ -2,6 +2,7 @@ package com.jahepi.tank.multiplayer.dto;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.jahepi.tank.mem.GameStateManager;
 
 public class GameState implements Pool.Poolable {
 
@@ -95,18 +96,18 @@ public class GameState implements Pool.Poolable {
 		ps.clear();
 	}
 
-	public void free(Pool<TankState> tankStatePool, Pool<MissileState> missileStatePool, Pool<PowerUpState> powerUpStatePool) {
+	public void free(GameStateManager gameStateManager) {
 		for (PowerUpState powerUpState : ps) {
-			powerUpStatePool.free(powerUpState);
+			gameStateManager.freePowerUpState(powerUpState);
 		}
 		for (TankState tankState : ts) {
 			for (MissileState missileState : tankState.getMissiles()) {
-				missileStatePool.free(missileState);
+				gameStateManager.freeMissileState(missileState);
 			}
 			for (PowerUpState powerUpState : tankState.getPendingPowerUps()) {
-				powerUpStatePool.free(powerUpState);
+				gameStateManager.freePowerUpState(powerUpState);
 			}
-			tankStatePool.free(tankState);
+			gameStateManager.freeTankState(tankState);
 		}
 	}
 }
