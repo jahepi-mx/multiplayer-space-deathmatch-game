@@ -22,11 +22,13 @@ public class Client extends Thread {
 	private DataOutputStream out;
 	private boolean active, notifyNewConnection;
 	private String identifier;
-	private ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<String>(240);
+	private ArrayBlockingQueue<String> queue;
+	private SendDataThread sendDataThread;
 	
 	public Client(Socket socket, ServerListener listener, boolean notifyNewConnection) {
 		active = true;
 		this.notifyNewConnection = notifyNewConnection;
+		queue = new ArrayBlockingQueue<String>(240);
 		this.socket = socket;
 		try {
 			this.socket.setTcpNoDelay(true);
@@ -46,6 +48,7 @@ public class Client extends Thread {
 	public Client(String host, int port, ServerListener listener, boolean notifyNewConnection) {
 		active = true;
 		this.notifyNewConnection = notifyNewConnection;
+		queue = new ArrayBlockingQueue<String>(240);
 		this.listener = listener;
 		try {
 			socket = new Socket();
@@ -71,9 +74,9 @@ public class Client extends Thread {
 			}
 			if (active && notifyNewConnection) {
 				listener.onNewConnection(identifier);
+				sendDataThread = new SendDataThread();
+				sendDataThread.start();
 			}
-			SendDataThread sendThread = new SendDataThread();
-			sendThread.start();
 			while (active) {
 				String data = in.readUTF();
 				if (listener != null) {
