@@ -43,7 +43,7 @@ public class ServerFinderExecutor {
                             }
                         }
                         executor.shutdown();
-                        executor.awaitTermination(120, TimeUnit.SECONDS);
+                        executor.awaitTermination(20, TimeUnit.SECONDS);
                         Array<InetSocketAddress> socketAddresses = new Array<InetSocketAddress>();
                         for (Future<InetSocketAddress> future : futures) {
                             InetSocketAddress address = future.get();
