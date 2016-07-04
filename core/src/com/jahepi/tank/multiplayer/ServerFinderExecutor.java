@@ -27,7 +27,7 @@ public class ServerFinderExecutor {
 
     public void search(final int port, final int ms) {
         if (!isActive()) {
-            executor = Executors.newFixedThreadPool(60);
+            executor = Executors.newFixedThreadPool(64);
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
