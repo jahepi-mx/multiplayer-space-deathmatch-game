@@ -57,7 +57,9 @@ public class AndroidLauncher extends AndroidApplication implements com.jahepi.ta
 		adView.setAdUnitId(Config.ADMOB_KEY);
 
 		AdRequest.Builder builder = new AdRequest.Builder();
-		builder.addTestDevice(Config.ADMOB_TEST_ADS_KEY);
+		if (Config.ENABLE_TEST_ADDS) {
+			builder.addTestDevice(Config.ADMOB_TEST_ADS_KEY);
+		}
 
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -91,7 +93,9 @@ public class AndroidLauncher extends AndroidApplication implements com.jahepi.ta
 
 	private void loadInterstitial() {
 		AdRequest.Builder builder = new AdRequest.Builder();
-		builder.addTestDevice(Config.ADMOB_TEST_ADS_KEY);
+		if (Config.ENABLE_TEST_ADDS) {
+			builder.addTestDevice(Config.ADMOB_TEST_ADS_KEY);
+		}
 		interstitialAd.loadAd(builder.build());
 	}
 

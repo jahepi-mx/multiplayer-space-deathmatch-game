@@ -74,6 +74,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		} else if (type == SCREEN_TYPE.GAME) {
 			currentScreen = new GamePlay(this);
 			setScreen(currentScreen);
+			adListener.show(false);
 		} else if (type == SCREEN_TYPE.CONFIG) {
 			currentScreen = new Configuration(this);
 			setScreen(currentScreen);
