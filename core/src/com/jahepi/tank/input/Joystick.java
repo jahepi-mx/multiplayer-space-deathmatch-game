@@ -1,9 +1,9 @@
 package com.jahepi.tank.input;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.jahepi.tank.Assets;
 
 /**
  * Created by jahepi on 22/05/16.
@@ -19,10 +19,12 @@ public class Joystick {
     private boolean isActive;
     private float degrees;
     private float distance;
+    private TextureRegion controlStick;
 
-    public Joystick() {
+    public Joystick(TextureRegion controlStick) {
         size = new Vector2();
         position = new Vector2();
+        this.controlStick = controlStick;
     }
 
     public void setSize(float width, float height) {
@@ -71,7 +73,7 @@ public class Joystick {
         float yCenter = yOffset + (size.y / 2);
         float stickSize = 40;
         if (!isActive()) {
-            batch.draw(Assets.getInstance().getControlStick(), xCenter - (stickSize / 2), yCenter - (stickSize / 2), stickSize, stickSize);
+            batch.draw(controlStick, xCenter - (stickSize / 2), yCenter - (stickSize / 2), stickSize, stickSize);
         } else {
             if (this.distance >= ((size.x / 2) * 0.75f)) {
                 distance = (size.x / 2) * 0.75f;
@@ -80,7 +82,7 @@ public class Joystick {
             }
             float x = xCenter - (stickSize / 2) + (MathUtils.cosDeg(degrees) * distance);
             float y = yCenter - (stickSize / 2) + (MathUtils.sinDeg(degrees) * distance);
-            batch.draw(Assets.getInstance().getControlStick(), x, y, stickSize, stickSize);
+            batch.draw(controlStick, x, y, stickSize, stickSize);
         }
         batch.end();
     }

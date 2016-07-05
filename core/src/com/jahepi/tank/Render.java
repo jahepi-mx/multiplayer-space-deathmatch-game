@@ -62,7 +62,7 @@ public class Render implements Disposable, ControllerListener {
 		this.shapeRenderer = tankField.getDebugRender();
 		this.batch = tankField.getBatch();
 		assets = Assets.getInstance();
-		joystick = new Joystick();
+		joystick = new Joystick(assets.getControlStick());
 		joystick.setSize(150, 150);
 		joystick.setXOffset(10);
 		
