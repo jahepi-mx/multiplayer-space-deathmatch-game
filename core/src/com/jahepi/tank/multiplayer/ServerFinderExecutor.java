@@ -87,13 +87,15 @@ public class ServerFinderExecutor {
                 InetSocketAddress inetSocketAddress = new InetSocketAddress(address, port);
                 Socket socketConnection = null;
                 try {
-                    listener.onServerStatusExecutor(address.toString());
                     socketConnection = new Socket();
                     socketConnection.connect(inetSocketAddress, ms);
                 } catch (Exception exp) {
                     exp.printStackTrace();
                     return null;
+                } finally {
+                    listener.onServerStatusExecutor(address.toString());
                 }
+
                 if (socketConnection != null) {
                     try {
                         socketConnection.close();
