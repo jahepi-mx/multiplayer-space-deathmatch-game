@@ -47,7 +47,7 @@
     <item name="rematch_label">CLICK HERE FOR A REMATCH</item>
     <item name="life_label">Life: %s</item>
     <item name="nickname_label">Nickname</item>
-    <item name="nickname_desc_label">Set name and type of our spaceship</item>
+    <item name="nickname_desc_label">Set name and type of the spaceship</item>
     <item name="opponent_life_label">Player</item>
     <item name="opponent_win_label">Wins</item>
     <item name="wins_label">Wins %s</item>

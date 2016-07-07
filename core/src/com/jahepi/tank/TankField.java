@@ -322,6 +322,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			Option map4 = new Option(3, Language.getInstance().get("map4_text"));
 			maps = new Option[] {map1, map2, map3, map4};
 			runnableManager = new RunnableManager(10);
+			Gdx.input.setCatchBackKey(true);
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.jahepi.tank.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -103,6 +104,21 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 		ipServerBtn.setColor(Color.CYAN);
 
 		ipTextField = new TextField("", skin);
+
+		ipTextField.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.getTextInput(new Input.TextInputListener() {
+					@Override
+					public void input(String text) {
+						ipTextField.setText(text);
+					}
+					@Override
+					public void canceled() {
+					}
+				}, Language.getInstance().get("ip_server_desc_label"), ipTextField.getText(), "");
+			}
+		});
 		
 		LabelStyle style = new LabelStyle();
 		style.font = assets.getUIFont();

@@ -1,6 +1,7 @@
 package com.jahepi.tank.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -179,7 +180,60 @@ public class Configuration implements Screen {
 				shipDialog.show(stage);
 			}
 		});
-		
+
+		nicknameTextField.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.getTextInput(new Input.TextInputListener() {
+					@Override
+					public void input(String text) {
+						nicknameTextField.setText(text);
+						assets.setNickname(nicknameTextField.getText());
+					}
+
+					@Override
+					public void canceled() {
+					}
+				}, Language.getInstance().get("nickname_desc_label"), assets.getNickname(), "");
+			}
+		});
+
+		portTextField.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.getTextInput(new Input.TextInputListener() {
+					@Override
+					public void input(String text) {
+						portTextField.setText(text);
+						try {
+							assets.setPort(Integer.parseInt(portTextField.getText()));
+						} catch (Exception e) {}
+					}
+					@Override
+					public void canceled() {
+					}
+				}, Language.getInstance().get("port_desc_label"), "" + assets.getPort(), "");
+			}
+		});
+
+		msTextField.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.getTextInput(new Input.TextInputListener() {
+					@Override
+					public void input(String text) {
+						msTextField.setText(text);
+						try {
+							assets.setMs(Integer.parseInt(msTextField.getText()));
+						} catch (Exception e) {}
+					}
+					@Override
+					public void canceled() {
+					}
+				}, Language.getInstance().get("ms_desc_label"), "" + assets.getMs(), "");
+			}
+		});
+
 		Table table = new Table();
 		table.padTop(40);
 		table.add(titleLabel).pad(2.0f).colspan(3);
