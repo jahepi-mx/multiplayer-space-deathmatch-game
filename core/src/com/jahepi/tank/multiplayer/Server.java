@@ -18,7 +18,7 @@ public class Server {
 	private Thread thread;
 	private boolean running;
 	private ArrayBlockingQueue<Client> clients;
-	private ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<String>(240);
+	private ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<String>(64);
 	private ServerListener listener;
 	private SendDataThread sendDataThread;
 	

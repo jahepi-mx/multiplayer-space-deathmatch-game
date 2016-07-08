@@ -28,7 +28,7 @@ public class Client extends Thread {
 	public Client(Socket socket, ServerListener listener, boolean notifyNewConnection) {
 		active = true;
 		this.notifyNewConnection = notifyNewConnection;
-		queue = new ArrayBlockingQueue<String>(240);
+		queue = new ArrayBlockingQueue<String>(64);
 		this.socket = socket;
 		try {
 			this.socket.setTcpNoDelay(true);
@@ -48,7 +48,7 @@ public class Client extends Thread {
 	public Client(String host, int port, ServerListener listener, boolean notifyNewConnection) {
 		active = true;
 		this.notifyNewConnection = notifyNewConnection;
-		queue = new ArrayBlockingQueue<String>(240);
+		queue = new ArrayBlockingQueue<String>(64);
 		this.listener = listener;
 		try {
 			socket = new Socket();

@@ -38,6 +38,8 @@ public class Controller {
 	private Level level;
 	private GameState gameState;
 	private GameStateManager gameStateManager;
+	private float deltatimeRegister;
+	private float deltatimeLimit;
 	
 	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer, String name) {
 		winner = "";
@@ -258,8 +260,15 @@ public class Controller {
 				}
 			}
 		}
-		
-		gameState.reset();
+
+		// Send data through sockets N times per second
+		float fps = 1 / deltatime;
+		deltatimeLimit = (fps / 16) / fps;
+		deltatimeRegister += deltatime;
+
+		if (deltatimeRegister >= deltatimeLimit) {
+			gameState.reset();
+		}
 		
 		for (PowerUp powerUp : powerUps) {
 			if (powerUp != null) {
@@ -283,8 +292,10 @@ public class Controller {
 				}
 				
 				if (!powerUp.isSend()) {
-					gameState.getPowerUps().add(powerUp.getState(gameStateManager.obtainPowerUpState()));
-					powerUp.setSend(true);
+					if (deltatimeRegister >= deltatimeLimit) {
+						gameState.getPowerUps().add(powerUp.getState(gameStateManager.obtainPowerUpState()));
+						powerUp.setSend(true);
+					}
 				}
 				
 				if (powerUp.isDead()) {
@@ -292,24 +303,27 @@ public class Controller {
 				}
 			}
 		}
-		
-		gameState.setPlaying(isPlaying());
-		gameState.setWin(win);
-		gameState.setWinner(winner);
-		gameState.setStarted(started);
-		gameState.setId(tank.getId());
-		gameState.addTankState(tank.getState(gameStateManager));
-		if (isServer) {
-			gameState.setLevelIndex(levelFactory.getSelectedLevel());
-			for (OpponentTank opponent : opponentTanks) {
-				if (opponent != null) {
-					opponent.setIsNew(false);
-					gameState.addTankState(opponent.getState(gameStateManager));
+
+		if (deltatimeRegister >= deltatimeLimit) {
+			gameState.setPlaying(isPlaying());
+			gameState.setWin(win);
+			gameState.setWinner(winner);
+			gameState.setStarted(started);
+			gameState.setId(tank.getId());
+			gameState.addTankState(tank.getState(gameStateManager));
+			if (isServer) {
+				gameState.setLevelIndex(levelFactory.getSelectedLevel());
+				for (OpponentTank opponent : opponentTanks) {
+					if (opponent != null) {
+						opponent.setIsNew(false);
+						gameState.addTankState(opponent.getState(gameStateManager));
+					}
 				}
 			}
+			gameChangeStateListener.onGameChangeState(gameState);
+			gameState.free(gameStateManager);
+			deltatimeRegister = 0;
 		}
-		gameChangeStateListener.onGameChangeState(gameState);
-		gameState.free(gameStateManager);
 	}
 	
 	public void speedUp() {
