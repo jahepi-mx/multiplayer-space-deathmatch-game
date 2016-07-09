@@ -194,7 +194,7 @@ public class Configuration implements Screen {
 					@Override
 					public void canceled() {
 					}
-				}, Language.getInstance().get("nickname_desc_label"), assets.getNickname(), "");
+				}, Language.getInstance().get("nickname_desc_label2"), assets.getNickname(), "");
 			}
 		});
 

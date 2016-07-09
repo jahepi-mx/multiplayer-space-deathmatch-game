@@ -40,6 +40,7 @@
     <item name="search_server_desc_label">Inicia esta opción para buscar un servidor en la red local.</item>
     <item name="ip_server_desc_label">Si sabes la IP del servidor, escríbela aquí.</item>
     <item name="error_network">No se encontró un servidor de juego</item>
+    <item name="error_server_network">No se pudo arrancar el servidor, verifica la red.</item>
     <item name="error_disconnect">Desconectado del servidor</item>
     <item name="waiting_label">Esperando jugadores para iniciar partida,%spresiona el botón iniciar%suna vez que los jugadores se conecten.</item>
     <item name="waiting_opponent_label">Esperando que la batalla inicie...</item>
@@ -48,6 +49,7 @@
     <item name="life_label">Vida: %s</item>
     <item name="nickname_label">Nombre</item>
     <item name="nickname_desc_label">Asigna el nombre y tipo de nave de combate</item>
+    <item name="nickname_desc_label2">Asigna el nombre</item>
     <item name="opponent_life_label">Jugador</item>
     <item name="opponent_win_label">Victorias</item>
     <item name="wins_label">Ganado %s</item>

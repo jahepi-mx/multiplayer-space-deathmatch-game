@@ -190,14 +190,14 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			changeScreen(SCREEN_TYPE.GAME);
 		} else {
 			if (currentScreen instanceof GameOptions) {
-				((GameOptions) currentScreen).showConnectionError();
+				((GameOptions) currentScreen).showServerConnectionError();
 			}
 		}
 	}
 	
 	@Override
 	public void onServerFound(final Socket socket) {
-		Gdx.app.postRunnable(new Runnable() {		
+		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run() {
 				if (startClient(socket)) {
@@ -213,7 +213,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 
 	@Override
 	public void onServerNotFound(final int port) {
-		Gdx.app.postRunnable(new Runnable() {		
+		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run() {
 				if (currentScreen instanceof GameOptions) {
@@ -296,11 +296,6 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	}
 
 	@Override
-	public void resume() {
-		super.resume();
-	}
-
-	@Override
 	public void dispose() {
 		batch.dispose();
 		debugRender.dispose();
@@ -308,14 +303,7 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 		debugRender = null;
 		batch = null;
 		assets = null;
-		if (server != null) {
-			server.close();
-			server = null;
-		}
-		if (client != null) {
-			client.close();
-			client = null;
-		}
+		closeConnection();
 		runnableManager.dispose();
 	}
 

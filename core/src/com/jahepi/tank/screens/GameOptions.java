@@ -228,7 +228,12 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 		errorLabel.setText(Language.getInstance().get("error_network"));
 		searchServerLabel.setText(Language.getInstance().get("search_server_btn"));
 	}
-	
+
+	public void showServerConnectionError() {
+		errorLabel.setText(Language.getInstance().get("error_server_network"));
+		searchServerLabel.setText(Language.getInstance().get("search_server_btn"));
+	}
+
 	public void showDisconnectError() {
 		errorLabel.setText(Language.getInstance().get("error_disconnect"));
 	}

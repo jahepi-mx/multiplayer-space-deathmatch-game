@@ -40,6 +40,7 @@
     <item name="search_server_desc_label">Start this option to search for a game server on the local network.</item>
     <item name="ip_server_desc_label">If you know the server IP, type it here to connect.</item>
     <item name="error_network">Could not find a game server</item>
+    <item name="error_server_network">Couln´t run server, check your network.</item>
     <item name="error_disconnect">Disconnected from server</item>
     <item name="waiting_label">Waiting for players to join,%spress start button once%sthe players are connected.</item>
     <item name="waiting_opponent_label">Waiting for the match to start...</item>
@@ -48,6 +49,7 @@
     <item name="life_label">Life: %s</item>
     <item name="nickname_label">Nickname</item>
     <item name="nickname_desc_label">Set name and type of the spaceship</item>
+    <item name="nickname_desc_label2">Set name</item>
     <item name="opponent_life_label">Player</item>
     <item name="opponent_win_label">Wins</item>
     <item name="wins_label">Wins %s</item>
