@@ -20,8 +20,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Assets implements Disposable {
-
-	private static Assets self;
 	
 	private AssetManager manager;
 	private TextureAtlas atlas;
@@ -44,7 +42,7 @@ public class Assets implements Disposable {
 
 	private String[] nicknames = {"Taco", "Burrito", "Chilakil", "Burgerman", "Ponnio", "Panucho"};
 
-	private Assets() {
+	public Assets() {
 		manager = new AssetManager();
 		manager.load("images/multiplayer.pack", TextureAtlas.class);
 		manager.finishLoading();
@@ -190,13 +188,6 @@ public class Assets implements Disposable {
 		life1 = atlas.findRegion("life1");
 		life2 = atlas.findRegion("life2");
 
-	}
-	
-	public static Assets getInstance() {
-		if (self == null) {
-			self = new Assets();
-		}
-		return self;
 	}
 
 	public TextureRegion getMainBackground() {
@@ -498,7 +489,6 @@ public class Assets implements Disposable {
 
 	@Override
 	public void dispose() {
-		self = null;
 		monochromeShader.dispose();
 		atlas.dispose();
 		music.dispose();

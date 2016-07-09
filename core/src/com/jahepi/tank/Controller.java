@@ -42,12 +42,12 @@ public class Controller {
 	private float deltatimeLimit;
 	private Assets assets;
 
-	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer, String name) {
+	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer, String name, Assets assets) {
 		winner = "";
 		temporalHolder = new Array<Tank>();
-		assets = Assets.getInstance();
+		this.assets = assets;
 		opponentTanks = new Array<OpponentTank>();
-		tank = new Tank(name, Tank.getTextureType(assets.getPlayer()), Missile.getRandomTextureType(), assets.getEffect2(), assets.getAudio1());
+		tank = new Tank(name, Tank.getTextureType(assets.getPlayer()), Missile.getRandomTextureType(), this.assets);
 		tank.setMissileSize(1.0f, 0.5f);
 		this.controllerListener = controllerListener;
 		this.gameChangeStateListener = gameChangeStateListener;
@@ -56,7 +56,7 @@ public class Controller {
 		gameStatus = GAME_STATUS.PLAYING;
 		powerUpInterval = MathUtils.random(5.0f, 15.0f);
 		cameraHelper = new CameraHelper(Config.CAMERA_WIDTH, Config.CAMERA_HEIGHT, (Config.WIDTH / 2) - (Config.CAMERA_WIDTH / 2), (Config.HEIGHT / 2) - (Config.CAMERA_HEIGHT / 2));
-		levelFactory = new LevelFactory();
+		levelFactory = new LevelFactory(this.assets);
 		gameState = new GameState();
 		gameStateManager = new GameStateManager();
 	}
@@ -88,7 +88,7 @@ public class Controller {
 					}
 				}
 				if (!found) {
-					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), tankState.getMissileTextureType(), assets.getEffect2(), assets.getAudio1());
+					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), tankState.getMissileTextureType(), assets);
 					opponent.setMissileSize(1.0f, 0.5f);
 					opponent.setId(tankState.getId());
 					opponentTanks.add(opponent);
@@ -116,7 +116,7 @@ public class Controller {
 				controllerListener.onPlaying();
 			}
 			for (PowerUpState powerUpState : gameState.getPowerUps()) {
-				powerUps.add(new PowerUp(powerUpState.getX(), powerUpState.getY(), powerUpState.getType()));
+				powerUps.add(new PowerUp(powerUpState.getX(), powerUpState.getY(), powerUpState.getType(), assets));
 			}
 		}
 		for (OpponentTank opponent : opponentTanks) {
@@ -126,7 +126,7 @@ public class Controller {
 						tank.setLife(tankState.getLife());
 						tank.setWins(tankState.getWins());
 						for (PowerUpState powerUpState : tankState.getPendingPowerUps()) {
-							powerUps.add(new PowerUp(powerUpState.getX(), powerUpState.getY(), powerUpState.getType()));
+							powerUps.add(new PowerUp(powerUpState.getX(), powerUpState.getY(), powerUpState.getType(), assets));
 						}
 					}
 				}
@@ -223,7 +223,7 @@ public class Controller {
 			if (isServer && started) {
 				powerUpTime += deltatime;
 				if (powerUpTime >= powerUpInterval) {
-					powerUps.add(new PowerUp());
+					powerUps.add(new PowerUp(assets));
 					powerUpTime = 0;
 				}
 			}

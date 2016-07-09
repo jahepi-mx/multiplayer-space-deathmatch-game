@@ -58,7 +58,22 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	
 	@Override
 	public void create() {
-		init();
+		assets = new Assets();
+		Language.getInstance().load(assets.getLanguage());
+		batch = new SpriteBatch();
+		json = new Json();
+		debugRender = new ShapeRenderer();
+		debugRender.setAutoShapeType(true);
+		changeScreen(SCREEN_TYPE.MAIN);
+		//serverFinder = new ServerFinder(this);
+		serverFinderExecutor = new ServerFinderExecutor(this);
+		Option map1 = new Option(0, Language.getInstance().get("map1_text"));
+		Option map2 = new Option(1, Language.getInstance().get("map2_text"));
+		Option map3 = new Option(2, Language.getInstance().get("map3_text"));
+		Option map4 = new Option(3, Language.getInstance().get("map4_text"));
+		maps = new Option[] {map1, map2, map3, map4};
+		runnableManager = new RunnableManager(16);
+		Gdx.input.setCatchBackKey(true);
 	}
 	
 	public void changeScreen(SCREEN_TYPE type) {
@@ -283,7 +298,6 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 	@Override
 	public void resume() {
 		super.resume();
-		init();
 	}
 
 	@Override
@@ -303,27 +317,6 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 			client = null;
 		}
 		runnableManager.dispose();
-	}
-
-	public void init() {
-		if (batch == null) {
-			assets = Assets.getInstance();
-			Language.getInstance().load(assets.getLanguage());
-			batch = new SpriteBatch();
-			json = new Json();
-			debugRender = new ShapeRenderer();
-			debugRender.setAutoShapeType(true);
-			changeScreen(SCREEN_TYPE.MAIN);
-			//serverFinder = new ServerFinder(this);
-			serverFinderExecutor = new ServerFinderExecutor(this);
-			Option map1 = new Option(0, Language.getInstance().get("map1_text"));
-			Option map2 = new Option(1, Language.getInstance().get("map2_text"));
-			Option map3 = new Option(2, Language.getInstance().get("map3_text"));
-			Option map4 = new Option(3, Language.getInstance().get("map4_text"));
-			maps = new Option[] {map1, map2, map3, map4};
-			runnableManager = new RunnableManager(16);
-			Gdx.input.setCatchBackKey(true);
-		}
 	}
 
 	@Override
@@ -358,5 +351,9 @@ public class TankField extends Game implements ServerListener, ServerFinderListe
 
 	public Json getJson() {
 		return json;
+	}
+
+	public Assets getAssets() {
+		return assets;
 	}
 }

@@ -11,9 +11,11 @@ public class LevelFactory {
 
     private Array<Level> levels;
     private int selectedLevel;
+    private Assets assets;
 
-    public LevelFactory() {
+    public LevelFactory(Assets assets) {
 
+        this.assets = assets;
         levels = new Array<Level>();
 
         byte map1[] = new byte[] {
@@ -34,8 +36,8 @@ public class LevelFactory {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         };
 
-        Level level = new Level(20, 15);
-        level.setBackground(Assets.getInstance().getBackground(6));
+        Level level = new Level(20, 15, assets.getAsteroid());
+        level.setBackground(assets.getBackground(6));
         level.setMap(map1);
 
         byte map2[] = new byte[] {
@@ -50,8 +52,8 @@ public class LevelFactory {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         };
 
-        Level level2 = new Level(12, 9);
-        level2.setBackground(Assets.getInstance().getBackground(7));
+        Level level2 = new Level(12, 9, assets.getAsteroid());
+        level2.setBackground(assets.getBackground(7));
         level2.setMap(map2);
 
         byte map3[] = new byte[] {
@@ -72,8 +74,8 @@ public class LevelFactory {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         };
 
-        Level level3 = new Level(20, 15);
-        level3.setBackground(Assets.getInstance().getBackground(4));
+        Level level3 = new Level(20, 15, assets.getAsteroid());
+        level3.setBackground(assets.getBackground(4));
         level3.setMap(map3);
 
         byte map4[] = new byte[] {
@@ -91,8 +93,8 @@ public class LevelFactory {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         };
 
-        Level level4 = new Level(16, 12);
-        level4.setBackground(Assets.getInstance().getBackground(2));
+        Level level4 = new Level(16, 12, assets.getAsteroid());
+        level4.setBackground(assets.getBackground(2));
         level4.setMap(map4);
 
         levels.add(level);

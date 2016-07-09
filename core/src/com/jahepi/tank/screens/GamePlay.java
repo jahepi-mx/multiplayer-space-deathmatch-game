@@ -19,7 +19,7 @@ public class GamePlay implements Screen {
 	public GamePlay(TankField tankField) {
 		this.tankField = tankField;
 		render = new Render(this.tankField, this.tankField);
-		assets = Assets.getInstance();
+		assets = tankField.getAssets();
 	}
 	
 	public void updateGameState(GameState gameState) {

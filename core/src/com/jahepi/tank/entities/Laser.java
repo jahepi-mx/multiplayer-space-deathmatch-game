@@ -22,9 +22,9 @@ public class Laser extends GameEntity {
 	private Assets assets;
 	private int damage;
 	
-	public Laser() {
+	public Laser(Assets assets) {
 		float height = 3.0f;
-		assets = Assets.getInstance();
+		this.assets = assets;
 		size.set(Config.WIDTH, height);
 		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});
 		rectangle.setPosition(position.x, position.y);

@@ -37,9 +37,9 @@ public class PowerUp extends GameEntity {
 	private TYPE type;
 	private Assets assets;
 	
-	public PowerUp() {
+	public PowerUp(Assets assets) {
 		size.set(2.0f, 2.0f);
-		assets = Assets.getInstance();
+		this.assets = assets;
 		float randX = MathUtils.random(size.x, Config.WIDTH - size.x);
 		float randY = MathUtils.random(size.y, Config.HEIGHT - size.y);
 		position.set(randX, randY);
@@ -66,9 +66,9 @@ public class PowerUp extends GameEntity {
 		this.rotationSpeed = 40;
 	}
 	
-	public PowerUp(float x, float y, TYPE type) {
+	public PowerUp(float x, float y, TYPE type, Assets assets) {
 		size.set(2.0f, 2.0f);
-		assets = Assets.getInstance();
+		this.assets = assets;
 		position.set(x, y);
 		active = true;
 		rectangle.setVertices(new float[] {0, 0, size.x, 0, size.x, size.y, 0, size.y});

@@ -3,6 +3,7 @@ package com.jahepi.tank.entities;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.math.Vector2;
+import com.jahepi.tank.Assets;
 import com.jahepi.tank.Util;
 import com.jahepi.tank.entities.Missile.TEXTURE_MISSILE_TYPE;
 import com.jahepi.tank.entities.powerups.PowerUpStateStrategy;
@@ -18,8 +19,8 @@ public class OpponentTank extends Tank {
 	private Vector2 newPosition;
 	private float newRotation;
 	
-	public OpponentTank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
-		super(name, textureType, missileTextureType, effect, sound);
+	public OpponentTank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, Assets assets) {
+		super(name, textureType, missileTextureType, assets);
 		newPosition = new Vector2();
 	}
 	
@@ -115,7 +116,7 @@ public class OpponentTank extends Tank {
 		}
 		for (MissileState missileState : tankState.getMissiles()) {
 			Missile missile = missilePool.obtain();
-			missile.init(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false);
+			missile.init(missileState.getX(), missileState.getY(), missileState.getRotation(), missileState.getWidth(), missileState.getHeight(), missileState.getEffectScale(), missileState.getTextureType(), missileState.getSpeed(), missileState.getDamage(), false, assets);
 			missile.setSound(sound);
 			missile.playSound();
 			if (isSend) {

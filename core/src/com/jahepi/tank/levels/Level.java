@@ -18,12 +18,13 @@ public class Level {
     private float tileWidth;
     private float tileHeight;
     private TextureRegion background;
+    private TextureRegion asteroid;
     private byte[] map;
     private Array<Tile> tileMap;
     private Tile[] tiles;
     private Tile[] surroundedTiles;
 
-    public Level(int cols, int rows) {
+    public Level(int cols, int rows, TextureRegion asteroid) {
         this.cols = cols;
         this.rows = rows;
         tileWidth = Config.WIDTH / this.cols;
@@ -31,6 +32,7 @@ public class Level {
         tileMap = new Array<Tile>();
         tiles = new Tile[cols * rows];
         surroundedTiles = new Tile[9];
+        this.asteroid = asteroid;
     }
 
     public Tile getTile(int x, int y) {
@@ -108,7 +110,7 @@ public class Level {
             if (this.map[i] == 1) {
                 int y = i / cols;
                 int x = i % cols;
-                Tile tile = new Tile(tileWidth, tileHeight, x, (rows - 1) - y, Assets.getInstance().getAsteroid());
+                Tile tile = new Tile(tileWidth, tileHeight, x, (rows - 1) - y, asteroid);
                 tile.setOrigPosition(x, y);
                 tileMap.add(tile);
                 tiles[i] = tile;

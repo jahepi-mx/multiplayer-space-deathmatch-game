@@ -26,10 +26,10 @@ public class ServerListDialog extends Dialog {
     private float ratio = 0.7f;
     private ServerListDialogListener listener;
 
-    public ServerListDialog(ServerListDialogListener listener) {
-        super(Language.getInstance().get("search_server_title"), Assets.getInstance().getSkin());
+    public ServerListDialog(ServerListDialogListener listener, Assets assets) {
+        super(Language.getInstance().get("search_server_title"), assets.getSkin());
         this.listener = listener;
-        assets = Assets.getInstance();
+        this.assets = assets;
         setModal(true);
 
         setResizable(false);

@@ -26,9 +26,9 @@ public class IpDialog extends Dialog {
     private Label infoLabel;
     private float ratio = 0.7f;
 
-    public IpDialog() {
-        super(Language.getInstance().get("ip_btn"), Assets.getInstance().getSkin());
-        assets = Assets.getInstance();
+    public IpDialog(Assets assets) {
+        super(Language.getInstance().get("ip_btn"), assets.getSkin());
+        this.assets = assets;
         setModal(true);
 
         setResizable(false);

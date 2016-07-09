@@ -47,7 +47,7 @@ public class Credits implements Screen {
         batch = this.tankField.getBatch();
         StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
         stage = new Stage(viewport, batch);
-        assets = Assets.getInstance();
+        assets = tankField.getAssets();
         camera = new Vector3(0, 0, 0);
         texts = new Array<CreditText>();
 

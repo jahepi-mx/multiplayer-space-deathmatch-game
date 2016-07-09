@@ -52,8 +52,8 @@ public class Configuration implements Screen {
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
 		stage = new Stage(viewport, batch);
 		Gdx.input.setInputProcessor(stage);
-		assets = Assets.getInstance();
-		shipDialog = new ShipDialog();
+		assets = tankField.getAssets();
+		shipDialog = new ShipDialog(assets);
 	}
 
 	@Override

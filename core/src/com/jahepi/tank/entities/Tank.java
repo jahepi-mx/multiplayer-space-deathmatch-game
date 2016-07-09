@@ -77,11 +77,11 @@ public class Tank extends GameEntity {
 		}
 	};
 	
-	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, ParticleEffect effect, Sound sound) {
+	public Tank(String name, TEXTURE_TYPE textureType, TEXTURE_MISSILE_TYPE missileTextureType, Assets assets) {
 		super();
 		isNew = true;
 		pendingPowerUps = new Array<PowerUp>();
-		assets = Assets.getInstance();
+		this.assets = assets;
 		this.name = name;
 		font = assets.getUIFontExtraExtraSmall();
 		this.textureType = textureType;
@@ -106,13 +106,13 @@ public class Tank extends GameEntity {
 		collectedPowerUpStrategies = new Array<PowerUpStateStrategy>();
 		life = LIFE;
 		this.missileTextureType = missileTextureType;
-		this.effect = effect;
-		this.sound = sound;
+		this.effect = this.assets.getEffect2();
+		this.sound = this.assets.getAudio1();
 		missileSize = new Vector2();
 		rectangle.setVertices(new float[]{0, 0, size.x, 0, size.x, size.y, 0, size.y});
 		rectangle.setPosition(position.x, position.y);
 		rectangle.setOrigin(size.x / 2, size.y / 2);
-		laser = new Laser();
+		laser = new Laser(this.assets);
 		setRandomPosition();
 		lastPosition = new Vector2(0, 0);
 		Gdx.app.log(TAG, "Created");
@@ -226,7 +226,7 @@ public class Tank extends GameEntity {
             megaShootEnable = false;
             Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
 			Missile missile = missilePool.obtain();
-            missile.init(position.x, position.y, rotation, 4.0f, 4.0f, Config.MAX_EXPLOSION_SIZE, TEXTURE_MISSILE_TYPE.M7, missileSpeed, 5, true);
+            missile.init(position.x, position.y, rotation, 4.0f, 4.0f, Config.MAX_EXPLOSION_SIZE, TEXTURE_MISSILE_TYPE.M7, missileSpeed, 5, true, this.assets);
             missile.setSound(sound);
             missile.playSound();
             missiles.add(missile);
@@ -240,7 +240,7 @@ public class Tank extends GameEntity {
 			if (!shooting) {
 				Vector2 position = Util.getRotationPosition(size.x, size.y, getX(), getY(), rotation);
 				Missile missile = missilePool.obtain();
-				missile.init(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, missileDamage, true);
+				missile.init(position.x, position.y, rotation, missileSize.x, missileSize.y, missileEffectScale, missileTextureType, missileSpeed, missileDamage, true, this.assets);
 				missile.setSound(sound);
 				missile.playSound();
 				missiles.add(missile);

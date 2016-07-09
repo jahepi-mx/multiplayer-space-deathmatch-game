@@ -40,8 +40,8 @@ public class Main implements Screen {
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
 		stage = new Stage(viewport, batch);
 		Gdx.input.setInputProcessor(stage);
-		assets = Assets.getInstance();
-		ipDialog = new IpDialog();
+		assets = tankField.getAssets();
+		ipDialog = new IpDialog(assets);
 	}
 
 	@Override

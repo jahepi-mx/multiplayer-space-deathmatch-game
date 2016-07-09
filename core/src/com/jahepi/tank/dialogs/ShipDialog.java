@@ -32,9 +32,9 @@ public class ShipDialog extends Dialog {
     private TextureRegionDrawable ship1Image, ship2Image, ship3Image, ship4Image, ship5Image;
     private Option[] options;
 
-    public ShipDialog() {
-        super(Language.getInstance().get("ship_title"), Assets.getInstance().getSkin());
-        assets = Assets.getInstance();
+    public ShipDialog(Assets assets) {
+        super(Language.getInstance().get("ship_title"), assets.getSkin());
+        this.assets = assets;
         setModal(true);
 
         setResizable(false);
@@ -86,8 +86,8 @@ public class ShipDialog extends Dialog {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 Gdx.app.log(TAG, ships.getSelected().getValue());
-                assets.setPlayer(ships.getSelected().getIndex());
-                imagePreview.setDrawable(getRegionsDrawable(assets.getPlayer()));
+                ShipDialog.this.assets.setPlayer(ships.getSelected().getIndex());
+                imagePreview.setDrawable(getRegionsDrawable(ShipDialog.this.assets.getPlayer()));
             }
         });
 

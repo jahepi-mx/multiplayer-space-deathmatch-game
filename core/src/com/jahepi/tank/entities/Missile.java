@@ -38,8 +38,8 @@ public class Missile extends GameEntity implements Pool.Poolable {
 		super();
 	}
 	
-	public void init(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, int damage, boolean fixPosition) {
-		assets = Assets.getInstance();
+	public void init(float x, float y, float rotation, float width, float height, float effectScale, TEXTURE_MISSILE_TYPE textureType, float speed, int damage, boolean fixPosition, Assets assets) {
+		this.assets = assets;
 		this.textureType = textureType;
 		size.set(width, height);
 		if (fixPosition) {

@@ -61,12 +61,12 @@ public class Render implements Disposable, ControllerListener {
 		this.tankField = tankFieldParam;
 		this.shapeRenderer = tankField.getDebugRender();
 		this.batch = tankField.getBatch();
-		assets = Assets.getInstance();
+		assets = tankField.getAssets();
 		joystick = new Joystick(assets.getControlStick());
 		joystick.setSize(150, 150);
 		joystick.setXOffset(10);
 		
-		controller = new Controller(gameStateChangeListener, this, tankField.isServer(), tankField.getName());
+		controller = new Controller(gameStateChangeListener, this, tankField.isServer(), tankField.getName(), assets);
 		controller.setLevel(assets.getMap());
 
 		camera = new OrthographicCamera(controller.getCameraHelper().getWidth(), controller.getCameraHelper().getHeight());

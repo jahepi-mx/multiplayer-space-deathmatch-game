@@ -53,8 +53,8 @@ public class GameOptions implements Screen, ServerListDialog.ServerListDialogLis
 		StretchViewport viewport = new StretchViewport(Config.UI_WIDTH, Config.UI_HEIGHT);
 		stage = new Stage(viewport, this.batch);
 		Gdx.input.setInputProcessor(stage);
-		assets = Assets.getInstance();
-		serverListDialog = new ServerListDialog(this);
+		assets = tankField.getAssets();
+		serverListDialog = new ServerListDialog(this, assets);
 	}
 
 	@Override
