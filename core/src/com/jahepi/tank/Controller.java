@@ -40,11 +40,12 @@ public class Controller {
 	private GameStateManager gameStateManager;
 	private float deltatimeRegister;
 	private float deltatimeLimit;
-	
+	private Assets assets;
+
 	public Controller(GameChangeStateListener gameChangeStateListener, ControllerListener controllerListener, boolean isServer, String name) {
 		winner = "";
 		temporalHolder = new Array<Tank>();
-		Assets assets = Assets.getInstance();
+		assets = Assets.getInstance();
 		opponentTanks = new Array<OpponentTank>();
 		tank = new Tank(name, Tank.getTextureType(assets.getPlayer()), Missile.getRandomTextureType(), assets.getEffect2(), assets.getAudio1());
 		tank.setMissileSize(1.0f, 0.5f);
@@ -87,7 +88,6 @@ public class Controller {
 					}
 				}
 				if (!found) {
-					Assets assets = Assets.getInstance();
 					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), tankState.getMissileTextureType(), assets.getEffect2(), assets.getAudio1());
 					opponent.setMissileSize(1.0f, 0.5f);
 					opponent.setId(tankState.getId());
