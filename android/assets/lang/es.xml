@@ -64,7 +64,9 @@
     <item name="credits_skull">Recurso Sprite de Calavera</item>
     <item name="credits_skull_text">Gracias a Goodlyay de Deviantart%spor proveerlo.%shttp://goodlyay.deviantart.com</item>
     <item name="credits_coding">Programación</item>
-    <item name="credits_coding_text">Javier Hernández Pineda (Jahepi)</item>
+    <item name="credits_coding_text">Jahepi</item>
+    <item name="credits_opengameart">Opengameart.org</item>
+    <item name="credits_opengameart_text">Efectos de sonido y música</item>
     <item name="map1_text">Mapa Andromeda</item>
     <item name="map2_text">Mapa Centaurus</item>
     <item name="map3_text">Mapa Pegaso</item>

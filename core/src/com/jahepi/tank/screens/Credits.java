@@ -72,15 +72,27 @@ public class Credits implements Screen {
         text3.font = assets.getUIFont();
 
         CreditText text4 = new CreditText();
-        text4.position.add(0, -150, 700);
-        text4.text = Language.getInstance().get("credits_coding");
+        text4.position.add(0, -200, 700);
+        text4.text = Language.getInstance().get("credits_opengameart");
         text4.font = assets.getUIFontOpponent();
 
         CreditText text5 = new CreditText();
-        text5.position.add(0, -200, 700);
-        text5.text = Language.getInstance().get("credits_coding_text");
+        text5.position.add(0, -250, 700);
+        text5.text = Language.getInstance().get("credits_opengameart_text");
         text5.font = assets.getUIFont();
 
+        CreditText text6 = new CreditText();
+        text6.position.add(0, -150, 1000);
+        text6.text = Language.getInstance().get("credits_coding");
+        text6.font = assets.getUIFontOpponent();
+
+        CreditText text7 = new CreditText();
+        text7.position.add(0, -200, 1000);
+        text7.text = Language.getInstance().get("credits_coding_text");
+        text7.font = assets.getUIFont();
+
+        texts.add(text7);
+        texts.add(text6);
         texts.add(text5);
         texts.add(text4);
         texts.add(text3);
@@ -133,7 +145,7 @@ public class Credits implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (camera.z > 730) {
+        if (camera.z > 1030) {
             flag = true;
         }
 

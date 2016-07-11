@@ -64,7 +64,9 @@
     <item name="credits_skull">Skull Sprite Asset</item>
     <item name="credits_skull_text">Thanks to Goodlyay from Deviantart%sfor providing the asset.%shttp://goodlyay.deviantart.com</item>
     <item name="credits_coding">Coding</item>
-    <item name="credits_coding_text">Javier Hernández Pineda (Jahepi)</item>
+    <item name="credits_coding_text">Jahepi</item>
+    <item name="credits_opengameart">Opengameart.org</item>
+    <item name="credits_opengameart_text">Sound effects and music</item>
     <item name="map1_text">Andromeda Map</item>
     <item name="map2_text">Centaurus Map</item>
     <item name="map3_text">Pegaso Map</item>
