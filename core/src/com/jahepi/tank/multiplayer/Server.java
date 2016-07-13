@@ -111,7 +111,7 @@ public class Server {
 			while (running) {
 				String data;
 				try {
-					data = queue.poll();
+					data = queue.take();
 					if (data != null && data.length() > 0) {
 						for (Client client : clients) {
 							if (client != null) {

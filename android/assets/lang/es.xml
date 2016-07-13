@@ -60,13 +60,15 @@
     <item name="select_ship_text">Selecciona una nave:</item>
     <item name="default_nickname">Yo</item>
     <item name="credits_testing">Pruebas</item>
-    <item name="credits_testing_text">Giz Martínez%sMi Familia (Jaime, Juan Carlos y Gloria Mirna)%sEduardo Blanco y Raúl Rentería</item>
+    <item name="credits_testing_text">Giz Martínez%sMi Familia (Jaime, Mirna, Juan)%sEduardo Blanco, Raúl Rentería</item>
     <item name="credits_skull">Recurso Sprite de Calavera</item>
     <item name="credits_skull_text">Gracias a Goodlyay de Deviantart%spor proveerlo.%shttp://goodlyay.deviantart.com</item>
     <item name="credits_coding">Programación</item>
     <item name="credits_coding_text">Jahepi</item>
     <item name="credits_opengameart">Opengameart.org</item>
     <item name="credits_opengameart_text">Efectos de sonido y música</item>
+    <item name="credits_libgdx">libGDX</item>
+    <item name="credits_libgdx_text">Excelente framework para desarrollar juegos</item>
     <item name="map1_text">Mapa Andromeda</item>
     <item name="map2_text">Mapa Centaurus</item>
     <item name="map3_text">Mapa Pegaso</item>
