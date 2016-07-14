@@ -31,8 +31,8 @@ public class Config {
 
 
 	public static final boolean DEBUG = false;
-	public static final boolean SHOW_FPS = true;
-	public static final boolean ENABLE_ADDS = false;
+	public static final boolean SHOW_FPS = false;
+	public static final boolean ENABLE_ADDS = true;
 	public static final boolean ENABLE_TEST_ADDS = false;
 
 	private Config() {

@@ -98,6 +98,7 @@ public class Controller {
 	}
 	
 	public void updateGameState(GameState gameState) {
+		boolean firstTime = false;
 		createOpponentInstances(gameState);
 		if (!isServer) {
 			level = levelFactory.getLevel(gameState.getLevelIndex());
@@ -122,12 +123,13 @@ public class Controller {
 		for (OpponentTank opponent : opponentTanks) {
 			for (TankState tankState : gameState.getTankStates()) {
 				if (!isServer) {
-					if (tank.getId().equals(tankState.getId())) {
+					if (tank.getId().equals(tankState.getId()) && !firstTime) {
 						tank.setLife(tankState.getLife());
 						tank.setWins(tankState.getWins());
 						for (PowerUpState powerUpState : tankState.getPendingPowerUps()) {
 							powerUps.add(new PowerUp(powerUpState.getX(), powerUpState.getY(), powerUpState.getType(), assets));
 						}
+						firstTime = true;
 					}
 				}
 				if (opponent != null && opponent.getId().equals(tankState.getId())) {
