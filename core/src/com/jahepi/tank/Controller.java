@@ -304,6 +304,14 @@ public class Controller {
 			}
 		}
 
+		if (isServer) {
+			for (OpponentTank opponent : opponentTanks) {
+				if (opponent != null && opponent.isNew()) {
+					opponent.setIsNew(false);
+				}
+			}
+		}
+
 		if (deltatimeRegister >= deltatimeLimit) {
 			gameState.setPlaying(isPlaying());
 			gameState.setWin(win);
@@ -315,7 +323,6 @@ public class Controller {
 				gameState.setLevelIndex(levelFactory.getSelectedLevel());
 				for (OpponentTank opponent : opponentTanks) {
 					if (opponent != null) {
-						opponent.setIsNew(false);
 						gameState.addTankState(opponent.getState(gameStateManager));
 					}
 				}

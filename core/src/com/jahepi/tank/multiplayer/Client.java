@@ -139,7 +139,7 @@ public class Client extends Thread {
 			while (active) {
 				String data;
 				try {
-					data = queue.take();
+					data = queue.poll();
 					if (data != null && data.length() > 0) {
 						send(data);
 					}
