@@ -75,7 +75,7 @@ public class Assets implements Disposable {
 			preferences.putInteger("map", 2);
 		}
 		if (!preferences.contains("life")) {
-			preferences.putInteger("life", 20);
+			preferences.putInteger("life", 35);
 		}
 		preferences.flush();
 
