@@ -33,6 +33,6 @@ public class PowerUpBigMissile extends PowerUpStateStrategy {
 		tank.setMissileSize(size.x / 2.0f,size.y / 2.0f);
 		tank.setMissileEffectScale(Config.MIN_EXPLOSION_SIZE);
 		tank.setMissileDamage(1);
-		tank.setMissileSpeed(11.0f);
+		tank.setMissileSpeed(16.0f);
 	}
 }

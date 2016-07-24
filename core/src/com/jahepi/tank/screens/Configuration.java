@@ -39,7 +39,7 @@ public class Configuration implements Screen {
 	private Stage stage;
 	private TankField tankField;
 	private SpriteBatch batch;
-	private Label titleLabel,soundEffectLabel, musicLabel, nicknameLabel, nicknameDescLabel, portLabel, portDescLabel, msLabel, msDescLabel, backLabel, shipLabel;
+	private Label titleLabel,soundEffectLabel, musicLabel, hitsLabel, nicknameLabel, nicknameDescLabel, portLabel, portDescLabel, msLabel, msDescLabel, backLabel, shipLabel;
 	private CheckBox englishCheckbox, spanishCheckbox;
 	private TextField nicknameTextField, portTextField, msTextField;
 	private Button backButton, shipButton;
@@ -76,6 +76,10 @@ public class Configuration implements Screen {
 		musicLabel = new Label(Language.getInstance().get("music_label"), labelStyle);
 		final Slider musicSlider = new Slider(0, 1, 0.1f, false, skin);
 		musicSlider.setValue(assets.getMusicVolume());
+
+		hitsLabel = new Label(String.format(Language.getInstance().get("life_config_label"), assets.getLife()), labelStyle);
+		final Slider hitsSlider = new Slider(1, 100, 1, false, skin);
+		hitsSlider.setValue(assets.getLife());
 
 		Label.LabelStyle langStyle = new Label.LabelStyle();
 		langStyle.font = assets.getUIFontSmall();
@@ -163,6 +167,15 @@ public class Configuration implements Screen {
 				assets.setEffectsVolume(value);
 			}
 		});
+
+		hitsSlider.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				int value = (int) hitsSlider.getValue();
+				assets.setLife(value);
+				hitsLabel.setText(String.format(Language.getInstance().get("life_config_label"), assets.getLife()));
+			}
+		});
 		
 		backButton.addListener(new ClickListener() {
 			@Override
@@ -207,8 +220,10 @@ public class Configuration implements Screen {
 						portTextField.setText(text);
 						try {
 							assets.setPort(Integer.parseInt(portTextField.getText()));
-						} catch (Exception e) {}
+						} catch (Exception e) {
+						}
 					}
+
 					@Override
 					public void canceled() {
 					}
@@ -225,8 +240,10 @@ public class Configuration implements Screen {
 						msTextField.setText(text);
 						try {
 							assets.setMs(Integer.parseInt(msTextField.getText()));
-						} catch (Exception e) {}
+						} catch (Exception e) {
+						}
 					}
+
 					@Override
 					public void canceled() {
 					}
@@ -243,6 +260,9 @@ public class Configuration implements Screen {
 		table.row();
 		table.add(soundEffectLabel).pad(2.0f).colspan(2).align(Align.center);
 		table.add(soundEffectsSlider).pad(2.0f).align(Align.left);
+		table.row();
+		table.add(hitsLabel).pad(2.0f).colspan(2).align(Align.center);
+		table.add(hitsSlider).pad(2.0f).align(Align.left);
 		table.row();
 		table.add(englishCheckbox).pad(0.5f).colspan(2).align(Align.center);
 		table.add(spanishCheckbox).pad(0.5f).align(Align.left);
@@ -275,6 +295,7 @@ public class Configuration implements Screen {
 		titleLabel.setText(Language.getInstance().get("config_title"));
 		musicLabel.setText(Language.getInstance().get("music_label"));
 		soundEffectLabel.setText(Language.getInstance().get("effects_label"));
+		hitsLabel.setText(String.format(Language.getInstance().get("life_config_label"), assets.getLife()));
 		englishCheckbox.setText(Language.getInstance().get("english_btn"));
 		spanishCheckbox.setText(Language.getInstance().get("spanish_btn"));
 		nicknameDescLabel.setText(Language.getInstance().get("nickname_desc_label"));

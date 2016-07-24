@@ -59,6 +59,9 @@ public class Controller {
 		levelFactory = new LevelFactory(this.assets);
 		gameState = new GameState();
 		gameStateManager = new GameStateManager();
+		if (isServer) {
+			tank.setLife(assets.getLife());
+		}
 	}
 	
 	public void setTankId(String connectionId) {
@@ -91,6 +94,9 @@ public class Controller {
 					OpponentTank opponent = new OpponentTank(tankState.getName(), tankState.getTextureType(), tankState.getMissileTextureType(), assets);
 					opponent.setMissileSize(1.0f, 0.5f);
 					opponent.setId(tankState.getId());
+					if (isServer) {
+						opponent.setLife(assets.getLife());
+					}
 					opponentTanks.add(opponent);
 				}
 			}

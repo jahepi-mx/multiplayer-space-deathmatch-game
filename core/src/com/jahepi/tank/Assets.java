@@ -74,6 +74,9 @@ public class Assets implements Disposable {
 		if (!preferences.contains("map")) {
 			preferences.putInteger("map", 2);
 		}
+		if (!preferences.contains("life")) {
+			preferences.putInteger("life", 20);
+		}
 		preferences.flush();
 
 		effect2 = new ParticleEffect();
@@ -425,7 +428,16 @@ public class Assets implements Disposable {
 		preferences.putInteger("ms", ms);
 		preferences.flush();
 	}
-	
+
+	public int getLife() {
+		return preferences.getInteger("life");
+	}
+
+	public void setLife(int life) {
+		preferences.putInteger("life", life);
+		preferences.flush();
+	}
+
 	public float getMusicVolume() {
 		return preferences.getFloat("music");
 	}

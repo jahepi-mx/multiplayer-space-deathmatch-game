@@ -31,6 +31,7 @@
     <item name="ms_label">Milisegundos</item>
     <item name="ship_label">Seleccionar Nave</item>
     <item name="ms_desc_label">Milisegundos usados para buscar servidores</item>
+    <item name="life_config_label">Número golpes para ganar partida (%s)</item>
     <item name="music_label">Volumen Música</item>
     <item name="effects_label">Volumen Efectos de Sonido</item>
     <item name="language_label">Selecciona el idioma del juego</item>

@@ -29,6 +29,7 @@
     <item name="port_label">Default Port</item>
     <item name="port_desc_label">Port used for establishing the server and client connection</item>
     <item name="ms_label">Milliseconds</item>
+    <item name="life_config_label">Number of hits to win match (%s)</item>
     <item name="ship_label">Select Spaceship</item>
     <item name="ms_desc_label">Milliseconds parameter for searching servers</item>
     <item name="music_label">Music Volume</item>

@@ -382,20 +382,20 @@ public class Render implements Disposable, ControllerListener {
 		float marginTopWins = 50;
 		float y = Config.UI_HEIGHT;
 		batch.draw(assets.getLife1(), x, y - size, size, size);
-		float life = ((float) controller.getTankLife() / (float) Tank.LIFE * 100);
-		assets.getUIFontMain().draw(batch, (life > 0 ? (int) life : 0) + "", x + marginLeft, y - marginTopLife);
+		int life = controller.getTankLife();
+		assets.getUIFontMain().draw(batch, (life > 0 ? life : 0) + "", x + marginLeft, y - marginTopLife);
 		assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), controller.getTankWins()), x + marginLeft, y - marginTopWins);
 		if (Config.SHOW_FPS) {
 			assets.getUIFontSmall().draw(batch, "" + Gdx.graphics.getFramesPerSecond(), x + Config.UI_WIDTH - 25, y - 5);
 		}
 		float lineBreak = 160.0f;
 		for (OpponentTank opponentTank : controller.getOpponentTanks()) {
-			float opponentLife = ((float) opponentTank.getLife() / (float) Tank.LIFE * 100);
+			int opponentLife = opponentTank.getLife();
 			batch.draw(assets.getLife2(), x, y - lineBreak, size, size);
 			assets.getUIFontExtraSmall().setColor(Color.RED);
 			assets.getUIFontExtraSmall().draw(batch, opponentTank.getName(), x + (marginLeft * 5.4f), y - lineBreak + size);
 			assets.getUIFontExtraSmall().setColor(Color.WHITE);
-			assets.getUIFontOpponent().draw(batch, (opponentLife > 0 ? (int) opponentLife : 0) + "", x + marginLeft, y - lineBreak + size - marginTopLife);
+			assets.getUIFontOpponent().draw(batch, (opponentLife > 0 ? opponentLife : 0) + "", x + marginLeft, y - lineBreak + size - marginTopLife);
 			assets.getUIFontExtraSmall().draw(batch, String.format(Language.getInstance().get("wins_label"), opponentTank.getWins()), x + marginLeft, y - lineBreak + size - marginTopWins);
 			lineBreak += size;
 		}

@@ -28,7 +28,7 @@ import com.jahepi.tank.multiplayer.dto.TankState;
 public class Tank extends GameEntity {
 
 	public static final String TAG = "Tank";
-	public static final float DEFAULT_VELOCITY = 10.0f;
+	public static final float DEFAULT_VELOCITY = 13.0f;
 	public static final float FRICTION = 0.99f;
 	public static final float MEGA_SHOOT_TIME = 2.0f;
 	public static final float MEGA_SHOOT_ANIMATION_TIME = 0.5f;
@@ -56,7 +56,7 @@ public class Tank extends GameEntity {
 	protected int missileDamage = 1;
 	protected TEXTURE_MISSILE_TYPE missileTextureType;
 	protected float missileEffectScale = Config.MIN_EXPLOSION_SIZE;
-	protected float missileSpeed = 11.0f;
+	protected float missileSpeed = 16.0f;
 	protected TEXTURE_TYPE textureType;
 	protected BitmapFont font;
 	protected float speedUpTime;
@@ -451,7 +451,7 @@ public class Tank extends GameEntity {
 	}
 
 	public void reset() {
-		life = LIFE;
+		life = assets.getLife();
 		megaShootTime = 0;
 		missiles.clear();
 		setRandomPosition();
