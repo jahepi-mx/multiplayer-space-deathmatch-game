@@ -56,7 +56,7 @@ public class Tank extends GameEntity {
 	protected int missileDamage = 1;
 	protected TEXTURE_MISSILE_TYPE missileTextureType;
 	protected float missileEffectScale = Config.MIN_EXPLOSION_SIZE;
-	protected float missileSpeed = 14.0f;
+	protected float missileSpeed = 16.0f;
 	protected TEXTURE_TYPE textureType;
 	protected BitmapFont font;
 	protected float speedUpTime;
@@ -259,7 +259,7 @@ public class Tank extends GameEntity {
 	public void speedUp() {
 		if (speedUpTime >= SPEED_UP_TIME) {
 			activeSpeedUp = true;
-			velocity *= 1.4;
+			velocity *= 1.3;
 			speed = velocity;
 			speedUpTime = 0;
 			assets.playAudioSpeedUp();
