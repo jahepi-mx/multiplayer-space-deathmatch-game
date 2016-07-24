@@ -23,6 +23,6 @@ public class PowerUpFreeze extends PowerUpStateStrategy {
 	@Override
 	public void onFinish() {
 		Tank tank = (Tank) entity;
-		tank.setVelocity(10.0f);
+		tank.setVelocity(12.0f);
 	}
 }
