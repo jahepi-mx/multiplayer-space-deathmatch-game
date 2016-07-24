@@ -28,7 +28,7 @@ import com.jahepi.tank.multiplayer.dto.TankState;
 public class Tank extends GameEntity {
 
 	public static final String TAG = "Tank";
-	public static final float DEFAULT_VELOCITY = 13.0f;
+	public static final float DEFAULT_VELOCITY = 12.0f;
 	public static final float FRICTION = 0.99f;
 	public static final float MEGA_SHOOT_TIME = 2.0f;
 	public static final float MEGA_SHOOT_ANIMATION_TIME = 0.5f;
