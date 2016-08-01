@@ -40,7 +40,7 @@ public class Assets implements Disposable {
 	private ParticleEffectPool effectBigPool;
 	private TextureRegion mainBackground, ship1, ship2, ship3, ship4, ship5, skull, rocket1, rocket2, rocket3, rocket4, rocket5, rocket6, rocket7, nuke, energy, shield, health, freeze, controlField, controlStick, button, button2, laser, life1, life2;
 
-	private String[] nicknames = {"Taco", "Burrito", "Chilakil", "Burgerman", "Ponnio", "Panucho"};
+	private String[] nicknames = {"Nova", "Luna", "Janus", "Eris", "Corvus", "Nebula"};
 
 	public Assets() {
 		manager = new AssetManager();

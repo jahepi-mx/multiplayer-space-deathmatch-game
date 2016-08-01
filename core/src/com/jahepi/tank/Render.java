@@ -92,8 +92,6 @@ public class Render implements Disposable, ControllerListener {
 		selectBoxMaps.setItems(tankField.getMaps());
 		selectBoxMaps.setSelected(tankField.getMaps()[assets.getMap()]);
 		selectBoxMaps.pack();
-		selectBoxMaps.setX((Config.UI_WIDTH / 2) - (selectBoxMaps.getWidth() / 2));
-		selectBoxMaps.setY((Config.UI_HEIGHT / 2) - selectBoxMaps.getHeight());
 		selectBoxMaps.setVisible(false);
 		stage.addActor(selectBoxMaps);
 		
@@ -119,21 +117,25 @@ public class Render implements Disposable, ControllerListener {
 		disconnectLabel.setVisible(false);
 		disconnectLabel.setPosition((Config.UI_WIDTH / 2) - (disconnectLabel.getWidth() / 2), Config.UI_HEIGHT / 2);
 		stage.addActor(disconnectLabel);
-		
+
 		endLabel = new Label("", labelStyle);
 		endLabel.setVisible(false);
 		stage.addActor(endLabel);
-		
+
 		Label rematchLabel = new Label(Language.getInstance().get("rematch_label"), labelStyle);
 		rematchBtn = new Button(skin);
 		rematchBtn.add(rematchLabel);
 		rematchBtn.setHeight(rematchLabel.getHeight());
 		rematchBtn.setWidth(rematchLabel.getWidth() + 10.0f);
-		rematchBtn.setX((Config.UI_WIDTH / 2) - (rematchBtn.getWidth() / 2));
-		rematchBtn.setY(selectBoxMaps.getY() - rematchBtn.getHeight() - 10.0f);
 		rematchBtn.setColor(Color.BLUE);
 		rematchBtn.setVisible(false);
 		stage.addActor(rematchBtn);
+
+		float width = rematchBtn.getWidth() + selectBoxMaps.getWidth();
+		selectBoxMaps.setX((Config.UI_WIDTH / 2) - (width / 2));
+		selectBoxMaps.setY((Config.UI_HEIGHT / 2) - selectBoxMaps.getHeight());
+		rematchBtn.setX(selectBoxMaps.getX() + selectBoxMaps.getWidth());
+		rematchBtn.setY((Config.UI_HEIGHT / 2) - rematchBtn.getHeight());
 		
 		rematchBtn.addListener(new ClickListener() {
 			@Override
