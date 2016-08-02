@@ -38,10 +38,10 @@
     <item name="search_label">Searching ... %s</item>
     <item name="stop_search_btn">STOP</item>
     <item name="server_desc_label">Start this option to initialize the Galaxy and have control over the match.</item>
-    <item name="search_server_desc_label">Start this option to search for a Galaxy in the Universe.</item>
+    <item name="search_server_desc_label">Start this option to search for Galaxies in the Universe.</item>
     <item name="ip_server_desc_label">Type the Galaxy address here, xxx.xxx.xxx.xxx</item>
     <item name="error_network">Could not find a Galaxy</item>
-    <item name="error_server_network">Couln´t create the Galaxy, try again.</item>
+    <item name="error_server_network">Could not create the Galaxy, try again.</item>
     <item name="error_disconnect">Disconnected from the Galaxy</item>
     <item name="waiting_label">Waiting for Spacemen to join,%stap depart once%sall Spacemen are connected.</item>
     <item name="waiting_opponent_label">Waiting for departure...</item>
