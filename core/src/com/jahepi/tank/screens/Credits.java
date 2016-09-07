@@ -61,54 +61,66 @@ public class Credits implements Screen {
         text1.text = String.format(Language.getInstance().get("credits_testing_text"), "\n", "\n");
         text1.font = assets.getUIFont();
 
+        CreditText text8 = new CreditText();
+        text8.position.add(0, 150, 400);
+        text8.text = Language.getInstance().get("credits_goseal");
+        text8.font = assets.getUIFontOpponent();
+
+        CreditText text9 = new CreditText();
+        text9.position.add(0, 100, 400);
+        text9.text = Language.getInstance().get("credits_goseal_text");
+        text9.font = assets.getUIFont();
+
         CreditText text2 = new CreditText();
-        text2.position.add(0, -200, 400);
+        text2.position.add(0, -200, 700);
         text2.text = Language.getInstance().get("credits_skull");
         text2.font = assets.getUIFontOpponent();
 
         CreditText text3 = new CreditText();
-        text3.position.add(0, -250, 400);
+        text3.position.add(0, -250, 700);
         text3.text = String.format(Language.getInstance().get("credits_skull_text"), "\n", "\n");
         text3.font = assets.getUIFont();
 
         CreditText text4 = new CreditText();
-        text4.position.add(0, -200, 700);
+        text4.position.add(0, -200, 1000);
         text4.text = Language.getInstance().get("credits_opengameart");
         text4.font = assets.getUIFontOpponent();
 
         CreditText text5 = new CreditText();
-        text5.position.add(0, -250, 700);
+        text5.position.add(0, -250, 1000);
         text5.text = Language.getInstance().get("credits_opengameart_text");
         text5.font = assets.getUIFont();
 
         CreditText text6 = new CreditText();
-        text6.position.add(0, -200, 1000);
+        text6.position.add(0, -200, 1300);
         text6.text = Language.getInstance().get("credits_libgdx");
         text6.font = assets.getUIFontOpponent();
 
         CreditText text7 = new CreditText();
-        text7.position.add(0, -250, 1000);
+        text7.position.add(0, -250, 1300);
         text7.text = Language.getInstance().get("credits_libgdx_text");
         text7.font = assets.getUIFont();
 
-        CreditText text8 = new CreditText();
-        text8.position.add(0, -100, 1300);
-        text8.text = Language.getInstance().get("credits_coding");
-        text8.font = assets.getUIFontOpponent();
+        CreditText text10 = new CreditText();
+        text10.position.add(0, -100, 1600);
+        text10.text = Language.getInstance().get("credits_coding");
+        text10.font = assets.getUIFontOpponent();
 
-        CreditText text9 = new CreditText();
-        text9.position.add(0, -150, 1300);
-        text9.text = Language.getInstance().get("credits_coding_text");
-        text9.font = assets.getUIFont();
+        CreditText text11 = new CreditText();
+        text11.position.add(0, -150, 1600);
+        text11.text = Language.getInstance().get("credits_coding_text");
+        text11.font = assets.getUIFont();
 
-        texts.add(text9);
-        texts.add(text8);
+        texts.add(text11);
+        texts.add(text10);
         texts.add(text7);
         texts.add(text6);
         texts.add(text5);
         texts.add(text4);
         texts.add(text3);
         texts.add(text2);
+        texts.add(text9);
+        texts.add(text8);
         texts.add(text1);
         texts.add(text0);
 
@@ -157,7 +169,7 @@ public class Credits implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (camera.z > 1330) {
+        if (camera.z > 1630) {
             flag = true;
         }
 

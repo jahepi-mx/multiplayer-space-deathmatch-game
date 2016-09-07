@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <language>
     <item name="start_server_btn">CREAR GALAXIA</item>
-    <item name="search_server_btn">BUSCAR UNA GALAXIA</item>
-    <item name="ip_server_btn">CONECTAR</item>
+    <item name="search_server_btn">BUSCAR GALAXIAS</item>
+    <item name="ip_server_btn">INTERCONECTAR</item>
     <item name="play_btn">JUGAR</item>
     <item name="config_btn">CONFIGURACIÓN</item>
     <item name="credits_btn">CRÉDITOS</item>
@@ -11,8 +11,8 @@
     <item name="back_btn">REGRESAR</item>
     <item name="exit_btn">SALIR</item>
     <item name="close_btn">Cerrar</item>
-    <item name="ip_error">Dirección no disponible.</item>
-    <item name="ip_success">Direcciones(s) disponible(s) en el dispositivo:</item>
+    <item name="ip_error">No hay Galaxias Abiertas.</item>
+    <item name="ip_success">Galaxias Abiertas:</item>
     <item name="english_btn">Ingles</item>
     <item name="spanish_btn">Español</item>
     <item name="quit_btn">SALIR</item>
@@ -21,9 +21,9 @@
     <item name="start_game_btn">INICIAR</item>
     <item name="game_title">COMBATE ESPACIAL MULTIJUGADOR %s</item>
     <item name="website">Para más información visita http://espacio.jahepi.net</item>
-    <item name="search_server_title">Listado de Galaxias</item>
+    <item name="search_server_title">Galaxias Universales</item>
     <item name="server_item_btn">Ir a Galaxia %s</item>
-    <item name="server_list_info">Galaxias Disponibles</item>
+    <item name="server_list_info">Galaxias</item>
     <item name="game_options_title">OPCIONES</item>
     <item name="config_title">CONFIGURACIÓN</item>
     <item name="port_label">Puerto por defecto</item>
@@ -70,6 +70,8 @@
     <item name="credits_opengameart_text">Efectos de sonido y música</item>
     <item name="credits_libgdx">libGDX</item>
     <item name="credits_libgdx_text">Excelente framework para desarrollar juegos</item>
+    <item name="credits_goseal">GoSeal</item>
+    <item name="credits_goseal_text">www.goseal.us</item>
     <item name="map1_text">Andromeda</item>
     <item name="map2_text">Centaurus</item>
     <item name="map3_text">Pegaso</item>
