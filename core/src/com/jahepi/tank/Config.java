@@ -2,7 +2,7 @@ package com.jahepi.tank;
 
 public class Config {
 
-	public static final String VERSION = "v1.5";
+	public static final String VERSION = "v1.6";
 	public static final String ADMOB_KEY = "ca-app-pub-3227769552322799/6244007069";
 	public static final String ADMOB_INTERSTITIAL_KEY = "ca-app-pub-3227769552322799/1942964667";
 	public static final String ADMOB_TEST_ADS_KEY = "91225038BBD19AC2FC79B5F07EB41AF8";
