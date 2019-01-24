@@ -134,7 +134,7 @@ public class Assets implements Disposable {
 	    UIFontExtraSmall = fontGenerator.generateFont(parameters4);
 	    
 	    FreeTypeFontParameter parameters5 = new FreeTypeFontParameter();
-	    parameters5.size = 80;
+	    parameters5.size = 70;
 	    parameters5.shadowOffsetX = 1;
 	    parameters5.shadowOffsetY = 1;
 	    parameters5.color = Color.ORANGE;

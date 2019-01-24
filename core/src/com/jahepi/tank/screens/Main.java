@@ -87,6 +87,11 @@ public class Main implements Screen {
 		Button ipBtn = new Button(new ButtonStyle());
 		ipBtn.setWidth(ipLabel.getWidth());
 		ipBtn.add(ipLabel);
+
+		Label privacyPolicyLabel = new Label(Language.getInstance().get("privacy_policy_btn"), style);
+		Button privacyPolicyBtn = new Button(new ButtonStyle());
+		privacyPolicyBtn.setWidth(privacyPolicyLabel.getWidth());
+		privacyPolicyBtn.add(privacyPolicyLabel);
 		
 		Label exitLabel = new Label(Language.getInstance().get("exit_btn"), style);
 		Button exitBtn = new Button(new ButtonStyle());
@@ -121,6 +126,13 @@ public class Main implements Screen {
 			}
 		});
 
+		privacyPolicyBtn.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.net.openURI("https://space.jahepi.net/privacy_policy.html");
+			}
+		});
+
 		exitBtn.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -139,6 +151,8 @@ public class Main implements Screen {
 		table.add(ipBtn).pad(8.0f).uniform();
 		table.row();
 		table.add(creditsBtn).pad(8.0f).uniform();
+		table.row();
+		table.add(privacyPolicyBtn).pad(8.0f).uniform();
 		table.row();
 		table.add(exitBtn).pad(8.0f).uniform();
 		table.row();
