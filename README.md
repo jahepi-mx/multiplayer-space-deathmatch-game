@@ -3,6 +3,7 @@
 Multiplayer Space Deathmatch is a multiplayer game made in LibGDX.
 
 Brief description of the game:
+
 Play your Family and Friends, whenever and wherever, in a Local Multiplayer Space Shooter Deathmatch Arcade.
 
 Jahepi presents Multiplayer Space Deathmatch; a 2016 Local Multiplayer Arcade offered free in the Google Play Store for Family and Friends to interact while battling each other in a free for all Space Deathmatch, on Smart Phones, Tablets, and even Computers. And just because it is free, does not mean you are limited from having an amazing time with your Family and Friends.
